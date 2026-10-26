@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="RFL-er sokol product ek jaygay — nam ba code likhe khujun, chobi-soho details dekhun. Personal reference, bikri noy.">
+<title>RFL — Sob Product</title>
+<!-- RFL Catalog v2.2.0 — CSS by Murad, HTML/JS ei CSS-er selector onujayi sajano -->
+<style>
+/* RFL Product Catalog - video style (ONLY CSS)
+   Use: HTML-er style tag-er bhitorer shob purono CSS muche eta paste koro.
+   Product ke video-r moto majhkhane ante chaile nicher line uncomment koro:
+   html{--gx:52%!important} */
+@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;500;600&display=swap");
+
+:root{--bg:#111;--fg:#fff;--mut:#9b9ba1;--line:rgba(255,255,255,.14);--ac:#e63946;--gx:62%;--ease:cubic-bezier(.2,.8,.2,1);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);overflow:hidden}
+body{font-family:Outfit,Inter,"Noto Sans Bengali",system-ui,-apple-system,sans-serif;position:fixed;inset:0;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+.wide{font-family:Michroma,Orbitron,Syncopate,"Arial Black",Impact,sans-serif;font-weight:400;text-transform:uppercase}
+
+/* glow + ghost text */
+#bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 34% 34% at var(--gx) 56%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 70%),radial-gradient(ellipse 28% 5% at var(--gx) 84%,rgba(0,0,0,.75),transparent 72%);opacity:0;transition:opacity 1.2s .2s}
+#ghost{position:fixed;left:50%;top:48%;transform:translate(-50%,-50%);z-index:0;font-size:clamp(120px,27vw,440px);color:rgba(255,255,255,.05);letter-spacing:.02em;pointer-events:none;user-select:none;opacity:0;transition:opacity 1.2s .3s}
+.ready #ghost{animation:gh 1.5s .2s var(--ease) both}
+@keyframes gh{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(-10% -5%)}}
+#cv{position:fixed;inset:0;z-index:1;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+#cv:active{cursor:grabbing}
+
+/* logo: centre-e wipe reveal, then top-left e dock */
+#logo{position:fixed;z-index:5;top:50%;left:50%;transform:translate(-50%,-50%) scale(2.6);font-size:20px;letter-spacing:.18em;display:flex;transition:top 1.1s cubic-bezier(.7,0,.2,1),left 1.1s cubic-bezier(.7,0,.2,1),transform 1.1s cubic-bezier(.7,0,.2,1)}
+#logo span{display:inline-block;opacity:0;animation:li .8s var(--ease) forwards}
+#logo span:nth-child(2){animation-delay:.14s}
+#logo span:nth-child(3){animation-delay:.28s}
+#logo b{color:var(--ac)}
+@keyframes li{from{opacity:1;clip-path:inset(-10% 100% -10% -10%)}to{opacity:1;clip-path:inset(-10%)}}
+.ready #logo{top:calc(env(safe-area-inset-top,0px) + 32px);left:26px;transform:translate(0,-50%) scale(1)}
+.ready #bg,.ready #ghost{opacity:1}
+#ui{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .8s .5s}
+.ready #ui{opacity:1}
+#ui button,#ui svg{pointer-events:auto}
+
+/* top right: round button + 2-line menu */
+.tr{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:20px;display:flex;gap:14px;align-items:center}
+.rb{width:42px;height:42px;border-radius:50%;background:#262626;display:grid;place-items:center;transition:background .3s}
+.rb:hover{background:#343434}
+.rb svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round}
+.tr .rb:last-child{background:none;width:34px}
+.tr .rb:last-child svg{width:26px;height:26px;stroke-width:1.5}
+
+/* headline + details */
+.det{position:absolute;left:28px;top:calc(env(safe-area-inset-top,0px) + 96px);width:min(400px,36vw)}
+h1{margin:0;overflow:hidden;font-size:clamp(15px,2.35vw,34px);line-height:1.22;letter-spacing:.03em}
+h1 span{display:block;animation:rise .9s var(--ease)}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.sub{margin-top:14px;font-size:13px;font-weight:300;color:#d6d6da;animation:fd 1s .2s both}
+@keyframes fd{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.desc{margin:22px 0 0;font-size:13px;line-height:1.6;font-weight:300;color:#bdbdc3;animation:fd 1s .3s both}
+dl{margin:20px 0 0;display:grid;grid-template-columns:auto 1fr;gap:0 18px;font-size:12.5px;animation:fd 1s .4s both}
+dt,dd{margin:0;padding:6px 0}
+dt{color:var(--mut)}
+dd{font-weight:500;text-align:left;color:#e8e8eb}
+.lnk{display:inline-flex;margin-top:20px;background:#fff;color:#111;border-radius:3px;padding:12px 22px;font-family:Michroma,Orbitron,Syncopate,sans-serif;font-size:10px;letter-spacing:.08em;text-decoration:none;pointer-events:auto;transition:background .25s}
+.lnk:hover{background:#e4e4e6}
+.note a{pointer-events:auto}
+.note{margin:12px 0 0;font-size:11.5px;color:var(--mut);line-height:1.5}
+
+/* right dots: ring dots, active = filled white */
+.dots{position:absolute;right:26px;top:44%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px}
+.dots button{padding:5px}
+.dots i{display:block;width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,255,255,.38);background:transparent;transition:.4s}
+.dots .on i{background:#fff;border-color:#fff;transform:scale(1.15)}
+
+/* bottom left boxes */
+.bl{position:absolute;left:26px;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);display:flex;gap:9px;align-items:center}
+.bl small{font-size:10px;letter-spacing:.16em;color:var(--mut);margin-right:6px;font-weight:500}
+.bl button{width:30px;height:30px;border-radius:7px;background:#1c1c1c;border:1px solid transparent;position:relative;transition:.3s}
+.bl button::after{content:"";position:absolute;inset:9px;border-radius:3px;background:var(--c)}
+.bl button.on{border-color:rgba(255,255,255,.55)}
+.photo .bl{display:none}
+
+/* bottom right white button */
+.br{position:absolute;right:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);display:flex;gap:16px;align-items:center}
+.br small{font-size:12px;color:var(--mut);letter-spacing:.1em}
+.br .go{background:#fff;color:#111;border-radius:3px;padding:12px 20px;font-size:10px;letter-spacing:.06em;display:flex;gap:9px;align-items:center;transition:background .25s}
+.br .go:hover{background:#e4e4e6}
+.br .go svg{width:14px;height:14px;stroke:#111;fill:none;stroke-width:2;stroke-linecap:round}
+
+/* arc slider: thin curve + white knob */
+.arc{position:absolute;left:var(--gx);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%);width:min(340px,50vw);height:54px;touch-action:none;cursor:ew-resize;overflow:visible}
+.arc path{stroke:rgba(255,255,255,.3);stroke-width:1}
+#kn{fill:#fff;stroke:none;r:7px;filter:drop-shadow(0 0 6px rgba(255,255,255,.35))}
+#kd{fill:#111;r:1.8px}
+
+/* product photo: drops in from the top */
+#ph{position:fixed;z-index:2;left:var(--gx);top:49%;transform:translate(-50%,-50%);width:min(54vw,660px);height:min(60vh,540px);perspective:1300px;display:none;pointer-events:none}
+#ph.on{display:block}
+#pw{width:100%;height:100%;opacity:0}
+#pw.in{animation:phin 1.05s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes phin{from{opacity:0;transform:translateY(-95%) rotate(-8deg) scale(.9)}50%{opacity:1}to{opacity:1;transform:none}}
+#pi{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 34px 38px rgba(0,0,0,.6));will-change:transform}
+
+/* search overlay */
+#ov{position:fixed;inset:0;z-index:10;background:rgba(12,12,12,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 22px 40px}
+#ov.open{display:block;animation:ovi .3s ease}
+@keyframes ovi{from{opacity:0}to{opacity:1}}
+.ovin{max-width:860px;margin:40px auto 0}
+#x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:20px}
+#q{width:100%;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);font:inherit;font-size:clamp(20px,4vw,30px);padding:14px 2px;outline:none}
+#q:focus{border-color:var(--ac)}
+#res{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.pc{text-align:left;background:#1a1a1a;border:1px solid var(--line);border-radius:12px;padding:16px;transition:.25s}
+.pc:hover,.pc:focus-visible{border-color:var(--c);background:#222}
+.pc b{display:flex;gap:9px;align-items:center;font-size:15px;font-weight:500}
+.pc b::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.pc small{display:block;margin-top:6px;color:var(--mut);font-size:12px}
+.none{color:var(--mut);font-size:15px;padding:10px 0}
+.err{position:fixed;inset:0;display:grid;place-items:center;color:var(--mut);z-index:2}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{background:#1f1f1f;border-radius:999px;padding:11px 20px;font-size:15px;transition:.25s}
+.chip.on{background:#fff;color:#111;font-weight:600}
+.grp{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 18px}
+.gr{display:flex;gap:12px;align-items:center;text-align:left;padding:12px 2px;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.gr i{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid #5b5b63}
+.gr.on i{background:var(--ac);border-color:var(--ac);box-shadow:inset 0 0 0 4px #111}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.pill{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;transition:.25s}
+.pill:hover{border-color:var(--ac)}
+.pill small{color:var(--mut);margin-left:6px}
+
+/* mobile */
+@media (max-width:760px){#ph{width:92vw;height:38vh;top:44%}}
+@media (max-width:760px){
+ .det{display:contents}
+ .hd{position:absolute;left:18px;right:70px;top:calc(env(safe-area-inset-top,0px) + 76px)}
+ .sp{position:absolute;left:18px;right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
+ .desc{display:none}
+ dl{grid-template-columns:auto 1fr auto 1fr;margin:0;font-size:11.5px}
+ dd{text-align:left}
+ .br small{display:none}
+ .bl{bottom:calc(env(safe-area-inset-bottom,0px) + 82px)}
+ .br{left:18px;right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 20px)}
+ .br .go{width:100%;justify-content:center;padding:14px}
+ .arc{bottom:calc(env(safe-area-inset-bottom,0px) + 74px)}
+ .dots{right:8px}
+ .tr{right:14px}
+}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="ghost" class="wide">RFL</div>
+<div id="logo" class="wide"><span>R</span><span>F</span><span>L</span></div>
+<div id="ph"><div id="pw"><img id="pi" alt=""></div></div>
+
+<div id="ui">
+  <div class="tr">
+    <button class="rb" id="searchBtn" type="button" aria-label="Search khulun"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <button class="rb" id="menuBtn" type="button" aria-label="Sob product dekhun"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/></svg></button>
+  </div>
+
+  <div class="det">
+    <div class="hd">
+      <h1 id="heroH1"><span></span></h1>
+      <p class="sub" id="heroSub"></p>
+    </div>
+    <div class="sp">
+      <p class="desc" id="heroDesc"></p>
+      <dl id="heroSpecs"></dl>
+      <a class="lnk" id="heroLink" href="#" target="_blank" rel="noopener">RFL SITE-E DEKHUN</a>
+      <p class="note" id="heroNote"></p>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="bl" id="bl"></div>
+
+  <div class="br">
+    <small id="brSmall"></small>
+    <button class="go" id="copyBtn" type="button">CODE COPY <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+
+  <div class="arc" id="arc">
+    <svg viewBox="0 0 340 54" width="100%" height="54"><path d="M10,44 Q170,0 330,44" fill="none"/><circle id="kn" cx="202" cy="23"/><circle id="kd" cx="202" cy="23"/></svg>
+  </div>
+</div>
+
+<div id="ov">
+  <button id="x" type="button" aria-label="Bondho korun">✕</button>
+  <div class="ovin">
+    <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Nam ba code likhun…" aria-label="Product nam ba code diye khujun">
+    <div class="chips" id="chips"></div>
+    <div id="count" class="none"></div>
+    <div id="status" class="none"></div>
+    <div id="res"></div>
+    <button class="chip" id="moreBtn" type="button" hidden>Aro Product Dekhun</button>
+    <div class="grp" id="grp"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+var VERSION = "2.2.0";
+/* Offline fallback: products.json na pele ei list dekhano hobe.
+   GitHub-e products.json thakle setai notun data hisebe load hobe. */
+var FALLBACK_PRODUCTS = [{"id": 2235, "name": "Cherry Jug 3.5L", "code": "2235", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1703333260.jpg", "remote_image": "https://rflhouseware.com/uploads/1703333260.jpg", "url": "https://rflhouseware.com/product_details/cherry-jug-3-5l_2235", "capacity": "3.5 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1703333260.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1703333260.jpg"], "size": "", "price": ""}, {"id": 2217, "name": "Glasco Jug 2.3L", "code": "2217", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1699975000.jpg", "remote_image": "https://rflhouseware.com/uploads/1699975000.jpg", "url": "https://rflhouseware.com/product_details/glasco-jug-2-3l_2217", "capacity": "2.3 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1699975000.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1699975000.jpg"], "size": "", "price": ""}, {"id": 2361, "name": "Heater Jug 1.8L", "code": "2361", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1729059233.png", "remote_image": "https://rflhouseware.com/uploads/1729059233.png", "url": "https://rflhouseware.com/product_details/heater-jug-1-8l_2361", "capacity": "1.8 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1729059233.png"], "remote_images": ["https://rflhouseware.com/uploads/1729059233.png"], "size": "", "price": ""}, {"id": 2360, "name": "Heater Jug 1L", "code": "2360", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1729059557.png", "remote_image": "https://rflhouseware.com/uploads/1729059557.png", "url": "https://rflhouseware.com/product_details/heater-jug-1l_2360", "capacity": "1 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1729059557.png"], "remote_images": ["https://rflhouseware.com/uploads/1729059557.png"], "size": "", "price": ""}, {"id": 2188, "name": "Lily Jug 1.9L - Trans Rose", "code": "2188", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1692009188.png", "remote_image": "https://rflhouseware.com/uploads/1692009188.png", "url": "https://rflhouseware.com/product_details/lily-jug-1-9l-trans-rose_2188", "capacity": "1.9 L", "variant": "Trans Rose", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1692009188.png"], "remote_images": ["https://rflhouseware.com/uploads/1692009188.png"], "size": "", "price": ""}, {"id": 2239, "name": "Lotus Jug 2.5L", "code": "2239", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1729052485.jpeg", "remote_image": "https://rflhouseware.com/uploads/1729052485.jpeg", "url": "https://rflhouseware.com/product_details/lotus-jug-2-5l_2239", "capacity": "2.5 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1729052485.jpeg"], "remote_images": ["https://rflhouseware.com/uploads/1729052485.jpeg"], "size": "", "price": ""}, {"id": 2442, "name": "Princes Jug 1.6L", "code": "2442", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1773554120.jpg", "remote_image": "https://rflhouseware.com/uploads/1773554120.jpg", "url": "https://rflhouseware.com/product_details/princes-jug-1-6l_2442", "capacity": "1.6 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1773554120.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1773554120.jpg"], "size": "", "price": ""}, {"id": 2454, "name": "Spring Jug 2.2L", "code": "2454", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1782888171.jpg", "remote_image": "https://rflhouseware.com/uploads/1782888171.jpg", "url": "https://rflhouseware.com/product_details/spring-jug-2-2l_2454", "capacity": "2.2 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1782888171.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1782888171.jpg"], "size": "", "price": ""}, {"id": 2189, "name": "Star Jug 2L - Trans", "code": "2189", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1692421218.jpg", "remote_image": "https://rflhouseware.com/uploads/1692421218.jpg", "url": "https://rflhouseware.com/product_details/star-jug-2l-trans_2189", "capacity": "2 L", "variant": "Trans", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1692421218.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1692421218.jpg"], "size": "", "price": ""}, {"id": 2362, "name": "Star Jug 2L - Trans Blue", "code": "2362", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1729145136.jpeg", "remote_image": "https://rflhouseware.com/uploads/1729145136.jpeg", "url": "https://rflhouseware.com/product_details/star-jug-2l-trans-blue_2362", "capacity": "2 L", "variant": "Trans Blue", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1729145136.jpeg"], "remote_images": ["https://rflhouseware.com/uploads/1729145136.jpeg"], "size": "", "price": ""}, {"id": 2202, "name": "Unique Jug 1.85L", "code": "2202", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1698556494.jpg", "remote_image": "https://rflhouseware.com/uploads/1698556494.jpg", "url": "https://rflhouseware.com/product_details/unique-jug-1-85l_2202", "capacity": "1.85 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1698556494.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1698556494.jpg"], "size": "", "price": ""}, {"id": 2455, "name": "Zui Jug 3.5L", "code": "2455", "category": "Household", "group": "TABLEWARE", "leaf": "Jug", "image": "images/1783221329.png", "remote_image": "https://rflhouseware.com/uploads/1783221329.png", "url": "https://rflhouseware.com/product_details/zui-jug-3-5l_2455", "capacity": "3.5 L", "variant": "", "rack": "", "stock_note": "", "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.", "images": ["images/1783221329.png", "images/additional_image_1783221329.png"], "remote_images": ["https://rflhouseware.com/uploads/1783221329.png", "https://rflhouseware.com/uploads/additional_image_1783221329.png"], "size": "L-22 X W-16 X H-25 cm", "price": ""}, {"id": 2367, "name": "Caino Multipurpose Holder - Assorted", "code": "2367", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1729329203.jpg", "remote_image": "https://rflhouseware.com/uploads/1729329203.jpg", "url": "https://rflhouseware.com/product_details/caino-multipurpose-holder-assorted_2367", "capacity": "", "variant": "Assorted", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1729329203.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1729329203.jpg"], "size": "", "price": ""}, {"id": 2366, "name": "Caino Multipurpose Round Holder -Assorted", "code": "2366", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1729329281.png", "remote_image": "https://rflhouseware.com/uploads/1729329281.png", "url": "https://rflhouseware.com/product_details/caino-multipurpose-round-holder-assorted_2366", "capacity": "", "variant": "", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1729329281.png"], "remote_images": ["https://rflhouseware.com/uploads/1729329281.png"], "size": "", "price": ""}, {"id": 2364, "name": "Caino Multipurpose Sq Holder (W/O Cover) - Assorted", "code": "2364", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1729329321.jpg", "remote_image": "https://rflhouseware.com/uploads/1729329321.jpg", "url": "https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-w-o-cover-assorted_2364", "capacity": "", "variant": "Assorted", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1729329321.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1729329321.jpg"], "size": "", "price": ""}, {"id": 2363, "name": "Caino Multipurpose Sq Holder (With Cover) - Assorted", "code": "2363", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1729329463.png", "remote_image": "https://rflhouseware.com/uploads/1729329463.png", "url": "https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-with-cover-assorted_2363", "capacity": "", "variant": "Assorted", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1729329463.png"], "remote_images": ["https://rflhouseware.com/uploads/1729329463.png"], "size": "", "price": ""}, {"id": 2365, "name": "Fortune Pencil Box - Assorted", "code": "2365", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1729329591.jpg", "remote_image": "https://rflhouseware.com/uploads/1729329591.jpg", "url": "https://rflhouseware.com/product_details/fortune-pencil-box-assorted_2365", "capacity": "", "variant": "Assorted", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1729329591.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1729329591.jpg"], "size": "", "price": ""}, {"id": 2457, "name": "Kiddos Potty", "code": "2457", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1789038066.jpg", "remote_image": "https://rflhouseware.com/uploads/1789038066.jpg", "url": "https://rflhouseware.com/product_details/kiddos-potty_2457", "capacity": "", "variant": "", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1789038066.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1789038066.jpg"], "size": "", "price": ""}, {"id": 2456, "name": "RFL Boithak Sofa 5 Pcs Set W/O Foam - Grey", "code": "2456", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1783226808.jpeg", "remote_image": "https://rflhouseware.com/uploads/1783226808.jpeg", "url": "https://rflhouseware.com/product_details/rfl-boithak-sofa-5-pcs-set-w-o-foam-grey_2456", "capacity": "", "variant": "Grey", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1783226808.jpeg"], "remote_images": ["https://rflhouseware.com/uploads/1783226808.jpeg"], "size": "", "price": ""}, {"id": 2451, "name": "Stylee Champion Armless Chair - Lime Green", "code": "2451", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1781331093.png", "remote_image": "https://rflhouseware.com/uploads/1781331093.png", "url": "https://rflhouseware.com/product_details/stylee-champion-armless-chair-lime-green_2451", "capacity": "", "variant": "Lime Green", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1781331093.png"], "remote_images": ["https://rflhouseware.com/uploads/1781331093.png"], "size": "", "price": ""}, {"id": 2452, "name": "Stylee Champion Armless Chair - Orange", "code": "2452", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1781331256.png", "remote_image": "https://rflhouseware.com/uploads/1781331256.png", "url": "https://rflhouseware.com/product_details/stylee-champion-armless-chair-orange_2452", "capacity": "", "variant": "Orange", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1781331256.png"], "remote_images": ["https://rflhouseware.com/uploads/1781331256.png"], "size": "", "price": ""}, {"id": 2453, "name": "Stylee Champion Easy Chair - Black", "code": "2453", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1781331862.png", "remote_image": "https://rflhouseware.com/uploads/1781331862.png", "url": "https://rflhouseware.com/product_details/stylee-champion-easy-chair-black_2453", "capacity": "", "variant": "Black", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1781331862.png"], "remote_images": ["https://rflhouseware.com/uploads/1781331862.png"], "size": "", "price": ""}, {"id": 2458, "name": "Ultra Kids Table", "code": "2458", "category": "New arrivals", "group": "Latest additions", "leaf": "New arrivals", "image": "images/1791189764.jpg", "remote_image": "https://rflhouseware.com/uploads/1791189764.jpg", "url": "https://rflhouseware.com/product_details/ultra-kids-table_2458", "capacity": "", "variant": "", "rack": "", "stock_note": "", "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.", "images": ["images/1791189764.jpg"], "remote_images": ["https://rflhouseware.com/uploads/1791189764.jpg"], "size": "", "price": ""}];
+
+var CATCOLORS = {"Household":"#e63946","Furniture":"#f4a300","Industrial":"#1d9bf0","Toys":"#7cc576","Pet Items":"#b86cf0","Cookware":"#2ec4b6","New arrivals":"#e63946"};
+
+var allProducts = [];
+var selected = null;
+var heroImgIdx = 0;
+var activeCat = "All";
+var activeLeaf = "All";
+var shown = 60;
+var PAGE = 60;
+
+var bgEl = document.getElementById("bg");
+var phEl = document.getElementById("ph");
+var pwEl = document.getElementById("pw");
+var piEl = document.getElementById("pi");
+var heroH1 = document.getElementById("heroH1");
+var heroSub = document.getElementById("heroSub");
+var heroDesc = document.getElementById("heroDesc");
+var heroSpecs = document.getElementById("heroSpecs");
+var heroLink = document.getElementById("heroLink");
+var heroNote = document.getElementById("heroNote");
+var dotsEl = document.getElementById("dots");
+var blEl = document.getElementById("bl");
+var brSmall = document.getElementById("brSmall");
+var copyBtn = document.getElementById("copyBtn");
+var arcEl = document.getElementById("arc");
+var knEl = document.getElementById("kn");
+var kdEl = document.getElementById("kd");
+var ovEl = document.getElementById("ov");
+var qEl = document.getElementById("q");
+var chipsEl = document.getElementById("chips");
+var countEl = document.getElementById("count");
+var statusEl = document.getElementById("status");
+var resEl = document.getElementById("res");
+var moreBtn = document.getElementById("moreBtn");
+var grpEl = document.getElementById("grp");
+
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function norm(s){ return String(s == null ? "" : s).toLowerCase().trim(); }
+function colorOf(p){ return CATCOLORS[p.category] || "#e63946"; }
+function imgsOf(p){
+  var local = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
+  var remote = (p.remote_images && p.remote_images.length) ? p.remote_images : (p.remote_image ? [p.remote_image] : []);
+  return {local: local, remote: remote};
+}
+function setImg(idx){
+  var p = selected;
+  if (!p) return;
+  var im = imgsOf(p);
+  heroImgIdx = Math.max(0, Math.min(idx, im.local.length - 1));
+  var src = im.local[heroImgIdx] || im.remote[heroImgIdx] || "";
+  piEl.src = src;
+  piEl.alt = p.name;
+  piEl.onerror = function(){
+    var r = im.remote[heroImgIdx];
+    if (r && piEl.src !== r) piEl.src = r;
+  };
+  dotsEl.innerHTML = im.local.map(function(s, i){
+    return '<button type="button" class="' + (i === heroImgIdx ? "on" : "") + '" data-idx="' + i + '" aria-label="Chobi ' + (i + 1) + '"><i></i></button>';
+  }).join("");
+  dotsEl.querySelectorAll("button").forEach(function(btn){
+    btn.addEventListener("click", function(){ setImg(Number(btn.getAttribute("data-idx"))); renderImageControls(); });
+  });
+  blEl.innerHTML = "<small>CHOBI</small>" + im.local.map(function(s, i){
+    return '<button type="button" class="' + (i === heroImgIdx ? "on" : "") + '" data-idx="' + i + '" style="--c:' + colorOf(p) + '" aria-label="Chobi ' + (i + 1) + '"></button>';
+  }).join("");
+  blEl.querySelectorAll("button").forEach(function(btn){
+    btn.addEventListener("click", function(){ setImg(Number(btn.getAttribute("data-idx"))); renderImageControls(); });
+  });
+}
+function renderImageControls(){
+  var p = selected;
+  if (!p) return;
+  var im = imgsOf(p);
+  dotsEl.querySelectorAll("button").forEach(function(btn, i){
+    btn.className = (i === heroImgIdx ? "on" : "");
+  });
+  blEl.querySelectorAll("button").forEach(function(btn, i){
+    btn.className = (i === heroImgIdx ? "on" : "");
+  });
+  void im;
+}
+
+function renderHero(p, animate){
+  selected = p || null;
+  heroImgIdx = 0;
+  if (!p){
+    heroH1.innerHTML = "<span>Kichu paoa jayni</span>";
+    heroSub.textContent = "";
+    heroDesc.textContent = "";
+    heroSpecs.innerHTML = "";
+    heroLink.href = "https://rflhouseware.com/";
+    heroNote.textContent = "";
+    brSmall.textContent = "";
+    dotsEl.innerHTML = "";
+    blEl.innerHTML = "";
+    piEl.removeAttribute("src");
+    piEl.alt = "";
+    phEl.classList.remove("on");
+    return;
+  }
+  heroH1.innerHTML = "<span>" + esc(p.name) + "</span>";
+  heroSub.textContent = "Code: " + p.code + " • " + p.category + " • " + p.group;
+  heroDesc.textContent = p.description || "RFL site-e ei product-er biboron khali ache — purno page-e dekhun.";
+  var rows = [["Category", p.category], ["Group", p.group], ["Leaf", p.leaf]];
+  if (p.capacity) rows.push(["Capacity", p.capacity]);
+  if (p.size) rows.push(["Size (L×W×H)", p.size]);
+  if (p.variant) rows.push(["Variant", p.variant]);
+  if (p.price) rows.push(["Price", p.price]);
+  heroSpecs.innerHTML = rows.map(function(r){
+    return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>";
+  }).join("");
+  heroLink.href = p.url || "https://rflhouseware.com/";
+  heroNote.textContent = (p.rack || p.stock_note)
+    ? "📍 " + [p.rack, p.stock_note].filter(Boolean).join(" • ")
+    : "Search: uporer dan diker button chaple sob product dekhte parben.";
+  brSmall.textContent = "CODE: " + p.code;
+  phEl.classList.add("on");
+  if (animate){
+    pwEl.classList.remove("in");
+    void pwEl.offsetWidth;
+    setImg(0);
+    pwEl.classList.add("in");
+  } else {
+    pwEl.classList.add("in");
+    setImg(0);
+  }
+}
+
+function stepProduct(dir){
+  if (!allProducts.length || !selected) return;
+  var i = 0;
+  allProducts.forEach(function(p, k){ if (String(p.id) === String(selected.id)) i = k; });
+  var next = (i + dir + allProducts.length) % allProducts.length;
+  renderHero(allProducts[next], true);
+}
+
+function overlayFiltered(){
+  var q = norm(qEl.value);
+  return allProducts.filter(function(p){
+    if (activeCat !== "All" && p.category !== activeCat) return false;
+    if (activeLeaf !== "All" && p.leaf !== activeLeaf) return false;
+    if (!q) return true;
+    var hay = norm(p.name) + " " + norm(p.code) + " " + norm(p.category) + " " + norm(p.group) + " " + norm(p.leaf);
+    return q.split(/\s+/).every(function(w){ return hay.indexOf(w) !== -1; });
+  });
+}
+
+function renderOverlay(){
+  var cats = ["All"];
+  allProducts.forEach(function(p){ if (cats.indexOf(p.category) === -1) cats.push(p.category); });
+  chipsEl.innerHTML = "";
+  cats.forEach(function(c){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (activeCat === c ? " on" : "");
+    b.textContent = c === "All" ? "Sob" : c;
+    b.addEventListener("click", function(){ activeCat = c; activeLeaf = "All"; shown = PAGE; renderOverlay(); });
+    chipsEl.appendChild(b);
+  });
+
+  var leaves = ["All"];
+  allProducts.forEach(function(p){
+    if (activeCat !== "All" && p.category !== activeCat) return;
+    if (leaves.indexOf(p.leaf) === -1 && p.leaf) leaves.push(p.leaf);
+  });
+  grpEl.innerHTML = "";
+  leaves.forEach(function(l){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "gr" + (activeLeaf === l ? " on" : "");
+    var icon = document.createElement("i");
+    b.appendChild(icon);
+    b.appendChild(document.createTextNode(l === "All" ? "SOB" : l));
+    b.addEventListener("click", function(){ activeLeaf = l; shown = PAGE; renderOverlay(); });
+    grpEl.appendChild(b);
+  });
+
+  var list = overlayFiltered();
+  countEl.textContent = list.length + " ta product pawa geche (sob mot " + allProducts.length + " ta)";
+  var page = list.slice(0, shown);
+  if (!page.length){
+    resEl.innerHTML = '<p class="none">Kichu paoa jayni. Nam ba code arekbar miliye likhun.</p>';
+  } else {
+    resEl.innerHTML = page.map(function(p){
+      return '<button class="pc" type="button" data-id="' + esc(p.id) + '" style="--c:' + colorOf(p) + '"><b>' + esc(p.name) + '</b><small>Code: ' + esc(p.code) + " • " + esc(p.category) + " • " + esc(p.leaf) + "</small></button>";
+    }).join("");
+    resEl.querySelectorAll(".pc").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        var found = null;
+        allProducts.forEach(function(p){ if (String(p.id) === String(id)) found = p; });
+        if (found){ closeOverlay(); renderHero(found, true); }
+      });
+    });
+  }
+  moreBtn.hidden = shown >= list.length;
+}
+
+function openOverlay(){ ovEl.classList.add("open"); renderOverlay(); }
+function closeOverlay(){ ovEl.classList.remove("open"); }
+
+document.getElementById("searchBtn").addEventListener("click", openOverlay);
+document.getElementById("menuBtn").addEventListener("click", openOverlay);
+document.getElementById("x").addEventListener("click", closeOverlay);
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeOverlay(); });
+qEl.addEventListener("input", function(){ shown = PAGE; renderOverlay(); });
+moreBtn.addEventListener("click", function(){ shown += PAGE; renderOverlay(); });
+
+copyBtn.addEventListener("click", function(){
+  var btn = copyBtn;
+  if (!selected) return;
+  var old = btn.innerHTML;
+  btn.disabled = true;
+  var done = function(){ btn.textContent = "COPY HOYECHE ✓"; setTimeout(function(){ btn.innerHTML = old; btn.disabled = false; }, 1500); };
+  var fail = function(){ btn.disabled = false; };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(String(selected.code)).then(done, fail);
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = String(selected.code);
+      document.body.appendChild(ta); ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      done();
+    }
+  } catch (e) { fail(); }
+});
+
+/* Swipe: background-e dan/bam tanle ager/porer product */
+(function(){
+  var sx = 0, sy = 0;
+  bgEl.addEventListener("pointerdown", function(e){ sx = e.clientX; sy = e.clientY; });
+  bgEl.addEventListener("pointerup", function(e){
+    if (ovEl.classList.contains("open")) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)){
+      stepProduct(dx < 0 ? 1 : -1);
+    }
+  });
+})();
+
+/* Arc slider: knob tanle product dan/bam sore + halka rotate hobe */
+(function(){
+  var dragging = false;
+  function setArc(e){
+    var r = arcEl.getBoundingClientRect();
+    if (!r.width) return;
+    var t = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    var cx = 10 + t * 320;
+    var cy = 44 * (1 - 2 * t + 2 * t * t);
+    knEl.setAttribute("cx", cx.toFixed(1));
+    knEl.setAttribute("cy", cy.toFixed(1));
+    kdEl.setAttribute("cx", cx.toFixed(1));
+    kdEl.setAttribute("cy", cy.toFixed(1));
+    document.documentElement.style.setProperty("--gx", (38 + t * 40).toFixed(1) + "%");
+    piEl.style.transform = "rotateY(" + ((t - 0.5) * 60).toFixed(1) + "deg)";
+  }
+  arcEl.addEventListener("pointerdown", function(e){ dragging = true; try { arcEl.setPointerCapture(e.pointerId); } catch (err) {} setArc(e); });
+  arcEl.addEventListener("pointermove", function(e){ if (dragging) setArc(e); });
+  ["pointerup", "pointercancel"].forEach(function(ev){
+    arcEl.addEventListener(ev, function(){ dragging = false; });
+  });
+})();
+
+/* products.json load: 8 second timeout, na pele offline fallback cholbe. */
+async function load(){
+  allProducts = FALLBACK_PRODUCTS.slice();
+  renderHero(allProducts[0] || null, false);
+  setTimeout(function(){ document.body.classList.add("ready"); }, 100);
+  try {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 8000);
+    var res = await fetch("products.json", {signal: ctrl.signal, cache: "no-store"});
+    clearTimeout(timer);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    var data = await res.json();
+    if (data && Array.isArray(data.products) && data.products.length){
+      var keepId = selected ? selected.id : null;
+      allProducts = data.products;
+      statusEl.textContent = "";
+      var keep = null;
+      allProducts.forEach(function(p){ if (String(p.id) === String(keepId)) keep = p; });
+      renderHero(keep || allProducts[0] || null, false);
+    }
+  } catch (e) {
+    statusEl.textContent = "Offline copy dekhano hocche — notun product dekhte net thakle page-ti reload korun.";
+  }
+}
+load();
+
+if ("serviceWorker" in navigator && (location.protocol === "http:" || location.protocol === "https:")){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){ /* ignore: cache chara cholbe */ });
+  });
+}
+</script>
+</body>
+</html>
