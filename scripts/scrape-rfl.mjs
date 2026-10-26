@@ -1,17 +1,27 @@
-// RFL Catalog updater v2 — Node 18+ (kono extra dependency lagbe na)
-// Kaj:
-//  1. categories.json-er 126 ta leaf page (item_listing/<leaf-slug>) theke
-//     product_details/<slug>_<id> link khuje sokol product ber kore.
-//     Group slug (jemon "container") diye khujle RFL site-ei kichu dekhay na,
-//     tai shudhu leaf slug-i use kora hoy.
-//  2. Notun product-er product_details page theke ney: nam, mul chobi,
-//     additional chobi (thakle), size (L*W*H, thakle). Dam/biboron RFL site-ei
-//     onek product-e khali thake — na pele banano dam/biboron jog kora hoy NA.
-//  3. Chobi images/-e download kore (sharp thakle 900px-e choto kore,
-//     format bodlay na, na thakle asol file-i rakhe).
-//  4. Purono product-er rack/stock_note kokhono muchbe na.
-//  5. Site-e pouchano na gele BA notun kichu na pele: purono file bodlay NA,
-//     exit code 0 diye shesh hoy — jate khali catalog kokhono na hoy.
+// RFL Catalog updater v4 — Node 18+ (kono extra dependency lagbe na)
+// v3-er cheye ja notun:
+//  1. CHOBI AR GITHUB-E JABE NA. v3 prottek notun product-er chobi images/-e
+//     download korto — tai repo-te 1371 ta chobi jomechilo, ar GitHub-er
+//     folder view 1000 tar beshi dekhay na (baki gulo "omitted" bole lukay
+//     rakhe — file gulo thik-i thake, kintu dekhte/bujhte osubidha hoy).
+//     v4-e chobi download/compress/upload — kichui hobe na. Notun product-er
+//     products.json-e sudhu RFL-er server-er chobi-r link (remote_image)
+//     thakbe, ar site local chobi na pele nijei oi link-er chobi dekhay
+//     (hero + card duto jaygatei local-na-pele-remote fallback ache).
+//     Tai repo-te sudhu products.json (lekha) barbe, chobi-r limit-er
+//     proshnoi thakbe na, ar sync-o onek taratari hobe. Purono product-er
+//     local chobi jemon chilo temon-i thakbe, segulo bodlano hobe na.
+//  2. FULL SWEEP: v3-er pagination (sob page, ?page=2..60) + leaf/group/
+//     category page walk to achhei, tar upor homepage-er menu thekeo sob
+//     item_listing/<slug> ber kore alada kore ghora hoy — jate categories.json-er
+//     baire kono leaf thakleo bad na jay. Prothom assignment-i thake.
+//  3. PLASTIC AGE: crawl ar final sort — dutoi plastic-besi category age
+//     rakhe: Household, Furniture, Toys, Pet Items, New arrivals, tarpor
+//     Industrial, Cookware. RFL site-e material-er alada field nei, tai
+//     "plastic" alada kore chena jay na — kintu ei category gulotei pray
+//     sob plastic ponno thake, ar full sweep-e baki gulo-o chole asbe.
+//  4. Purono surakha eki: rack/stock_note kokhono muchbe na, site na pele
+//     ba notun kichu na pele purono file bodlay NA, dam/biboron banano hoy NA.
 //
 // Cholano:  node scripts/scrape-rfl.mjs
 //           node scripts/scrape-rfl.mjs --dry
@@ -28,6 +38,7 @@ const UA = "Mozilla/5.0 (RFL-Catalog-Updater; +https://rflhouseware.com/)";
 const argVal = (k) => { const i = process.argv.indexOf(k); return i >= 0 ? Number(process.argv[i + 1]) : 0; };
 const MAX_LEAVES = argVal("--max-leaves") || Infinity;
 const MAX_NEW = argVal("--max-new") || Infinity;
+const MAX_PAGES = 60; // ekta listing-e 60 page-er beshi howar kotha na (12 kore = 720 product)
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -41,17 +52,18 @@ async function fetchText(url, timeoutMs = 20000) {
   } finally { clearTimeout(t); }
 }
 
-async function fetchBuffer(url, timeoutMs = 30000) {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { "user-agent": UA } });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return Buffer.from(await res.arrayBuffer());
-  } finally { clearTimeout(t); }
-}
-
 function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+
+const CAT_PRIO = { Household: 0, Furniture: 1, Toys: 2, "Pet Items": 3, "New arrivals": 4, Industrial: 5, Cookware: 6 };
+function pretty(s) { return String(s).replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()); }
+function discoverListings(html) {
+  const out = [];
+  const seen = new Set();
+  const re = /item_listing\/([a-z0-9\-]+)/g;
+  let m;
+  while ((m = re.exec(html)) !== null) { if (!seen.has(m[1])) { seen.add(m[1]); out.push(m[1]); } }
+  return out;
+}
 
 function discover(html) {
   const out = new Map();
@@ -62,6 +74,54 @@ function discover(html) {
     if (!out.has(id)) out.set(id, { id, slug: m[1] });
   }
   return [...out.values()];
+}
+
+// categories.json duto rup-ei thakte pare: flat "leaves" array (slug soho),
+// ba nested categories/groups/leaves (string). Duto thekei eki list banano hoy.
+function flattenCats(cats) {
+  const leaves = [];
+  const groups = new Map();
+  const categories = [];
+  if (Array.isArray(cats.leaves) && cats.leaves.length) {
+    for (const l of cats.leaves) leaves.push({ leaf: l.leaf, slug: l.slug || slug(l.leaf), group: l.group, category: l.category });
+    for (const l of leaves) if (!groups.has(slug(l.group))) groups.set(slug(l.group), { group: l.group, slug: slug(l.group), category: l.category });
+    for (const l of leaves) if (!categories.includes(l.category)) categories.push(l.category);
+    return { leaves, groups: [...groups.values()], categories };
+  }
+  for (const c of (cats.categories || [])) {
+    const catName = c.category || c.name;
+    if (catName && !categories.includes(catName)) categories.push(catName);
+    for (const g of (c.groups || [])) {
+      const gName = g.group || g.name;
+      if (gName && !groups.has(slug(gName))) groups.set(slug(gName), { group: gName, slug: slug(gName), category: catName });
+      for (const leafName of (g.leaves || [])) {
+        leaves.push({ leaf: leafName, slug: slug(leafName), group: gName, category: catName });
+      }
+    }
+  }
+  return { leaves, groups: [...groups.values()], categories };
+}
+
+// Ekta listing (leaf/group/category) -er sob page ghure product jog kore.
+// Prothom assignment-i thake (leaf age, pore group, sob sheshe category),
+// tai leaf-er thik nam kokhono group/category nam diye bodle jabe na.
+async function walkListing(listingSlug, assign, found) {
+  let pages = 0;
+  for (let page = 1; page <= MAX_PAGES; page++) {
+    const url = BASE + "item_listing/" + listingSlug + (page > 1 ? "?page=" + page : "");
+    let html;
+    try { html = await fetchText(url); } catch { break; }
+    const ds = discover(html);
+    if (!ds.length) break;
+    let added = 0;
+    for (const d of ds) {
+      if (!found.has(d.id)) { found.set(d.id, { ...d, ...assign }); added++; }
+    }
+    pages++;
+    if (!added) break; // ei page-e notun kichu nei: hoy shesh, noy site ?page ignore koreche
+    await sleep(250);
+  }
+  return pages;
 }
 
 function cleanTitle(page) {
@@ -92,30 +152,6 @@ function sizeFromPage(page) {
   return m ? "L-" + m[1] + " X W-" + m[2] + " X H-" + m[3] + " cm" : "";
 }
 
-async function saveImage(remoteUrl, localName) {
-  try {
-    const buf = await fetchBuffer(remoteUrl);
-    fs.mkdirSync(path.join(ROOT, "images"), { recursive: true });
-    const dest = path.join(ROOT, "images", localName);
-    try {
-      const sharp = (await import("sharp")).default;
-      const ext = localName.toLowerCase();
-      let pipe = sharp(buf).resize({ width: 900, withoutEnlargement: true });
-      if (ext.endsWith(".jpg") || ext.endsWith(".jpeg")) pipe = pipe.jpeg({ quality: 78 });
-      else if (ext.endsWith(".png")) pipe = pipe.png({ compressionLevel: 9 });
-      else if (ext.endsWith(".webp")) pipe = pipe.webp({ quality: 78 });
-      await pipe.toFile(dest);
-      return true;
-    } catch {
-      fs.writeFileSync(dest, buf);
-      return false;
-    }
-  } catch (e) {
-    console.log("  chobi download hoyni:", remoteUrl, e.message);
-    return null;
-  }
-}
-
 async function main() {
   const jsonPath = path.join(ROOT, "products.json");
   const catPath = path.join(ROOT, "categories.json");
@@ -123,32 +159,51 @@ async function main() {
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const byId = new Map(data.products.map((p) => [Number(p.id), p]));
   const cats = fs.existsSync(catPath) ? JSON.parse(fs.readFileSync(catPath, "utf8")) : { leaves: [] };
-  const leaves = (cats.leaves || []).slice(0, MAX_LEAVES);
-  console.log("Leaf page cholbe:", leaves.length);
+  const { leaves, groups, categories } = flattenCats(cats);
+  const leafList = leaves.slice(0, MAX_LEAVES).sort((a, b) => (CAT_PRIO[a.category] ?? 9) - (CAT_PRIO[b.category] ?? 9));
+  console.log("Leaf:", leafList.length, "| Group:", groups.length, "| Category:", categories.length);
 
   const found = new Map(); // id -> {id, slug, leaf, group, category}
-  // 1) Homepage — notun arrival-er jonno
+  // 1) Homepage — notun arrival-er jonno + menu theke listing slug ber kora
+  let menuListings = [];
   try {
     const home = await fetchText(BASE);
     for (const d of discover(home)) found.set(d.id, { ...d, leaf: "New arrivals", group: "Latest additions", category: "New arrivals" });
-    console.log("Homepage theke pelam:", found.size);
+    menuListings = discoverListings(home);
+    console.log("Homepage theke pelam:", found.size, "| menu listing:", menuListings.length);
   } catch (e) { console.log("Homepage khola jayni:", e.message); }
 
-  // 2) Prottek leaf page
-  let okLeaves = 0;
-  for (const leaf of leaves) {
-    try {
-      const html = await fetchText(BASE + "item_listing/" + leaf.slug);
-      let n = 0;
-      for (const d of discover(html)) {
-        if (!found.has(d.id)) found.set(d.id, { ...d, leaf: leaf.leaf, group: leaf.group, category: leaf.category });
-        n++;
-      }
-      if (n) okLeaves++;
-      await sleep(400);
-    } catch (e) { /* ei leaf skip — purono data thakbe */ }
+  // 2) Prottek leaf-er sob page (pagination)
+  let leafPages = 0;
+  for (const leaf of leafList) {
+    leafPages += await walkListing(leaf.slug, { leaf: leaf.leaf, group: leaf.group, category: leaf.category }, found);
+    await sleep(100);
   }
-  console.log("Leaf page theke product pelam:", okLeaves, "ta leaf-e | mot candidate:", found.size);
+  console.log("Leaf page theke mot candidate:", found.size, "| page ghora holo:", leafPages);
+
+  // 2.5) Homepage menu theke pawa listing (categories.json-e na thakleo)
+  const walkedSlugs = new Set(leafList.map((l) => l.slug));
+  for (const mslug of menuListings) {
+    if (walkedSlugs.has(mslug)) continue;
+    walkedSlugs.add(mslug);
+    await walkListing(mslug, { leaf: pretty(mslug), group: "RFL site menu", category: "RFL site menu" }, found);
+    await sleep(100);
+  }
+  console.log("Menu listing-er por mot candidate:", found.size);
+
+  // 3) Group page-er sob page (leaf-e na pawa product-er jonno)
+  for (const g of groups) {
+    await walkListing(g.slug, { leaf: g.group, group: g.group, category: g.category }, found);
+    await sleep(100);
+  }
+  console.log("Group page-er por mot candidate:", found.size);
+
+  // 4) Category page-er sob page (Pet Items-er moto leaf-slug na mela product-er jonno)
+  for (const catName of categories) {
+    await walkListing(slug(catName), { leaf: catName, group: catName, category: catName }, found);
+    await sleep(100);
+  }
+  console.log("Category page-er por mot candidate:", found.size);
 
   const fresh = [...found.values()].filter((d) => !byId.has(d.id)).slice(0, MAX_NEW);
   console.log("Age chilo:", byId.size, "| Notun:", fresh.length);
@@ -160,25 +215,15 @@ async function main() {
       const page = await fetchText(BASE + "product_details/" + d.slug + "_" + d.id);
       const name = cleanTitle(page) || d.slug.replace(/-/g, " ");
       const files = imagesFromPage(page);
-      const localImgs = [];
-      const remoteImgs = [];
-      for (const f of files) {
-        const remote = BASE + "uploads/" + f;
-        remoteImgs.push(remote);
-        if (!DRY) {
-          const saved = await saveImage(remote, f);
-          localImgs.push(saved === null ? "" : "images/" + f);
-        } else {
-          localImgs.push("images/" + f);
-        }
-      }
+      // v4: chobi download hoy NA — sudhu RFL-er link thakbe (site nijei dekhay).
+      const remoteImgs = files.map((f) => BASE + "uploads/" + f);
       const cap = (name.match(/(\d+(?:\.\d+)?)\s?L\b/) || [])[1];
       const variant = name.includes(" - ") ? name.split(" - ")[1] : "";
       data.products.push({
         id: d.id, name, code: String(d.id),
         category: d.category, group: d.group, leaf: d.leaf,
-        image: localImgs[0] || "", remote_image: remoteImgs[0] || "",
-        images: localImgs.filter(Boolean), remote_images: remoteImgs,
+        image: "", remote_image: remoteImgs[0] || "",
+        images: [], remote_images: remoteImgs,
         url: BASE + "product_details/" + d.slug + "_" + d.id,
         capacity: cap ? cap + " L" : "", variant,
         size: sizeFromPage(page), price: "",
@@ -191,8 +236,8 @@ async function main() {
   }
 
   if (!added) { console.log("Notun product-er details paoa jayni — purono file-i thaklo."); return; }
-  data.products.sort((a, b) => (a.category + a.name).localeCompare(b.category + b.name));
-  data.version = "2.0.0";
+  data.products.sort((a, b) => ((CAT_PRIO[a.category] ?? 9) - (CAT_PRIO[b.category] ?? 9)) || a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+  data.version = "4.0.0";
   data.updated = new Date().toISOString().slice(0, 10);
   if (DRY) { console.log("[DRY] Jog hoto:", added, "ta"); return; }
   fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2) + "\n");
