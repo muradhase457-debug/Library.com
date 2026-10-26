@@ -1,0 +1,1087 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-26",
+  "source": "https://rflhouseware.com/",
+  "categories": [
+    {
+      "category": "Household",
+      "color": "#e63946",
+      "groups": [
+        {
+          "group": "BABY CARE",
+          "leaves": [
+            "Baby Walker",
+            "Baby Chair",
+            "Bath Tub",
+            "Baby Potty"
+          ]
+        },
+        {
+          "group": "BASKET & BIN",
+          "leaves": [
+            "Laundry",
+            "Multipurpose Basket",
+            "Paper Basket",
+            "Wastage Bin"
+          ]
+        },
+        {
+          "group": "HANGER & CLIP",
+          "leaves": [
+            "Hanger",
+            "Clip"
+          ]
+        },
+        {
+          "group": "CLOCK",
+          "leaves": [
+            "Table Clock",
+            "Wall Clock"
+          ]
+        },
+        {
+          "group": "CONTAINER",
+          "leaves": [
+            "Food Container",
+            "Storage Container"
+          ]
+        },
+        {
+          "group": "CLEANING SOLUTIONS",
+          "leaves": [
+            "Dust Pan",
+            "Cleaning Bucket",
+            "Washing Mug",
+            "Washing Bucket",
+            "Scrubber",
+            "MOP",
+            "Washing Bowl",
+            "Water Pot",
+            "Foot Tray"
+          ]
+        },
+        {
+          "group": "ONE TIME SOLUTIONS",
+          "leaves": [
+            "Plate",
+            "Cup",
+            "Box",
+            "Cutlery",
+            "Glass"
+          ]
+        },
+        {
+          "group": "Broom",
+          "leaves": [
+            "Chaina Jharu"
+          ]
+        },
+        {
+          "group": "OTHERS",
+          "leaves": [
+            "Silicon Items",
+            "Beauty Items",
+            "Brush Holder",
+            "Hand Fan",
+            "Mosq Stand",
+            "Saving Items",
+            "Round Sanitizer Bottle With Tr"
+          ]
+        },
+        {
+          "group": "RACK & ORGANIZER",
+          "leaves": [
+            "Kitchen Rack",
+            "Multipurpose Rack",
+            "Shoe Rack",
+            "Organizer",
+            "Rehal"
+          ]
+        },
+        {
+          "group": "Water Purifier",
+          "leaves": [
+            "Purifier",
+            "Water Purifier Accessories"
+          ]
+        },
+        {
+          "group": "TABLEWARE",
+          "leaves": [
+            "Dinner Set",
+            "Serving Bowl",
+            "Fruit Basket",
+            "Drinking Mug",
+            "Glass Stand",
+            "Holder Items",
+            "Jug"
+          ]
+        },
+        {
+          "group": "MEAL BOX",
+          "leaves": [
+            "Lunch Box",
+            "Snacks Box"
+          ]
+        },
+        {
+          "group": "STOOL",
+          "leaves": [
+            "High Stool",
+            "Medium Stool",
+            "Short Stool"
+          ]
+        },
+        {
+          "group": "DRINKING BOTTLES",
+          "leaves": [
+            "Freezer Bottle",
+            "Sports Bottle",
+            "Kid's Bottle"
+          ]
+        },
+        {
+          "group": "KITCHENWARE",
+          "leaves": [
+            "Washing Net",
+            "Chopping Board",
+            "Jar",
+            "Dish Rack",
+            "Dish Drainer",
+            "Spice Box",
+            "Ice Cream Maker",
+            "Tray",
+            "Strainer",
+            "Peeler",
+            "Dish Cover",
+            "Mixer",
+            "Ice Scoop",
+            "Funnel",
+            "Juicer"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Furniture",
+      "color": "#f4a300",
+      "groups": [
+        {
+          "group": "CHAIR",
+          "leaves": [
+            "Arm Chair",
+            "Armless Chair",
+            "Commode Chair",
+            "Office Chair",
+            "Café Chair"
+          ]
+        },
+        {
+          "group": "STORAGE SOLOUTION",
+          "leaves": [
+            "Almirah",
+            "Closet",
+            "Cabinet",
+            "Wardrobe"
+          ]
+        },
+        {
+          "group": "TABLE",
+          "leaves": [
+            "Dining Table",
+            "Catering Table",
+            "Baby Table",
+            "Center Table"
+          ]
+        },
+        {
+          "group": "KITCHENETTE",
+          "leaves": [
+            "Kitchen Shelf"
+          ]
+        },
+        {
+          "group": "SOFA",
+          "leaves": [
+            "All Sofa"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Industrial",
+      "color": "#1d9bf0",
+      "groups": [
+        {
+          "group": "AGRI ITEMS",
+          "leaves": [
+            "Dala Kula",
+            "Chicken Cage",
+            "Gardening Tools",
+            "Poultry",
+            "Rat Trap",
+            "Gallon ( Agri )"
+          ]
+        },
+        {
+          "group": "CRATE",
+          "leaves": [
+            "Fish Basket",
+            "Fish Crate",
+            "Glass Crate",
+            "Milk Crate"
+          ]
+        },
+        {
+          "group": "PACKAGING SOLUTION",
+          "leaves": [
+            "Gallon",
+            "Ice-Cream Box",
+            "Ice-Cream Cup",
+            "Paint Container",
+            "Pet Bottle",
+            "PE Bottle"
+          ]
+        },
+        {
+          "group": "PALLET & FLOOR MAT",
+          "leaves": [
+            "Heavy Floor Mat",
+            "Pallet"
+          ]
+        },
+        {
+          "group": "PHARMACEUTICAL",
+          "leaves": [
+            "Bed Pan",
+            "Urinal Container",
+            "Sanitizer Bottle"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Toys",
+      "color": "#7cc576",
+      "groups": [
+        {
+          "group": "ALL TOYS",
+          "leaves": [
+            "1 Year +",
+            "2 Year +",
+            "3 Year +"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Pet Items",
+      "color": "#b86cf0",
+      "groups": [
+        {
+          "group": "PET SUPPLIES",
+          "leaves": [
+            "Feeding",
+            "Mat",
+            "Scoop",
+            "Waste Management"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Cookware",
+      "color": "#2ec4b6",
+      "groups": [
+        {
+          "group": "Non-stick Cookware",
+          "leaves": [
+            "Marble series",
+            "Ceramic series",
+            "Regular series"
+          ]
+        },
+        {
+          "group": "Pressure Cooker",
+          "leaves": [
+            "Princess Pressure Cooker",
+            "Classic Pressure Cooker"
+          ]
+        },
+        {
+          "group": "Stainless Steel Cookware",
+          "leaves": [
+            "Stainless Steel Spoon",
+            "Kitchen Essentials",
+            "Stainless Steel Tableware",
+            "Stainless Steel Drinkware"
+          ]
+        },
+        {
+          "group": "Aluminum Cookware",
+          "leaves": [
+            "Premium Aluminum"
+          ]
+        }
+      ]
+    }
+  ],
+  "leaves": [
+    {
+      "leaf": "Baby Walker",
+      "slug": "baby-walker",
+      "group": "BABY CARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Baby Chair",
+      "slug": "baby-chair",
+      "group": "BABY CARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Bath Tub",
+      "slug": "bath-tub",
+      "group": "BABY CARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Baby Potty",
+      "slug": "baby-potty",
+      "group": "BABY CARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Laundry",
+      "slug": "laundry",
+      "group": "BASKET & BIN",
+      "category": "Household"
+    },
+    {
+      "leaf": "Multipurpose Basket",
+      "slug": "multipurpose-basket",
+      "group": "BASKET & BIN",
+      "category": "Household"
+    },
+    {
+      "leaf": "Paper Basket",
+      "slug": "paper-basket",
+      "group": "BASKET & BIN",
+      "category": "Household"
+    },
+    {
+      "leaf": "Wastage Bin",
+      "slug": "wastage-bin",
+      "group": "BASKET & BIN",
+      "category": "Household"
+    },
+    {
+      "leaf": "Hanger",
+      "slug": "hanger",
+      "group": "HANGER & CLIP",
+      "category": "Household"
+    },
+    {
+      "leaf": "Clip",
+      "slug": "clip",
+      "group": "HANGER & CLIP",
+      "category": "Household"
+    },
+    {
+      "leaf": "Table Clock",
+      "slug": "table-clock",
+      "group": "CLOCK",
+      "category": "Household"
+    },
+    {
+      "leaf": "Wall Clock",
+      "slug": "wall-clock",
+      "group": "CLOCK",
+      "category": "Household"
+    },
+    {
+      "leaf": "Food Container",
+      "slug": "food-container",
+      "group": "CONTAINER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Storage Container",
+      "slug": "storage-container",
+      "group": "CONTAINER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Dust Pan",
+      "slug": "dust-pan",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Cleaning Bucket",
+      "slug": "cleaning-bucket",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Washing Mug",
+      "slug": "washing-mug",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Washing Bucket",
+      "slug": "washing-bucket",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Scrubber",
+      "slug": "scrubber",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "MOP",
+      "slug": "mop",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Washing Bowl",
+      "slug": "washing-bowl",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Water Pot",
+      "slug": "water-pot",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Foot Tray",
+      "slug": "foot-tray",
+      "group": "CLEANING SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Plate",
+      "slug": "plate",
+      "group": "ONE TIME SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Cup",
+      "slug": "cup",
+      "group": "ONE TIME SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Box",
+      "slug": "box",
+      "group": "ONE TIME SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Cutlery",
+      "slug": "cutlery",
+      "group": "ONE TIME SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Glass",
+      "slug": "glass",
+      "group": "ONE TIME SOLUTIONS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Chaina Jharu",
+      "slug": "chaina-jharu",
+      "group": "Broom",
+      "category": "Household"
+    },
+    {
+      "leaf": "Silicon Items",
+      "slug": "silicon-items",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Beauty Items",
+      "slug": "beauty-items",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Brush Holder",
+      "slug": "brush-holder",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Hand Fan",
+      "slug": "hand-fan",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Mosq Stand",
+      "slug": "mosq-stand",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Saving Items",
+      "slug": "saving-items",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Round Sanitizer Bottle With Tr",
+      "slug": "round-sanitizer-bottle-with-trigger-450-ml",
+      "group": "OTHERS",
+      "category": "Household"
+    },
+    {
+      "leaf": "Kitchen Rack",
+      "slug": "kitchen-rack",
+      "group": "RACK & ORGANIZER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Multipurpose Rack",
+      "slug": "multipurpose-rack",
+      "group": "RACK & ORGANIZER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Shoe Rack",
+      "slug": "shoe-rack",
+      "group": "RACK & ORGANIZER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Organizer",
+      "slug": "organizer",
+      "group": "RACK & ORGANIZER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Rehal",
+      "slug": "rehal",
+      "group": "RACK & ORGANIZER",
+      "category": "Household"
+    },
+    {
+      "leaf": "Purifier",
+      "slug": "purifier",
+      "group": "Water Purifier",
+      "category": "Household"
+    },
+    {
+      "leaf": "Water Purifier Accessories",
+      "slug": "water-purifier-accessories",
+      "group": "Water Purifier",
+      "category": "Household"
+    },
+    {
+      "leaf": "Dinner Set",
+      "slug": "dinner-set",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Serving Bowl",
+      "slug": "serving-bowl",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Fruit Basket",
+      "slug": "fruit-basket",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Drinking Mug",
+      "slug": "drinking-mug",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Glass Stand",
+      "slug": "glass-stand",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Holder Items",
+      "slug": "holder-items",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Jug",
+      "slug": "jug",
+      "group": "TABLEWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Lunch Box",
+      "slug": "lunch-box",
+      "group": "MEAL BOX",
+      "category": "Household"
+    },
+    {
+      "leaf": "Snacks Box",
+      "slug": "snacks-box",
+      "group": "MEAL BOX",
+      "category": "Household"
+    },
+    {
+      "leaf": "High Stool",
+      "slug": "high-stool",
+      "group": "STOOL",
+      "category": "Household"
+    },
+    {
+      "leaf": "Medium Stool",
+      "slug": "medium-stool",
+      "group": "STOOL",
+      "category": "Household"
+    },
+    {
+      "leaf": "Short Stool",
+      "slug": "short-stool",
+      "group": "STOOL",
+      "category": "Household"
+    },
+    {
+      "leaf": "Freezer Bottle",
+      "slug": "freezer-bottle",
+      "group": "DRINKING BOTTLES",
+      "category": "Household"
+    },
+    {
+      "leaf": "Sports Bottle",
+      "slug": "sports-bottle",
+      "group": "DRINKING BOTTLES",
+      "category": "Household"
+    },
+    {
+      "leaf": "Kid's Bottle",
+      "slug": "kid-s-bottle",
+      "group": "DRINKING BOTTLES",
+      "category": "Household"
+    },
+    {
+      "leaf": "Washing Net",
+      "slug": "washing-net",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Chopping Board",
+      "slug": "chopping-board",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Jar",
+      "slug": "jar",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Dish Rack",
+      "slug": "dish-rack",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Dish Drainer",
+      "slug": "dish-drainer",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Spice Box",
+      "slug": "spice-box",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Ice Cream Maker",
+      "slug": "ice-cream-maker",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Tray",
+      "slug": "tray",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Strainer",
+      "slug": "strainer",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Peeler",
+      "slug": "peeler",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Dish Cover",
+      "slug": "dish-cover",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Mixer",
+      "slug": "mixer",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Ice Scoop",
+      "slug": "ice-scoop",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Funnel",
+      "slug": "funnel",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Juicer",
+      "slug": "juicer",
+      "group": "KITCHENWARE",
+      "category": "Household"
+    },
+    {
+      "leaf": "Arm Chair",
+      "slug": "arm-chair",
+      "group": "CHAIR",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Armless Chair",
+      "slug": "armless-chair",
+      "group": "CHAIR",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Commode Chair",
+      "slug": "commode-chair",
+      "group": "CHAIR",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Office Chair",
+      "slug": "office-chair",
+      "group": "CHAIR",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Café Chair",
+      "slug": "caf-chair",
+      "group": "CHAIR",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Almirah",
+      "slug": "almirah",
+      "group": "STORAGE SOLOUTION",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Closet",
+      "slug": "closet",
+      "group": "STORAGE SOLOUTION",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Cabinet",
+      "slug": "cabinet",
+      "group": "STORAGE SOLOUTION",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Wardrobe",
+      "slug": "wardrobe",
+      "group": "STORAGE SOLOUTION",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Dining Table",
+      "slug": "dining-table",
+      "group": "TABLE",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Catering Table",
+      "slug": "catering-table",
+      "group": "TABLE",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Baby Table",
+      "slug": "baby-table",
+      "group": "TABLE",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Center Table",
+      "slug": "center-table",
+      "group": "TABLE",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Kitchen Shelf",
+      "slug": "kitchen-shelf",
+      "group": "KITCHENETTE",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "All Sofa",
+      "slug": "all-sofa",
+      "group": "SOFA",
+      "category": "Furniture"
+    },
+    {
+      "leaf": "Dala Kula",
+      "slug": "dala-kula",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Chicken Cage",
+      "slug": "chicken-cage",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Gardening Tools",
+      "slug": "gardening-tools",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Poultry",
+      "slug": "poultry",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Rat Trap",
+      "slug": "rat-trap",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Gallon ( Agri )",
+      "slug": "gallon-agri",
+      "group": "AGRI ITEMS",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Fish Basket",
+      "slug": "fish-basket",
+      "group": "CRATE",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Fish Crate",
+      "slug": "fish-crate",
+      "group": "CRATE",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Glass Crate",
+      "slug": "glass-crate",
+      "group": "CRATE",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Milk Crate",
+      "slug": "milk-crate",
+      "group": "CRATE",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Gallon",
+      "slug": "gallon",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Ice-Cream Box",
+      "slug": "ice-cream-box",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Ice-Cream Cup",
+      "slug": "ice-cream-cup",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Paint Container",
+      "slug": "paint-container",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Pet Bottle",
+      "slug": "pet-bottle",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "PE Bottle",
+      "slug": "pe-bottle",
+      "group": "PACKAGING SOLUTION",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Heavy Floor Mat",
+      "slug": "heavy-floor-mat",
+      "group": "PALLET & FLOOR MAT",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Pallet",
+      "slug": "pallet",
+      "group": "PALLET & FLOOR MAT",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Bed Pan",
+      "slug": "bed-pan",
+      "group": "PHARMACEUTICAL",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Urinal Container",
+      "slug": "urinal-container",
+      "group": "PHARMACEUTICAL",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "Sanitizer Bottle",
+      "slug": "sanitizer-bottle",
+      "group": "PHARMACEUTICAL",
+      "category": "Industrial"
+    },
+    {
+      "leaf": "1 Year +",
+      "slug": "1-year",
+      "group": "ALL TOYS",
+      "category": "Toys"
+    },
+    {
+      "leaf": "2 Year +",
+      "slug": "2-year",
+      "group": "ALL TOYS",
+      "category": "Toys"
+    },
+    {
+      "leaf": "3 Year +",
+      "slug": "3-year",
+      "group": "ALL TOYS",
+      "category": "Toys"
+    },
+    {
+      "leaf": "Feeding",
+      "slug": "feeding",
+      "group": "PET SUPPLIES",
+      "category": "Pet Items"
+    },
+    {
+      "leaf": "Mat",
+      "slug": "mat",
+      "group": "PET SUPPLIES",
+      "category": "Pet Items"
+    },
+    {
+      "leaf": "Scoop",
+      "slug": "scoop",
+      "group": "PET SUPPLIES",
+      "category": "Pet Items"
+    },
+    {
+      "leaf": "Waste Management",
+      "slug": "waste-management",
+      "group": "PET SUPPLIES",
+      "category": "Pet Items"
+    },
+    {
+      "leaf": "Marble series",
+      "slug": "marble-series",
+      "group": "Non-stick Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Ceramic series",
+      "slug": "ceramic-series",
+      "group": "Non-stick Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Regular series",
+      "slug": "regular-series",
+      "group": "Non-stick Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Princess Pressure Cooker",
+      "slug": "princess-pressure-cooker",
+      "group": "Pressure Cooker",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Classic Pressure Cooker",
+      "slug": "classic-pressure-cooker",
+      "group": "Pressure Cooker",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Stainless Steel Spoon",
+      "slug": "stainless-steel-spoon",
+      "group": "Stainless Steel Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Kitchen Essentials",
+      "slug": "kitchen-essentials",
+      "group": "Stainless Steel Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Stainless Steel Tableware",
+      "slug": "stainless-steel-tableware",
+      "group": "Stainless Steel Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Stainless Steel Drinkware",
+      "slug": "stainless-steel-drinkware",
+      "group": "Stainless Steel Cookware",
+      "category": "Cookware"
+    },
+    {
+      "leaf": "Premium Aluminum",
+      "slug": "premium-aluminum",
+      "group": "Aluminum Cookware",
+      "category": "Cookware"
+    }
+  ]
+}

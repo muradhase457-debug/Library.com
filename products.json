@@ -1,0 +1,562 @@
+{
+  "version": "2.0.0",
+  "updated": "2026-10-26",
+  "source": "https://rflhouseware.com/",
+  "note": "Personal reference catalog — bikri ba stock-hisab noy. rack/stock_note shudhu malik-er optional note, page-e kono edit button nei.",
+  "products": [
+    {
+      "id": 2235,
+      "name": "Cherry Jug 3.5L",
+      "code": "2235",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1703333260.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1703333260.jpg",
+      "url": "https://rflhouseware.com/product_details/cherry-jug-3-5l_2235",
+      "capacity": "3.5 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1703333260.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1703333260.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2217,
+      "name": "Glasco Jug 2.3L",
+      "code": "2217",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1699975000.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1699975000.jpg",
+      "url": "https://rflhouseware.com/product_details/glasco-jug-2-3l_2217",
+      "capacity": "2.3 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1699975000.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1699975000.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2361,
+      "name": "Heater Jug 1.8L",
+      "code": "2361",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1729059233.png",
+      "remote_image": "https://rflhouseware.com/uploads/1729059233.png",
+      "url": "https://rflhouseware.com/product_details/heater-jug-1-8l_2361",
+      "capacity": "1.8 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1729059233.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729059233.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2360,
+      "name": "Heater Jug 1L",
+      "code": "2360",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1729059557.png",
+      "remote_image": "https://rflhouseware.com/uploads/1729059557.png",
+      "url": "https://rflhouseware.com/product_details/heater-jug-1l_2360",
+      "capacity": "1 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1729059557.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729059557.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2188,
+      "name": "Lily Jug 1.9L - Trans Rose",
+      "code": "2188",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1692009188.png",
+      "remote_image": "https://rflhouseware.com/uploads/1692009188.png",
+      "url": "https://rflhouseware.com/product_details/lily-jug-1-9l-trans-rose_2188",
+      "capacity": "1.9 L",
+      "variant": "Trans Rose",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1692009188.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1692009188.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2239,
+      "name": "Lotus Jug 2.5L",
+      "code": "2239",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1729052485.jpeg",
+      "remote_image": "https://rflhouseware.com/uploads/1729052485.jpeg",
+      "url": "https://rflhouseware.com/product_details/lotus-jug-2-5l_2239",
+      "capacity": "2.5 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1729052485.jpeg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729052485.jpeg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2442,
+      "name": "Princes Jug 1.6L",
+      "code": "2442",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1773554120.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1773554120.jpg",
+      "url": "https://rflhouseware.com/product_details/princes-jug-1-6l_2442",
+      "capacity": "1.6 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1773554120.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1773554120.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2454,
+      "name": "Spring Jug 2.2L",
+      "code": "2454",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1782888171.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1782888171.jpg",
+      "url": "https://rflhouseware.com/product_details/spring-jug-2-2l_2454",
+      "capacity": "2.2 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1782888171.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1782888171.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2189,
+      "name": "Star Jug 2L - Trans",
+      "code": "2189",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1692421218.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1692421218.jpg",
+      "url": "https://rflhouseware.com/product_details/star-jug-2l-trans_2189",
+      "capacity": "2 L",
+      "variant": "Trans",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1692421218.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1692421218.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2362,
+      "name": "Star Jug 2L - Trans Blue",
+      "code": "2362",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1729145136.jpeg",
+      "remote_image": "https://rflhouseware.com/uploads/1729145136.jpeg",
+      "url": "https://rflhouseware.com/product_details/star-jug-2l-trans-blue_2362",
+      "capacity": "2 L",
+      "variant": "Trans Blue",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1729145136.jpeg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729145136.jpeg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2202,
+      "name": "Unique Jug 1.85L",
+      "code": "2202",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1698556494.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1698556494.jpg",
+      "url": "https://rflhouseware.com/product_details/unique-jug-1-85l_2202",
+      "capacity": "1.85 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1698556494.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1698556494.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2455,
+      "name": "Zui Jug 3.5L",
+      "code": "2455",
+      "category": "Household",
+      "group": "TABLEWARE",
+      "leaf": "Jug",
+      "image": "images/1783221329.png",
+      "remote_image": "https://rflhouseware.com/uploads/1783221329.png",
+      "url": "https://rflhouseware.com/product_details/zui-jug-3-5l_2455",
+      "capacity": "3.5 L",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.",
+      "images": [
+        "images/1783221329.png",
+        "images/additional_image_1783221329.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1783221329.png",
+        "https://rflhouseware.com/uploads/additional_image_1783221329.png"
+      ],
+      "size": "L-22 X W-16 X H-25 cm",
+      "price": ""
+    },
+    {
+      "id": 2367,
+      "name": "Caino Multipurpose Holder - Assorted",
+      "code": "2367",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1729329203.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1729329203.jpg",
+      "url": "https://rflhouseware.com/product_details/caino-multipurpose-holder-assorted_2367",
+      "capacity": "",
+      "variant": "Assorted",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1729329203.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729329203.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2366,
+      "name": "Caino Multipurpose Round Holder -Assorted",
+      "code": "2366",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1729329281.png",
+      "remote_image": "https://rflhouseware.com/uploads/1729329281.png",
+      "url": "https://rflhouseware.com/product_details/caino-multipurpose-round-holder-assorted_2366",
+      "capacity": "",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1729329281.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729329281.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2364,
+      "name": "Caino Multipurpose Sq Holder (W/O Cover) - Assorted",
+      "code": "2364",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1729329321.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1729329321.jpg",
+      "url": "https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-w-o-cover-assorted_2364",
+      "capacity": "",
+      "variant": "Assorted",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1729329321.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729329321.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2363,
+      "name": "Caino Multipurpose Sq Holder (With Cover) - Assorted",
+      "code": "2363",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1729329463.png",
+      "remote_image": "https://rflhouseware.com/uploads/1729329463.png",
+      "url": "https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-with-cover-assorted_2363",
+      "capacity": "",
+      "variant": "Assorted",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1729329463.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729329463.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2365,
+      "name": "Fortune Pencil Box - Assorted",
+      "code": "2365",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1729329591.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1729329591.jpg",
+      "url": "https://rflhouseware.com/product_details/fortune-pencil-box-assorted_2365",
+      "capacity": "",
+      "variant": "Assorted",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1729329591.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1729329591.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2457,
+      "name": "Kiddos Potty",
+      "code": "2457",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1789038066.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1789038066.jpg",
+      "url": "https://rflhouseware.com/product_details/kiddos-potty_2457",
+      "capacity": "",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1789038066.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1789038066.jpg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2456,
+      "name": "RFL Boithak Sofa 5 Pcs Set W/O Foam - Grey",
+      "code": "2456",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1783226808.jpeg",
+      "remote_image": "https://rflhouseware.com/uploads/1783226808.jpeg",
+      "url": "https://rflhouseware.com/product_details/rfl-boithak-sofa-5-pcs-set-w-o-foam-grey_2456",
+      "capacity": "",
+      "variant": "Grey",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1783226808.jpeg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1783226808.jpeg"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2451,
+      "name": "Stylee Champion Armless Chair - Lime Green",
+      "code": "2451",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1781331093.png",
+      "remote_image": "https://rflhouseware.com/uploads/1781331093.png",
+      "url": "https://rflhouseware.com/product_details/stylee-champion-armless-chair-lime-green_2451",
+      "capacity": "",
+      "variant": "Lime Green",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1781331093.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1781331093.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2452,
+      "name": "Stylee Champion Armless Chair - Orange",
+      "code": "2452",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1781331256.png",
+      "remote_image": "https://rflhouseware.com/uploads/1781331256.png",
+      "url": "https://rflhouseware.com/product_details/stylee-champion-armless-chair-orange_2452",
+      "capacity": "",
+      "variant": "Orange",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1781331256.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1781331256.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2453,
+      "name": "Stylee Champion Easy Chair - Black",
+      "code": "2453",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1781331862.png",
+      "remote_image": "https://rflhouseware.com/uploads/1781331862.png",
+      "url": "https://rflhouseware.com/product_details/stylee-champion-easy-chair-black_2453",
+      "capacity": "",
+      "variant": "Black",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1781331862.png"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1781331862.png"
+      ],
+      "size": "",
+      "price": ""
+    },
+    {
+      "id": 2458,
+      "name": "Ultra Kids Table",
+      "code": "2458",
+      "category": "New arrivals",
+      "group": "Latest additions",
+      "leaf": "New arrivals",
+      "image": "images/1791189764.jpg",
+      "remote_image": "https://rflhouseware.com/uploads/1791189764.jpg",
+      "url": "https://rflhouseware.com/product_details/ultra-kids-table_2458",
+      "capacity": "",
+      "variant": "",
+      "rack": "",
+      "stock_note": "",
+      "description": "RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.",
+      "images": [
+        "images/1791189764.jpg"
+      ],
+      "remote_images": [
+        "https://rflhouseware.com/uploads/1791189764.jpg"
+      ],
+      "size": "",
+      "price": ""
+    }
+  ]
+}
