@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="RFL-er sokol product ek jaygay — nam ba code likhe khujun, chobi-soho details dekhun. Personal reference, bikri noy.">
+<title>RFL — Sob Product</title>
+<!-- RFL Catalog v2.11.0 — Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<style>
+/* =============================================================
+   RFL Catalog — Claymorphism (screenshot-er moto norom clay look)
+   Screenshot-er style: halka lavender background, norom gol card,
+   puffy clay shadow, purple accent, sob control alada alada.
+   HTML/JS ager v2.5 SPORTECH structure-i (topbar/hero/categories/
+   chips/grid/tabbar) — sudhu style bodleche.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ---------- Tokens ---------- */
+:root{
+  --brand:#7c6cf0; --brand-50:#ece8ff; --brand-700:#5b4ad6;
+  --ink:#26233d; --muted:#7a7694; --navy:#7c6cf0;
+  --bg:#efeefb; --surface:#fff; --chip:#fff; --star:#ff9500;
+  --r-sm:16px; --r-lg:22px; --r-xl:26px;
+  --shadow-card:12px 12px 28px rgba(124,108,240,.18),inset 0 3px 0 rgba(255,255,255,.95),inset -3px -3px 8px rgba(124,108,240,.08);
+  --shadow-float:0 22px 44px rgba(124,108,240,.24),inset 0 3px 0 rgba(255,255,255,.95);
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Text','Inter','Segoe UI',Roboto,sans-serif;
+  --font-display:'Inter',system-ui,sans-serif;
+  --gutter:16px;
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.icon-btn svg,.wish-btn svg,.cart-add svg,.tab svg,.btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- App shell ---------- */
+.app{display:flex;flex-direction:column;max-width:430px;min-height:100vh;min-height:100dvh;margin:0 auto;background:radial-gradient(60% 22% at 85% 8%,#ffe4d6,transparent 70%),radial-gradient(90% 30% at 50% 0,#ffffff,transparent 75%),var(--bg)}
+.app>*{flex:none}
+
+/* ---------- Top bar ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.topbar__actions{display:flex;gap:12px}
+.icon-btn{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--surface);box-shadow:6px 6px 14px rgba(124,108,240,.14),inset 2px 2px 6px #fff;transition:.2s}
+.icon-btn:hover{background:#f4f2ff}
+.icon-btn svg{width:22px;height:22px}
+.menu-btn{justify-items:start;align-content:center;row-gap:5px}
+.menu-btn span{width:22px;height:2.5px;border-radius:2px;background:var(--ink)}
+.menu-btn span:nth-child(2){width:15px}
+.logo{font:800 24px/1 var(--font-display);letter-spacing:-.02em;text-transform:uppercase}
+.logo span{color:var(--brand)}
+.badge{position:absolute;top:-3px;right:-5px;display:grid;place-items:center;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--brand);color:#fff;font-size:10px;font-weight:700;box-shadow:0 0 0 2px var(--bg)}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--r-sm);font-size:14px;font-weight:700;transition:transform .15s,filter .2s}
+.btn:active{transform:scale(.97)}
+.btn svg{width:16px;height:16px;stroke-width:2.2}
+.btn--primary{background:var(--brand);color:#fff;box-shadow:0 10px 20px rgba(124,108,240,.35),inset 0 2px 0 rgba(255,255,255,.35)}
+.btn--primary:hover{filter:brightness(1.06)}
+
+/* ---------- Hero banner (clay card) ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:240px;margin:0 var(--gutter);padding:22px 20px;border-radius:var(--r-xl);color:var(--ink);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow-float);perspective:1000px;
+  background:
+    radial-gradient(75% 85% at 102% 108%,rgba(124,108,240,.28) 0 44%,transparent 45%),
+    linear-gradient(135deg,#e9e4ff,#ffffff 55%,#fff1e8)}
+.hero{animation:heroSway 9s ease-in-out infinite}
+@keyframes heroSway{0%,100%{transform:rotateY(-4deg) rotateX(2deg)}50%{transform:rotateY(4deg) rotateX(-2deg)}}
+.hero__tilt{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;animation:heroIn .7s ease backwards}
+.hero__glare{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(240px circle at var(--gx,80%) var(--gy,20%),rgba(255,255,255,.45),transparent 70%);opacity:0;transition:opacity .3s}
+.hero__sheen{position:absolute;inset:-20% 0;z-index:3;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.28) 50%,transparent 58%);transform:translateX(-70%);animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(-70%)}85%,100%{transform:translateX(70%)}}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.hero__content{position:relative;z-index:2;max-width:62%}
+.hero__title{font:800 clamp(24px,7vw,30px)/1.08 var(--font-display);letter-spacing:-.02em}
+.hero__title span{display:block}
+.hero__title .is-accent{color:var(--brand)}
+.hero__text{margin:10px 0 16px;font-size:13px;line-height:1.45;color:rgba(38,35,61,.72)}
+.hero__img{position:absolute;z-index:1;top:46%;right:-6%;height:200px;width:auto;max-width:62%;object-fit:contain;background:#fff;border-radius:24px;padding:10px;transform:translateY(-50%) rotate(-6deg);box-shadow:12px 12px 28px rgba(124,108,240,.22),inset 0 2px 0 #fff;animation:floaty 4.5s ease-in-out infinite;will-change:transform}
+@keyframes floaty{0%,100%{transform:translateY(-50%) rotate(-6deg) translateY(0)}50%{transform:translateY(-50%) rotate(-4deg) translateY(-9px)}}
+.hero__tag{position:absolute;z-index:2;right:16px;bottom:14px;padding:6px 10px;border-radius:999px;background:#fff;box-shadow:0 6px 14px rgba(124,108,240,.16);font-size:10px;font-weight:700;line-height:1.4;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Carousel dots ---------- */
+.dots{display:flex;justify-content:center;gap:6px;margin:12px 0 16px}
+.dots__dot{width:7px;height:7px;border-radius:50%;background:#d9d4f5;transition:background .25s,transform .25s}
+.dots__dot.is-active{background:var(--brand);transform:scale(1.35);box-shadow:0 4px 10px rgba(124,108,240,.45)}
+
+/* ---------- Categories + filter chips ---------- */
+.categories,.chips{display:flex;overflow-x:auto;scrollbar-width:none}
+.categories::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+.categories{justify-content:space-between;gap:8px;padding:0 var(--gutter);margin-bottom:18px;animation:fadeUp .6s .15s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.category{display:grid;flex:1 0 58px;justify-items:center;align-content:start;gap:7px;font-size:12px;font-weight:500;text-align:center}
+.category__icon{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--surface);box-shadow:8px 8px 16px rgba(124,108,240,.16),inset 3px 3px 6px #fff,inset -3px -3px 6px rgba(124,108,240,.10);transition:.25s;font-size:20px;font-weight:800}
+.category:nth-child(1) .category__icon{background:#e9e4ff}
+.category:nth-child(2) .category__icon{background:#dbeafe}
+.category:nth-child(3) .category__icon{background:#ffe4d6}
+.category:nth-child(4) .category__icon{background:#d9f5e3}
+.category:nth-child(5) .category__icon{background:#ffe3ec}
+.category:nth-child(6) .category__icon{background:#fff3c4}
+.category:nth-child(7) .category__icon{background:#e0f2fe}
+.category:nth-child(8) .category__icon{background:#f3e8ff}
+.category__icon svg,.category__icon img{width:30px;height:30px;object-fit:contain}
+.category:active .category__icon{transform:scale(.94)}
+.category.is-active .category__icon{border-radius:20px;background:var(--brand);color:#fff;box-shadow:0 10px 20px rgba(124,108,240,.35)}
+
+.chips{gap:10px;padding:2px var(--gutter) 14px}
+.chip{flex:none;padding:10px 18px;border-radius:999px;background:var(--surface);color:var(--muted);font-size:13px;font-weight:500;box-shadow:6px 6px 12px rgba(124,108,240,.10),inset 2px 2px 4px #fff;transition:.2s}
+.chip:hover{color:var(--ink)}
+.chip.is-active{background:var(--brand);color:#fff;font-weight:700;box-shadow:0 8px 16px rgba(124,108,240,.3)}
+
+/* ---------- Product grid (clay cards) ---------- */
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 var(--gutter) 24px}
+.product-card{position:relative;display:flex;flex-direction:column;padding:12px;border-radius:var(--r-lg);background:var(--surface);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow-card);content-visibility:auto;contain-intrinsic-size:280px}
+.product-card__media{display:grid;place-items:center;aspect-ratio:1.28;margin:22px 0 6px;background:#f1edff;border-radius:16px;padding:8px}
+.product-card:nth-child(4n+2) .product-card__media{background:#e8f1ff}
+.product-card:nth-child(4n+3) .product-card__media{background:#fff0e6}
+.product-card:nth-child(4n+4) .product-card__media{background:#e6f7ee}
+.product-card__media img{width:100%;height:100%;object-fit:contain}
+.product-card__title{font-size:14px;font-weight:700;line-height:1.25}
+.product-card__sub{margin-top:2px;font-size:11.5px;color:var(--muted)}
+.product-card__row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:8px}
+.price{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.rating{display:flex;align-items:center;gap:4px;margin-top:3px;font-size:11px;color:var(--muted)}
+.rating__stars{color:var(--star);font-size:12px;letter-spacing:1px}
+
+.cart-add{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:var(--r-sm);background:var(--brand);color:#fff;box-shadow:0 8px 16px rgba(124,108,240,.3),inset 0 2px 0 rgba(255,255,255,.3);transition:.15s}
+.cart-add:hover{background:var(--brand-700)}
+.cart-add:active{transform:scale(.92)}
+.cart-add svg{width:20px;height:20px}
+
+.tag{position:absolute;top:12px;left:12px;z-index:1;padding:5px 9px;border-radius:9px;font-size:11px;font-weight:700;line-height:1.1}
+.tag--best{background:var(--brand-50);color:var(--brand-700)}
+.tag--new{background:var(--ink);color:#fff}
+.tag--sale{background:var(--brand);color:#fff}
+
+.wish-btn{position:absolute;top:10px;right:10px;z-index:1;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;transition:color .2s,transform .15s}
+.wish-btn svg{width:22px;height:22px}
+.wish-btn:active{transform:scale(.85)}
+.wish-btn.is-active{color:var(--brand)}
+.wish-btn.is-active svg{fill:currentColor}
+
+/* ---------- Settings panel (top ⚙️) ---------- */
+.settings-panel{margin:0 var(--gutter) 14px;padding:14px;border-radius:var(--r-lg);background:var(--surface);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow-card)}
+.settings-panel .btn{display:flex;width:100%;justify-content:center;margin-bottom:8px}
+.switch-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 4px 2px;font-size:14px;font-weight:600}
+.switch-row input{width:22px;height:22px;accent-color:var(--brand)}
+.settings-ver{margin-top:10px;text-align:center;font-size:12px;color:var(--muted)}
+#settingsBtn{font-size:20px}
+body.halka .hero,body.halka .hero__img,body.halka .hero__sheen{animation:none!important}
+body.halka .hero__glare{display:none}
+body.halka .hero__img{transform:translateY(-50%) rotate(-6deg)}
+body.halka .hero{box-shadow:0 6px 16px rgba(124,108,240,.15)}
+body.halka .product-card{box-shadow:0 3px 8px rgba(124,108,240,.10)}
+
+/* ---------- Small phones + reduced motion ---------- */
+@media (max-width:360px){
+  .products{gap:10px}
+  .product-card{padding:10px}
+  .price{font-size:17px}
+  .cart-add{width:36px;height:36px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+
+/* ---------- Clay press + 3D vibe ---------- */
+.btn:active,.chip:active{transform:scale(.94)}
+.product-card{transition:transform .2s,box-shadow .2s}
+.product-card:active{transform:scale(.97);box-shadow:inset 5px 5px 14px rgba(124,108,240,.14)}
+.category:active .category__icon{transform:scale(.90)}
+
+/* ---------- Live search bar ---------- */
+.livebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:0 var(--gutter) 12px}
+.livebtn{padding:11px 18px;border-radius:999px;background:var(--brand);color:#fff;font-size:13px;font-weight:700;box-shadow:6px 6px 14px rgba(124,108,240,.35),inset 0 2px 0 rgba(255,255,255,.35)}
+.livebtn:active{transform:scale(.95)}
+.livebtn:disabled{opacity:.6}
+.liveoff{padding:10px 14px;border-radius:999px;background:var(--surface);font-size:12.5px;font-weight:600;box-shadow:var(--shadow-card)}
+.livenote{font-size:12.5px;color:var(--muted)}
+.tag--live{background:var(--brand);color:#fff}
+.media-letter{width:100%;padding:30px 0;font-size:42px;font-weight:800;color:var(--brand-700);background:var(--brand-50);border-radius:18px;text-align:center}
+.mgr{margin-top:12px}
+.mgr input{width:100%;border:2px solid #d9d4f5;border-radius:12px;padding:10px 12px;font-size:15px;margin:8px 0}
+.mgr__out{font-size:14px;line-height:1.7;margin-top:8px}
+.mgr__out table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.mgr__out th{background:#efeefb;text-align:left;padding:6px}
+.mgr__out td{padding:6px;border-bottom:1px solid #eee}
+
+/* ---------- Catalog-er jonno jog kora ---------- */
+.searchbar{padding:2px var(--gutter) 12px}
+.searchbar input{width:100%;padding:13px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.9);background:var(--surface);font:inherit;font-size:15px;outline:none;color:var(--ink);box-shadow:inset 4px 4px 10px rgba(124,108,240,.10),inset -4px -4px 10px #fff,6px 6px 14px rgba(124,108,240,.10)}
+.searchbar input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-50)}
+.statusline{padding:0 var(--gutter) 12px;color:var(--muted);font-size:12.5px}
+.more-wrap{display:flex;justify-content:center;padding:0 var(--gutter) 20px}
+.more-wrap .chip{background:var(--brand);color:#fff}
+.btn--ghost{background:var(--surface);color:var(--ink);box-shadow:6px 6px 14px rgba(124,108,240,.14),inset 2px 2px 4px #fff}
+.hero__btns{display:flex;gap:10px;flex-wrap:wrap}
+.category__label{line-height:1.2}
+
+.searchbar{display:flex;gap:8px;align-items:center}
+.searchbar input{flex:1;width:auto}
+.mini-btn{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--surface);font-size:20px;box-shadow:6px 6px 14px rgba(124,108,240,.14),inset 2px 2px 6px #fff}
+.mini-btn:active{transform:scale(.94)}
+.note{margin-top:10px}
+.note input{width:100%;padding:11px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.9);background:var(--surface);font:inherit;font-size:14px;outline:none;color:var(--ink);box-shadow:inset 4px 4px 10px rgba(124,108,240,.10)}
+.note__saved{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+.scan-modal{position:fixed;inset:0;z-index:50;display:grid;place-content:center;gap:12px;padding:20px;background:rgba(20,18,40,.82);color:#fff;text-align:center}
+.scan-modal video{width:min(92vw,430px);border-radius:20px;background:#000}
+.scan-modal .btn{justify-content:center}
+#scanOut{font-size:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Sob product dekhun"><span></span><span></span><span></span></button>
+    <div class="logo">RF<span>L</span></div>
+    <div class="topbar__actions">
+      <button class="icon-btn" id="searchBtn" type="button" aria-label="Khujun"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="Settings">⚙️</button>
+    </div>
+  </header>
+
+  <div class="settings-panel" id="settingsPanel" hidden>
+    <button class="btn btn--ghost" id="tabHome" type="button">🏠 Home (upore jan)</button>
+    <button class="btn btn--ghost" id="tabSearch" type="button">🔍 Khujun</button>
+    <button class="btn btn--ghost" id="tabAll" type="button">▦ Sob product</button>
+    <a class="btn btn--ghost" href="https://rflhouseware.com/" target="_blank" rel="noopener">🔗 RFL Site</a>
+    <label class="switch-row"><span>Halka mode (animation kom)</span><input type="checkbox" id="halkaToggle"></label>
+    <div class="settings-ver">Version 2.11.0</div>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="hero__tilt" id="heroTilt">
+    <div class="hero__content">
+      <h1 class="hero__title" id="heroTitle"></h1>
+      <p class="hero__text" id="heroText"></p>
+      <div class="hero__btns">
+        <a class="btn btn--primary" id="heroLink" href="#" target="_blank" rel="noopener">RFL SITE-E DEKHUN <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="btn btn--ghost" id="copyBtn" type="button">CODE COPY</button><button class="btn btn--ghost" id="favBtn" type="button">🤍 Priyo korun</button><button class="btn btn--ghost" id="shareBtn" type="button">WhatsApp-e pathan</button>
+      </div>
+      <div class="mgr"><button class="btn btn--ghost" id="mgrBtn" type="button">Tap to Details</button><div id="mgrPinWrap" hidden><input id="mgrPin" type="password" inputmode="numeric" placeholder="Manager code din"><button class="btn btn--primary" id="mgrPinBtn" type="button">Dekhun</button></div><div class="mgr__out" id="mgrOut"></div></div>
+      <div class="note"><input id="noteInput" type="text" placeholder="Ei product-er note (rack/shelf) likhun" autocomplete="off"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="noteSaveBtn" type="button">Note save korun</button></div><div class="note__saved" id="noteSaved"></div><input id="cartonCodeInput" type="text" inputmode="numeric" placeholder="Carton code likhun" autocomplete="off" style="margin-top:10px"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="byCartonBtn" type="button">Carton code diye khujun</button></div><div class="note__saved" id="byCartonOut"></div></div>
+    </div>
+    <img class="hero__img" id="heroImg" alt="" decoding="async">
+    <div class="hero__tag" id="heroTag"></div>
+    <div class="hero__glare" id="heroGlare"></div>
+    <div class="hero__sheen"></div>
+    </div>
+  </section>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="searchbar"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Nam ba code likhun…" aria-label="Product nam ba code diye khujun"><button class="mini-btn" id="micBtn" type="button" aria-label="Voice search">🎤</button><button class="mini-btn" id="scanBtn" type="button" aria-label="Barcode scan">📷</button></div>
+  <div class="chips" id="recentChips"></div>
+  <div class="statusline" id="status"></div>
+  <div class="livebar"><button class="livebtn" id="liveBtn" type="button">RFL theke LIVE khujun</button><button class="liveoff" id="liveOffBtn" type="button" hidden>Live bondho korun</button><button class="liveoff" id="favFilterBtn" type="button">❤️ Priyo dekhun</button><span class="livenote" id="liveNote"></span></div>
+
+  <div class="categories" id="cats"></div>
+  <div class="chips" id="chips"></div>
+  <div class="statusline" id="count"></div>
+
+  <div class="products" id="res"></div>
+  <div class="more-wrap"><button class="chip" id="moreBtn" type="button" hidden>Aro Product Dekhun</button></div>
+
+</div>
+
+<div class="scan-modal" id="scanModal" hidden>
+  <video id="scanVideo" playsinline muted></video>
+  <div>Barcode camera-r samne dhorun</div>
+  <div id="scanOut"></div>
+  <button class="btn btn--primary" id="scanCloseBtn" type="button">Bondho korun</button>
+</div>
+<script>
+"use strict";
+var VERSION = "2.11.0";
+// LIVE SEARCH: Worker URL ekhanei bosano ache — ar bodlate hobe na.
+var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
+var liveMode = false;
+var liveProducts = [];
+/* Offline fallback: products.json na pele ei list dekhano hobe.
+   GitHub-e products.json thakle setai notun data hisebe load hobe. */
+var FALLBACK_PRODUCTS = [{"id":2235,"name":"Cherry Jug 3.5L","code":"2235","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1703333260.jpg","remote_image":"https://rflhouseware.com/uploads/1703333260.jpg","url":"https://rflhouseware.com/product_details/cherry-jug-3-5l_2235","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1703333260.jpg"],"remote_images":["https://rflhouseware.com/uploads/1703333260.jpg"],"size":"","price":""},{"id":2217,"name":"Glasco Jug 2.3L","code":"2217","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1699975000.jpg","remote_image":"https://rflhouseware.com/uploads/1699975000.jpg","url":"https://rflhouseware.com/product_details/glasco-jug-2-3l_2217","capacity":"2.3 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1699975000.jpg"],"remote_images":["https://rflhouseware.com/uploads/1699975000.jpg"],"size":"","price":""},{"id":2361,"name":"Heater Jug 1.8L","code":"2361","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059233.png","remote_image":"https://rflhouseware.com/uploads/1729059233.png","url":"https://rflhouseware.com/product_details/heater-jug-1-8l_2361","capacity":"1.8 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729059233.png"],"remote_images":["https://rflhouseware.com/uploads/1729059233.png"],"size":"","price":""},{"id":2360,"name":"Heater Jug 1L","code":"2360","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059557.png","remote_image":"https://rflhouseware.com/uploads/1729059557.png","url":"https://rflhouseware.com/product_details/heater-jug-1l_2360","capacity":"1 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729059557.png"],"remote_images":["https://rflhouseware.com/uploads/1729059557.png"],"size":"","price":""},{"id":2188,"name":"Lily Jug 1.9L - Trans Rose","code":"2188","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692009188.png","remote_image":"https://rflhouseware.com/uploads/1692009188.png","url":"https://rflhouseware.com/product_details/lily-jug-1-9l-trans-rose_2188","capacity":"1.9 L","variant":"Trans Rose","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1692009188.png"],"remote_images":["https://rflhouseware.com/uploads/1692009188.png"],"size":"","price":""},{"id":2239,"name":"Lotus Jug 2.5L","code":"2239","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729052485.jpeg","remote_image":"https://rflhouseware.com/uploads/1729052485.jpeg","url":"https://rflhouseware.com/product_details/lotus-jug-2-5l_2239","capacity":"2.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729052485.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729052485.jpeg"],"size":"","price":""},{"id":2442,"name":"Princes Jug 1.6L","code":"2442","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1773554120.jpg","remote_image":"https://rflhouseware.com/uploads/1773554120.jpg","url":"https://rflhouseware.com/product_details/princes-jug-1-6l_2442","capacity":"1.6 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1773554120.jpg"],"remote_images":["https://rflhouseware.com/uploads/1773554120.jpg"],"size":"","price":""},{"id":2454,"name":"Spring Jug 2.2L","code":"2454","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1782888171.jpg","remote_image":"https://rflhouseware.com/uploads/1782888171.jpg","url":"https://rflhouseware.com/product_details/spring-jug-2-2l_2454","capacity":"2.2 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1782888171.jpg"],"remote_images":["https://rflhouseware.com/uploads/1782888171.jpg"],"size":"","price":""},{"id":2189,"name":"Star Jug 2L - Trans","code":"2189","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692421218.jpg","remote_image":"https://rflhouseware.com/uploads/1692421218.jpg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans_2189","capacity":"2 L","variant":"Trans","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1692421218.jpg"],"remote_images":["https://rflhouseware.com/uploads/1692421218.jpg"],"size":"","price":""},{"id":2362,"name":"Star Jug 2L - Trans Blue","code":"2362","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729145136.jpeg","remote_image":"https://rflhouseware.com/uploads/1729145136.jpeg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans-blue_2362","capacity":"2 L","variant":"Trans Blue","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729145136.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729145136.jpeg"],"size":"","price":""},{"id":2202,"name":"Unique Jug 1.85L","code":"2202","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1698556494.jpg","remote_image":"https://rflhouseware.com/uploads/1698556494.jpg","url":"https://rflhouseware.com/product_details/unique-jug-1-85l_2202","capacity":"1.85 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1698556494.jpg"],"remote_images":["https://rflhouseware.com/uploads/1698556494.jpg"],"size":"","price":""},{"id":2455,"name":"Zui Jug 3.5L","code":"2455","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1783221329.png","remote_image":"https://rflhouseware.com/uploads/1783221329.png","url":"https://rflhouseware.com/product_details/zui-jug-3-5l_2455","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1783221329.png","images/additional_image_1783221329.png"],"remote_images":["https://rflhouseware.com/uploads/1783221329.png","https://rflhouseware.com/uploads/additional_image_1783221329.png"],"size":"L-22 X W-16 X H-25 cm","price":""},{"id":2367,"name":"Caino Multipurpose Holder - Assorted","code":"2367","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329203.jpg","remote_image":"https://rflhouseware.com/uploads/1729329203.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-holder-assorted_2367","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329203.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329203.jpg"],"size":"","price":""},{"id":2366,"name":"Caino Multipurpose Round Holder -Assorted","code":"2366","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329281.png","remote_image":"https://rflhouseware.com/uploads/1729329281.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-round-holder-assorted_2366","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329281.png"],"remote_images":["https://rflhouseware.com/uploads/1729329281.png"],"size":"","price":""},{"id":2364,"name":"Caino Multipurpose Sq Holder (W/O Cover) - Assorted","code":"2364","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329321.jpg","remote_image":"https://rflhouseware.com/uploads/1729329321.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-w-o-cover-assorted_2364","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329321.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329321.jpg"],"size":"","price":""},{"id":2363,"name":"Caino Multipurpose Sq Holder (With Cover) - Assorted","code":"2363","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329463.png","remote_image":"https://rflhouseware.com/uploads/1729329463.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-with-cover-assorted_2363","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329463.png"],"remote_images":["https://rflhouseware.com/uploads/1729329463.png"],"size":"","price":""},{"id":2365,"name":"Fortune Pencil Box - Assorted","code":"2365","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329591.jpg","remote_image":"https://rflhouseware.com/uploads/1729329591.jpg","url":"https://rflhouseware.com/product_details/fortune-pencil-box-assorted_2365","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329591.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329591.jpg"],"size":"","price":""},{"id":2457,"name":"Kiddos Potty","code":"2457","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1789038066.jpg","remote_image":"https://rflhouseware.com/uploads/1789038066.jpg","url":"https://rflhouseware.com/product_details/kiddos-potty_2457","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1789038066.jpg"],"remote_images":["https://rflhouseware.com/uploads/1789038066.jpg"],"size":"","price":""},{"id":2456,"name":"RFL Boithak Sofa 5 Pcs Set W/O Foam - Grey","code":"2456","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1783226808.jpeg","remote_image":"https://rflhouseware.com/uploads/1783226808.jpeg","url":"https://rflhouseware.com/product_details/rfl-boithak-sofa-5-pcs-set-w-o-foam-grey_2456","capacity":"","variant":"Grey","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1783226808.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1783226808.jpeg"],"size":"","price":""},{"id":2451,"name":"Stylee Champion Armless Chair - Lime Green","code":"2451","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331093.png","remote_image":"https://rflhouseware.com/uploads/1781331093.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-lime-green_2451","capacity":"","variant":"Lime Green","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331093.png"],"remote_images":["https://rflhouseware.com/uploads/1781331093.png"],"size":"","price":""},{"id":2452,"name":"Stylee Champion Armless Chair - Orange","code":"2452","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331256.png","remote_image":"https://rflhouseware.com/uploads/1781331256.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-orange_2452","capacity":"","variant":"Orange","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331256.png"],"remote_images":["https://rflhouseware.com/uploads/1781331256.png"],"size":"","price":""},{"id":2453,"name":"Stylee Champion Easy Chair - Black","code":"2453","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331862.png","remote_image":"https://rflhouseware.com/uploads/1781331862.png","url":"https://rflhouseware.com/product_details/stylee-champion-easy-chair-black_2453","capacity":"","variant":"Black","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331862.png"],"remote_images":["https://rflhouseware.com/uploads/1781331862.png"],"size":"","price":""},{"id":2458,"name":"Ultra Kids Table","code":"2458","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1791189764.jpg","remote_image":"https://rflhouseware.com/uploads/1791189764.jpg","url":"https://rflhouseware.com/product_details/ultra-kids-table_2458","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1791189764.jpg"],"remote_images":["https://rflhouseware.com/uploads/1791189764.jpg"],"size":"","price":""}];
+
+var CATCOLORS = {"Household": "#e63946", "Furniture": "#f4a300", "Industrial": "#1d9bf0", "Toys": "#7cc576", "Pet Items": "#b86cf0", "Cookware": "#2ec4b6", "New arrivals": "#e63946"};
+
+var allProducts = [];
+var selected = null;
+var heroImgIdx = 0;
+var activeCat = "All";
+var activeLeaf = "All";
+var shown = 60;
+var PAGE = 60;
+var NOTES = {}; try { NOTES = JSON.parse(localStorage.getItem("rfl-notes") || "{}"); } catch (e) { NOTES = {}; }
+var FAVS = {}; try { FAVS = JSON.parse(localStorage.getItem("rfl-fav") || "{}"); } catch (e) { FAVS = {}; }
+var RECENT = []; try { RECENT = JSON.parse(localStorage.getItem("rfl-recent") || "[]"); } catch (e) { RECENT = []; }
+var favOnly = false;
+function isFav(p){ return !!FAVS[String(p.id)]; }
+function saveStore(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+function esc(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function colorOf(p){ return CATCOLORS[p.category] || "#ef3f15"; }
+function imgsOf(p){
+  var a = (p.images && p.images.length) ? p.images.slice() : (p.image ? [p.image] : []);
+  var b = (p.remote_images && p.remote_images.length) ? p.remote_images.slice() : (p.remote_image ? [p.remote_image] : []);
+  return { local: a, remote: b };
+}
+function heroImgSrc(p, idx){
+  var im = imgsOf(p);
+  if (im.local[idx]) return im.local[idx];
+  if (im.remote[idx]) return im.remote[idx];
+  return "";
+}
+function nameSpans(name){
+  var words = String(name).split(/\s+/).filter(Boolean);
+  if (words.length <= 3) return words.map(function(w, i){ return "<span" + (i === words.length - 1 ? ' class="is-accent"' : "") + ">" + esc(w) + "</span>"; }).join("");
+  var per = Math.ceil(words.length / 3);
+  var parts = [];
+  for (var i = 0; i < 3; i++) parts.push(words.slice(i * per, (i + 1) * per).join(" "));
+  parts = parts.filter(Boolean);
+  return parts.map(function(t, i){ return "<span" + (i === parts.length - 1 ? ' class="is-accent"' : "") + ">" + esc(t) + "</span>"; }).join("");
+}
+
+var heroTitle = document.getElementById("heroTitle");
+var heroText = document.getElementById("heroText");
+var heroImg = document.getElementById("heroImg");
+var heroTag = document.getElementById("heroTag");
+var heroLink = document.getElementById("heroLink");
+var copyBtn = document.getElementById("copyBtn");
+var dotsEl = document.getElementById("dots");
+var catsEl = document.getElementById("cats");
+var chipsEl = document.getElementById("chips");
+var resEl = document.getElementById("res");
+var countEl = document.getElementById("count");
+var statusEl = document.getElementById("status");
+var qEl = document.getElementById("q");
+var moreBtn = document.getElementById("moreBtn");
+var liveBtn = document.getElementById("liveBtn");
+var liveOffBtn = document.getElementById("liveOffBtn");
+var liveNote = document.getElementById("liveNote");
+
+function renderHero(p){
+  if (!p) return;
+  selected = p;
+  if (typeof mgrClear === "function") mgrClear();
+  heroImgIdx = 0;
+  heroTitle.innerHTML = nameSpans(p.name);
+  var bits = [p.category, p.leaf];
+  if (p.size) bits.push(p.size);
+  else if (p.capacity) bits.push(p.capacity);
+  if (p.variant) bits.push(p.variant);
+  heroText.textContent = bits.join("  •  ");
+  heroTag.textContent = "CODE " + p.code;
+  heroLink.href = p.url || "#";
+  copyBtn.textContent = "CODE COPY";
+  var src = heroImgSrc(p, 0);
+  heroImg.style.visibility = src ? "visible" : "hidden";
+  heroImg.src = src;
+  heroImg.onerror = function(){
+    var im = imgsOf(p);
+    if (heroImg.src !== im.remote[0] && im.remote[0]) { heroImg.src = im.remote[0]; return; }
+    heroImg.style.visibility = "hidden";
+  };
+  renderDots();
+  refreshHeroTools();
+}
+
+var mgrPin = "";
+var WORKER_BASE = LIVE_URL.replace(/\/search$/, "");
+function mgrClear(){ var o = document.getElementById("mgrOut"); if (o) o.innerHTML = ""; var w = document.getElementById("mgrPinWrap"); if (w) w.hidden = true; }
+async function mgrFetch(){
+  var p = selected; if (!p) return;
+  var out = document.getElementById("mgrOut");
+  out.textContent = "Anchi...";
+  try {
+    var res = await fetch(WORKER_BASE + "/carton?name=" + encodeURIComponent(p.name) + "&pin=" + encodeURIComponent(mgrPin));
+    var d = await res.json();
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; document.getElementById("mgrPinWrap").hidden = false; return; }
+    if (!d.found) { out.textContent = "Ei product-er manager info (carton) pawa jay ni."; return; }
+    out.innerHTML = (d.partial ? "<div style=\"font-size:12px;color:var(--muted)\">Puro nam na mille kachakachi match — code miliye nin.</div>" : "") + d.matches.map(function(m){
+      var c = m.ccode ? ("<b>Carton code:</b> " + esc(m.ccode) + "<br><b>Carton:</b> " + esc(m.cname)) : "<b>Carton deya nei</b>";
+      var fg = "";
+      if (m.fg && m.fg.length) {
+        var rows = m.fg.map(function(l){ return "<tr><td>" + esc(l[0]) + "</td><td>" + esc(l[1]) + "</td><td>" + esc(l[2]) + "</td><td>" + esc(l[3]) + "</td><td><b>" + esc(l[4]) + "</b></td></tr>"; }).join("");
+        fg = "<div style=\"margin-top:8px\"><b>FG Mapping (ASCP)</b><table><tr><th>Type</th><th>Code</th><th>Name</th><th>Unit</th><th>Qty</th></tr>" + rows + "</table></div>";
+      }
+      return "<div><b>Item:</b> " + esc(m.name) + " (Code " + esc(m.code) + ")<br>" + c + fg + "</div>";
+    }).join("<hr>");
+  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+}
+document.getElementById("mgrBtn").onclick = function(){
+  if (mgrPin) { mgrFetch(); return; }
+  document.getElementById("mgrPinWrap").hidden = false;
+  document.getElementById("mgrPin").focus();
+};
+document.getElementById("mgrPinBtn").onclick = function(){
+  mgrPin = document.getElementById("mgrPin").value;
+  document.getElementById("mgrPinWrap").hidden = true;
+  if (pendingBarcode) { var pb = pendingBarcode; pendingBarcode = ""; barcodeLookup(pb); } else { mgrFetch(); }
+};
+
+function renderDots(){
+  var im = imgsOf(selected || {});
+  var n = Math.max(im.local.length, im.remote.length, 1);
+  if (n <= 1) { dotsEl.innerHTML = ""; return; }
+  var h = "";
+  for (var i = 0; i < n; i++) h += '<button type="button" class="dots__dot' + (i === heroImgIdx ? " is-active" : "") + '" data-idx="' + i + '" aria-label="Chobi ' + (i + 1) + '"></button>';
+  dotsEl.innerHTML = h;
+}
+function setHeroImg(idx){
+  if (!selected) return;
+  heroImgIdx = idx;
+  var src = heroImgSrc(selected, idx);
+  heroImg.style.visibility = src ? "visible" : "hidden";
+  heroImg.src = src;
+  renderDots();
+}
+dotsEl.addEventListener("click", function(e){
+  var b = e.target.closest("[data-idx]");
+  if (b) setHeroImg(Number(b.getAttribute("data-idx")));
+});
+
+function filtered(){
+  if (liveMode) return liveProducts.slice();
+  var q = (qEl.value || "").trim().toLowerCase();
+  var words = q ? q.split(/\s+/) : [];
+  return allProducts.filter(function(p){
+    if (activeCat !== "All" && p.category !== activeCat) return false;
+    if (activeLeaf !== "All" && p.leaf !== activeLeaf) return false;
+    if (favOnly && !isFav(p)) return false;
+    if (!words.length) return true;
+    var hay = (p.name + " " + p.code + " " + p.category + " " + (p.group || "") + " " + p.leaf).toLowerCase();
+    return words.every(function(w){ return hay.indexOf(w) >= 0; });
+  });
+}
+function renderCats(){
+  var order = ["Household", "Furniture", "Industrial", "Cookware", "Toys", "Pet Items", "New arrivals"];
+  var present = order.filter(function(c){ return allProducts.some(function(p){ return p.category === c; }); });
+  var cats = ["All"].concat(present);
+  catsEl.innerHTML = cats.map(function(c){
+    var label = c === "All" ? "Sob" : c;
+    var letter = c === "All" ? "A" : c.charAt(0);
+    return '<button type="button" class="category' + (c === activeCat ? " is-active" : "") + '" data-cat="' + esc(c) + '"><span class="category__icon">' + esc(letter) + '</span><span class="category__label">' + esc(label) + '</span></button>';
+  }).join("");
+}
+function renderChips(){
+  if (activeCat === "All") { chipsEl.innerHTML = ""; return; }
+  var leaves = [];
+  allProducts.forEach(function(p){ if (p.category === activeCat && leaves.indexOf(p.leaf) < 0) leaves.push(p.leaf); });
+  leaves.sort();
+  var h = '<button type="button" class="chip' + (activeLeaf === "All" ? " is-active" : "") + '" data-leaf="All">Sob</button>';
+  leaves.forEach(function(l){
+    h += '<button type="button" class="chip' + (l === activeLeaf ? " is-active" : "") + '" data-leaf="' + esc(l) + '">' + esc(l) + '</button>';
+  });
+  chipsEl.innerHTML = h;
+}
+function renderGrid(){
+  var list = filtered();
+  countEl.textContent = liveMode ? (list.length + " ta LIVE product pawa geche (RFL site theke, GitHub-e save hoy ni)") : (list.length + " ta product pawa geche (sob mot " + allProducts.length + " ta)");
+  var page = list.slice(0, shown);
+  if (!page.length) {
+    resEl.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:14px;padding:10px 0">Kichu paoa jayni. Nam ba code arekbar miliye likhun.</p>';
+  } else {
+    resEl.innerHTML = page.map(function(p){
+      var im = imgsOf(p);
+      var src = im.local[0] || im.remote[0] || "";
+      var onerr = im.remote[0] && im.remote[0] !== src ? ' onerror="this.onerror=null;this.src=\'' + esc(im.remote[0]) + '\'"' : "";
+      var media = src ? '<img src="' + esc(src) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async"' + onerr + ">" : '<div class="media-letter">' + esc(p.name.charAt(0)) + "</div>";
+      var extra = (p.size || p.capacity || "");
+      return '<article class="product-card" data-id="' + esc(p.id) + '">'
+        + (p.live ? '<span class="tag tag--live">LIVE</span>' : "") + (p.category === "New arrivals" ? '<span class="tag tag--new">NEW</span>' : "")
+        + '<div class="product-card__media">' + media + "</div>"
+        + '<div class="product-card__title">' + esc(p.name) + (isFav(p) ? " ❤️" : "") + (NOTES[String(p.id)] ? " 📝" : "") + "</div>"
+        + '<div class="product-card__sub">' + esc(p.category) + " • " + esc(p.leaf) + "</div>"
+        + '<div class="product-card__row"><div><span class="price">Code ' + esc(p.code) + "</span>"
+        + (extra ? '<span class="rating">' + esc(extra) + "</span>" : "")
+        + '</div><button class="cart-add" type="button" aria-label="Ei product dekhun"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>'
+        + "</article>";
+    }).join("");
+  }
+  moreBtn.hidden = shown >= list.length;
+}
+function renderAll(){
+  renderCats();
+  renderChips();
+  renderGrid();
+}
+catsEl.addEventListener("click", function(e){
+  var b = e.target.closest("[data-cat]");
+  if (!b) return;
+  exitLive();
+  activeCat = b.getAttribute("data-cat");
+  activeLeaf = "All";
+  shown = PAGE;
+  renderAll();
+});
+chipsEl.addEventListener("click", function(e){
+  var b = e.target.closest("[data-leaf]");
+  if (!b) return;
+  exitLive();
+  activeLeaf = b.getAttribute("data-leaf");
+  shown = PAGE;
+  renderGrid();
+  renderChips();
+});
+resEl.addEventListener("click", function(e){
+  var card = e.target.closest("[data-id]");
+  if (!card) return;
+  var p = null;
+  allProducts.forEach(function(x){ if (String(x.id) === card.getAttribute("data-id")) p = x; });
+  if (!p) liveProducts.forEach(function(x){ if (String(x.id) === card.getAttribute("data-id")) p = x; });
+  if (p) { renderHero(p); window.scrollTo({ top: 0, behavior: "smooth" }); }
+});
+var inputTimer = null;
+qEl.addEventListener("input", function(){ if (inputTimer) clearTimeout(inputTimer); inputTimer = setTimeout(function(){ exitLive(); shown = PAGE; renderGrid(); saveRecent(qEl.value); }, 180); });
+moreBtn.addEventListener("click", function(){ shown += PAGE; renderGrid(); });
+
+function exitLive(){
+  if (!liveMode) return;
+  liveMode = false;
+  liveOffBtn.hidden = true;
+  liveNote.textContent = "";
+}
+async function liveSearch(){
+  var q = (qEl.value || "").trim();
+  if (q.length < 2) { liveNote.textContent = "Live khujte ontoto 2 ta okkhor likhun."; return; }
+  liveBtn.disabled = true;
+  liveNote.textContent = "RFL site theke live khujchi, ektu somoy din…";
+  try {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 25000);
+    var res = await fetch(LIVE_URL + "?q=" + encodeURIComponent(q), { signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    var data = await res.json();
+    if (data.error) throw new Error(data.error);
+    liveProducts = (data.products || []).map(function(r){
+      var cap = (r.name.match(/(\d+(?:\.\d+)?)\s?L\b/) || [])[1];
+      return { id: r.id, name: r.name, code: String(r.id), category: "Live", group: "RFL live", leaf: "Live search", image: "", remote_image: r.image || "", images: [], remote_images: r.image ? [r.image] : [], url: r.url, capacity: cap ? cap + " L" : "", variant: "", size: "", price: "", rack: "", stock_note: "", description: "", live: true };
+    });
+    liveMode = true;
+    shown = PAGE;
+    liveOffBtn.hidden = false;
+    liveNote.textContent = liveProducts.length ? ("Live: " + liveProducts.length + " ta pelam — egulo GitHub-e save hoy ni.") : "Live-e kichu pelam na — banan miliye abar chesta korun.";
+    renderGrid();
+    if (liveProducts.length) { renderHero(liveProducts[0]); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  } catch (e) {
+    liveNote.textContent = "Live khujte parlam na — net ba Worker check kore abar chapin.";
+  }
+  liveBtn.disabled = false;
+}
+liveBtn.addEventListener("click", liveSearch);
+liveOffBtn.addEventListener("click", function(){ exitLive(); shown = PAGE; renderGrid(); });
+function showAll(){
+  exitLive();
+  favOnly = false;
+  var ffb = document.getElementById("favFilterBtn");
+  if (ffb) ffb.textContent = "❤️ Priyo dekhun";
+  activeCat = "All";
+  activeLeaf = "All";
+  shown = PAGE;
+  qEl.value = "";
+  renderAll();
+  document.getElementById("res").scrollIntoView();
+}
+document.getElementById("menuBtn").addEventListener("click", showAll);
+document.getElementById("searchBtn").addEventListener("click", function(){
+  qEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  qEl.focus();
+});
+function setTab(id){
+  ["tabHome", "tabSearch", "tabAll"].forEach(function(t){
+    var el = document.getElementById(t);
+    if (el) el.classList.toggle("is-active", t === id);
+  });
+}
+document.getElementById("tabHome").addEventListener("click", function(){ setTab("tabHome"); window.scrollTo({ top: 0, behavior: "smooth" }); });
+document.getElementById("tabSearch").addEventListener("click", function(){
+  setTab("tabSearch");
+  qEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  qEl.focus();
+});
+document.getElementById("tabAll").addEventListener("click", function(){ setTab("tabAll"); showAll(); });
+
+copyBtn.addEventListener("click", function(){
+  if (!selected) return;
+  var code = String(selected.code);
+  function done(){ copyBtn.textContent = "COPY HOYECHE"; setTimeout(function(){ copyBtn.textContent = "CODE COPY"; }, 1500); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(done).catch(function(){ done(); });
+  } else { done(); }
+});
+
+/* Settings panel (oporer ⚙️) + Halka mode + hero 3D tilt (mouse) */
+document.getElementById("settingsBtn").addEventListener("click", function(){
+  var p = document.getElementById("settingsPanel");
+  p.hidden = !p.hidden;
+});
+document.getElementById("settingsPanel").addEventListener("click", function(e){
+  if (e.target.closest("button,a") && !e.target.closest(".switch-row")) document.getElementById("settingsPanel").hidden = true;
+});
+var halkaToggle = document.getElementById("halkaToggle");
+function applyHalka(on){ document.body.classList.toggle("halka", on); if (halkaToggle) halkaToggle.checked = on; try { localStorage.setItem("rfl-halka", on ? "1" : "0"); } catch (e) {} }
+halkaToggle.addEventListener("change", function(){ applyHalka(halkaToggle.checked); });
+try { if (localStorage.getItem("rfl-halka") === "1") applyHalka(true); } catch (e) {}
+(function(){
+  var tilt = document.getElementById("heroTilt");
+  var hero = document.getElementById("hero");
+  var glare = document.getElementById("heroGlare");
+  if (!tilt || !hero || !glare || !window.matchMedia("(pointer:fine)").matches) return;
+  var raf = null, lx = 0, ly = 0;
+  hero.addEventListener("pointermove", function(e){
+    lx = e.clientX; ly = e.clientY;
+    if (raf) return;
+    raf = requestAnimationFrame(function(){
+      raf = null;
+      var r = hero.getBoundingClientRect();
+      var px = (lx - r.left) / r.width - .5;
+      var py = (ly - r.top) / r.height - .5;
+      tilt.style.setProperty("--ry", (px * 14).toFixed(1) + "deg");
+      tilt.style.setProperty("--rx", (-py * 10).toFixed(1) + "deg");
+      glare.style.setProperty("--gx", ((px + .5) * 100).toFixed(0) + "%");
+      glare.style.setProperty("--gy", ((py + .5) * 100).toFixed(0) + "%");
+      glare.style.opacity = "1";
+    });
+  });
+  hero.addEventListener("pointerleave", function(){
+    tilt.style.setProperty("--rx", "0deg");
+    tilt.style.setProperty("--ry", "0deg");
+    glare.style.opacity = "0";
+  });
+})();
+
+/* Priyo / Note / Recent / Share / Carton-ulto / Voice / Scan (v2.11) */
+function refreshHeroTools(){
+  var fb = document.getElementById("favBtn");
+  if (fb) fb.textContent = (selected && isFav(selected)) ? "❤️ Priyo" : "🤍 Priyo korun";
+  var ni = document.getElementById("noteInput");
+  var ns = document.getElementById("noteSaved");
+  if (ni) ni.value = (selected && NOTES[String(selected.id)]) || "";
+  if (ns) ns.textContent = (selected && NOTES[String(selected.id)]) ? "Saved note: " + NOTES[String(selected.id)] : "";
+}
+document.getElementById("favBtn").addEventListener("click", function(){
+  if (!selected) return;
+  var id = String(selected.id);
+  if (FAVS[id]) delete FAVS[id]; else FAVS[id] = true;
+  saveStore("rfl-fav", FAVS); refreshHeroTools(); renderGrid();
+});
+document.getElementById("shareBtn").addEventListener("click", function(){
+  if (!selected) return;
+  var text = selected.name + " (Code " + selected.code + ") — " + (selected.url || "");
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+});
+document.getElementById("noteSaveBtn").addEventListener("click", function(){
+  if (!selected) return;
+  var v = document.getElementById("noteInput").value.trim();
+  if (v) NOTES[String(selected.id)] = v; else delete NOTES[String(selected.id)];
+  saveStore("rfl-notes", NOTES); refreshHeroTools(); renderGrid();
+});
+document.getElementById("favFilterBtn").addEventListener("click", function(){
+  exitLive(); favOnly = !favOnly; shown = PAGE;
+  document.getElementById("favFilterBtn").textContent = favOnly ? "❌ Priyo bondho korun" : "❤️ Priyo dekhun";
+  renderGrid();
+});
+function renderRecent(){
+  var el = document.getElementById("recentChips");
+  if (!el) return;
+  if (!RECENT.length) { el.innerHTML = ""; return; }
+  el.innerHTML = RECENT.map(function(r){ return '<button type="button" class="chip" data-recent="' + esc(r) + '">' + esc(r) + '</button>'; }).join("");
+}
+function saveRecent(q){
+  q = (q || "").trim(); if (q.length < 2) return;
+  RECENT = RECENT.filter(function(r){ return r !== q; }); RECENT.unshift(q); RECENT = RECENT.slice(0, 8); saveStore("rfl-recent", RECENT); renderRecent();
+}
+document.getElementById("recentChips").addEventListener("click", function(e){
+  var b = e.target.closest("[data-recent]"); if (!b) return;
+  qEl.value = b.getAttribute("data-recent"); exitLive(); shown = PAGE; renderGrid(); saveRecent(qEl.value);
+});
+renderRecent();
+document.getElementById("byCartonBtn").addEventListener("click", async function(){
+  var out = document.getElementById("byCartonOut");
+  var code = document.getElementById("cartonCodeInput").value.trim();
+  if (!code) { out.textContent = "Carton code likhun."; return; }
+  if (!mgrPin) { out.textContent = "Age Tap to Details-e manager code din, tarpor abar chapin."; document.getElementById("mgrPinWrap").hidden = false; return; }
+  out.textContent = "Anchi...";
+  try {
+    var res = await fetch(WORKER_BASE + "/bycarton?code=" + encodeURIComponent(code) + "&pin=" + encodeURIComponent(mgrPin));
+    var d = await res.json();
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; return; }
+    if (!d.found) { out.textContent = "Ei carton code-e kono item pawa jay ni."; return; }
+    out.innerHTML = "<b>Carton:</b> " + esc(d.carton ? d.carton.cname : "") + " (" + esc(d.carton ? d.carton.ccode : "") + ")<br>" + d.items.map(function(m){ return "• " + esc(m.name) + " (Code " + esc(m.code) + ")"; }).join("<br>");
+  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+});
+(function(){
+  var mic = document.getElementById("micBtn");
+  if (!mic) return;
+  if (!("webkitSpeechRecognition" in window)) { mic.style.display = "none"; return; }
+  mic.addEventListener("click", function(){
+    var rec = new webkitSpeechRecognition();
+    rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 1;
+    mic.textContent = "🎙️";
+    rec.onresult = function(ev){
+      var t = (ev.results[0][0].transcript || "");
+      qEl.value = t; exitLive(); shown = PAGE; renderGrid(); saveRecent(t);
+    };
+    rec.onend = function(){ mic.textContent = "🎤"; };
+    rec.onerror = function(){ mic.textContent = "🎤"; };
+    try { rec.start(); } catch (e) { mic.textContent = "🎤"; }
+  });
+})();
+var pendingBarcode = "";
+var scanStream = null, scanRaf = null, scanStopTimer = null;
+function stopScan(){
+  if (scanRaf) cancelAnimationFrame(scanRaf); scanRaf = null;
+  if (scanStopTimer) clearTimeout(scanStopTimer); scanStopTimer = null;
+  if (scanStream) { scanStream.getTracks().forEach(function(t){ t.stop(); }); scanStream = null; }
+  document.getElementById("scanModal").hidden = true;
+}
+document.getElementById("scanCloseBtn").addEventListener("click", stopScan);
+async function barcodeLookup(code){
+  var out = document.getElementById("mgrOut");
+  if (!mgrPin) { pendingBarcode = code; out.textContent = "Barcode pawa geche (" + code + "). Age Tap to Details-e manager code din, tarpor Dekhun chaple info asbe."; document.getElementById("mgrPinWrap").hidden = false; document.getElementById("hero").scrollIntoView(); return; }
+  out.textContent = "Barcode milacchi...";
+  document.getElementById("hero").scrollIntoView();
+  try {
+    var res = await fetch(WORKER_BASE + "/barcode?code=" + encodeURIComponent(code) + "&pin=" + encodeURIComponent(mgrPin));
+    var d = await res.json();
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; return; }
+    if (!d.found) { out.textContent = "Ei barcode-er item ekhono map-e nei. ASCP export asle sob barcode jog hobe."; return; }
+    var c = d.ccode ? ("<b>Carton code:</b> " + esc(d.ccode) + "<br><b>Carton:</b> " + esc(d.cname)) : "<b>Carton deya nei</b>";
+    var fg = "";
+    if (d.fg && d.fg.length) {
+      var rows = d.fg.map(function(l){ return "<tr><td>" + esc(l[0]) + "</td><td>" + esc(l[1]) + "</td><td>" + esc(l[2]) + "</td><td>" + esc(l[3]) + "</td><td><b>" + esc(l[4]) + "</b></td></tr>"; }).join("");
+      fg = "<div style=\"margin-top:8px\"><b>FG Mapping (ASCP)</b><table><tr><th>Type</th><th>Code</th><th>Name</th><th>Unit</th><th>Qty</th></tr>" + rows + "</table></div>";
+    }
+    out.innerHTML = "<div><b>Item:</b> " + esc(d.name) + " (Code " + esc(d.code) + ")<br>" + c + fg + "</div>";
+  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+}
+document.getElementById("scanBtn").addEventListener("click", async function(){
+  var modal = document.getElementById("scanModal");
+  var video = document.getElementById("scanVideo");
+  var sout = document.getElementById("scanOut");
+  modal.hidden = false;
+  if (!("BarcodeDetector" in window)) { sout.textContent = "Ei browser-e scan cholbe na — Chrome-e khulun."; return; }
+  try {
+    scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+  } catch (e) { sout.textContent = "Camera onumoti din, tarpor abar chesta korun."; return; }
+  video.srcObject = scanStream; video.play();
+  var detector = null;
+  try { detector = new BarcodeDetector({ formats: ["ean_13", "ean_8", "code_128", "upc_a", "upc_e"] }); }
+  catch (e) { sout.textContent = "Ei browser-e scan cholbe na — Chrome-e khulun."; stopScan(); return; }
+  sout.textContent = "Barcode camera-r samne dhorun…";
+  scanStopTimer = setTimeout(function(){ stopScan(); }, 60000);
+  (async function loop(){
+    if (!scanStream) return;
+    try {
+      var codes = await detector.detect(video);
+      if (codes && codes.length) { var v = codes[0].rawValue || ""; stopScan(); if (v) barcodeLookup(v); return; }
+    } catch (e) {}
+    scanRaf = requestAnimationFrame(function(){ loop(); });
+  })();
+});
+
+/* Hero-te swipe: dan/bam swipe-e ager/porer product */
+(function(){
+  var hero = document.getElementById("hero");
+  var sx = null;
+  hero.addEventListener("pointerdown", function(e){ sx = e.clientX; });
+  hero.addEventListener("pointerup", function(e){
+    if (sx == null) return;
+    var dx = e.clientX - sx;
+    sx = null;
+    if (Math.abs(dx) < 50 || !selected) return;
+    var list = filtered();
+    var idx = -1;
+    list.forEach(function(p, i){ if (String(p.id) === String(selected.id)) idx = i; });
+    if (idx < 0 || !list.length) return;
+    var next = list[(idx + (dx < 0 ? 1 : -1) + list.length) % list.length];
+    renderHero(next);
+  });
+})();
+
+/* products.json load: 60 second timeout, na pele offline fallback cholbe. */
+async function load(){
+  allProducts = FALLBACK_PRODUCTS.slice();
+  renderHero(allProducts[0] || null);
+  renderAll();
+  statusEl.textContent = "Notun list load hocche, ektu somoy din…";
+  try {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 60000);
+    var res = await fetch("products.json", { signal: ctrl.signal, cache: "no-store" });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    var data = await res.json();
+    if (data && Array.isArray(data.products) && data.products.length){
+      var keepId = selected ? selected.id : null;
+      allProducts = data.products;
+      var keep = null;
+      allProducts.forEach(function(p){ if (String(p.id) === String(keepId)) keep = p; });
+      renderHero(keep || allProducts[0] || null);
+      renderAll();
+      statusEl.textContent = "Mot " + allProducts.length + " ta product load hoyeche.";
+    } else {
+      statusEl.textContent = "Offline copy dekhano hocche — notun product dekhte net thakle page-ti reload korun.";
+    }
+  } catch (e) {
+    statusEl.textContent = "Offline copy dekhano hocche — notun product dekhte net thakle page-ti reload korun.";
+  }
+}
+load();
+
+if ("serviceWorker" in navigator && (location.protocol === "http:" || location.protocol === "https:")){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
