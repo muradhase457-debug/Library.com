@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.29.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.30.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style>
 /* RFL Catalog v2.25 — premium clay UI (day + night) */
 
@@ -435,6 +435,30 @@ body.godown input{font-size:18px}
 .xr span{margin-left:auto;font-weight:800}
 #reportBtn{margin-top:12px}
 </style>
+<style id="v230">
+.stage{position:relative;height:268px;margin:2px auto 6px;perspective:900px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.stage:active{cursor:grabbing}
+.spot{position:absolute;left:50%;top:0;width:270px;height:232px;margin-left:-135px;background:radial-gradient(ellipse at 50% 0,rgba(255,255,255,.4),transparent 72%);clip-path:polygon(32% 0,68% 0,100% 100%,0 100%);opacity:.55;pointer-events:none}
+.pedestal{position:absolute;left:50%;bottom:20px;width:250px;height:52px;margin-left:-125px;border-radius:50%;background:radial-gradient(ellipse at 50% 30%,#f3f0ff,#a99ef0 55%,#5a45d8);box-shadow:0 18px 22px rgba(0,0,0,.45),inset 0 -6px 10px rgba(40,24,150,.5),inset 0 3px 6px rgba(255,255,255,.8)}
+.ring{position:absolute;left:50%;bottom:28px;width:208px;height:34px;margin-left:-104px;border-radius:50%;border:2px solid rgba(255,255,255,.8);box-shadow:0 0 16px 3px rgba(190,170,255,.9),inset 0 0 14px rgba(190,170,255,.8)}
+.turn{position:absolute;left:50%;top:14px;width:176px;height:176px;margin-left:-88px;transform-style:preserve-3d;will-change:transform}
+.stage .hero__img,.stage .face{position:absolute;inset:0;width:100%;height:100%;max-width:none;margin:0;object-fit:contain;background:#fff;border-radius:16px;box-shadow:none;animation:none;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.stage .hero__img{transform:translateZ(9px)}
+.stage .face.back{transform:rotateY(180deg) translateZ(9px)}
+.edge{position:absolute;top:0;left:50%;width:18px;height:100%;margin-left:-9px;background:linear-gradient(90deg,#d9d4f5,#fff 50%,#cfc8f0);border-radius:6px}
+.edge.r{transform:rotateY(90deg) translateZ(88px)}
+.edge.l{transform:rotateY(-90deg) translateZ(88px)}
+.stage__hint{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.85)}
+#moreBtn{width:100%;justify-content:center;margin-top:10px}
+#morePanel{margin-top:10px}
+#morePanel .hero__btns{margin-top:0}
+.hero__btns>:last-child:nth-child(odd){grid-column:1/-1}
+.hero #mgrBtn{background:var(--grad);color:#fff;font-weight:800}
+#xdet .vchips{flex-wrap:nowrap;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+#xdet .vchip{flex:none}
+#xdet .xh{margin:8px 0 4px;font-size:12px;opacity:.9}
+#vtools:not(.open) #sortSel,#vtools:not(.open) .az{display:none}
+</style>
 </head>
 <body>
 <div class="loader" id="loader">
@@ -472,12 +496,12 @@ body.godown input{font-size:18px}
     <label class="switch-row"><span>Godown mode (big buttons)</span><input type="checkbox" id="godownToggle"></label>
     <button class="btn btn--ghost" id="incBtn" type="button">🧩 Missing local image</button>
     <button class="btn btn--ghost" id="missBtn" type="button">🔎 Copy missed searches</button>
-    <div class="settings-ver">Version 2.29.0</div>
+    <div class="settings-ver">Version 2.30.0</div>
   </div>
 
   <section class="hero" id="hero">
     <div class="hero__tilt" id="heroTilt">
-    <img class="hero__img" id="heroImg" alt="" decoding="async">
+    <div class="stage" id="stage" aria-label="Drag to rotate the product"><div class="spot"></div><div class="pedestal"></div><div class="ring"></div><div class="turn" id="turn"><img class="hero__img" id="heroImg" alt="" decoding="async"><img class="face back" id="heroImgB" alt="" decoding="async"><i class="edge l"></i><i class="edge r"></i></div><div class="stage__hint">⟲ Drag to rotate</div></div>
     <div class="hero__content">
       <h1 class="hero__title" id="heroTitle"></h1>
       <p class="hero__text" id="heroText"></p>
@@ -526,7 +550,7 @@ body.godown input{font-size:18px}
 </div>
 <script>
 "use strict";
-var VERSION = "2.29.0";
+var VERSION = "2.30.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -828,16 +852,17 @@ document.getElementById("tblBtn").onclick = function(){ TBL = !TBL; document.bod
 document.getElementById("az").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; LET = b.dataset.l; [].forEach.call(this.children, function(x){ x.classList.toggle("on", x === b); }); shown = PAGE; renderGrid(); });
 resEl.addEventListener("click", function(e){ var h = e.target.closest("th[data-k]"); if (h) { SORT = h.dataset.k; document.getElementById("sortSel").value = SORT; renderGrid(); } });
 document.getElementById("incBtn").onclick = function(){ INC = !INC; this.textContent = INC ? "❌ Show all items" : "🧩 Missing local image"; shown = PAGE; renderGrid(); toast(INC ? "Showing items without a local image" : "Showing all items"); };
-var xd = document.createElement("div"); xd.id = "xdet";
+var xd = document.createElement("div"); xd.id = "xdet"; var xm = document.createElement("div"); xm.id = "xmore";
 document.getElementById("favBtn").parentNode.insertAdjacentElement("afterend", xd);
 function chips(a){ return '<div class="vchips">' + a.map(function(v){ return '<button type="button" class="vchip" data-id="' + esc(v.id) + '">' + esc(famLabel(v)) + "</button>"; }).join("") + "</div>"; }
 function renderX(p){ var h = "";
   var fk = famKey(p), sib = allProducts.filter(function(q){ return q.id !== p.id && q.category === p.category && famKey(q) === fk; }).slice(0, 12);
   if (sib.length) h += '<div class="xh">Other sizes / colors</div>' + chips(sib);
   var sim = allProducts.filter(function(q){ return q.id !== p.id && q.category === p.category && q.leaf === p.leaf && famKey(q) !== fk; }).sort(function(a, b){ return Math.abs(sizeNum(a) - sizeNum(p)) - Math.abs(sizeNum(b) - sizeNum(p)); }).slice(0, 6);
-  if (sim.length) h += '<div class="xh">Similar items</div>' + chips(sim);
-  xd.innerHTML = h + '<button type="button" id="reportBtn" class="btn btn--ghost">⚠️ Report wrong info</button>'; }
-xd.addEventListener("click", function(e){ if (e.target.id === "reportBtn" && CUR) { window.open("https://wa.me/?text=" + encodeURIComponent("⚠️ Wrong info reported\nItem: " + CUR.name + " (" + CUR.code + ")\nIssue: "), "_blank"); return; } var b = e.target.closest("[data-id]"); if (b) { var q = findProduct(b.getAttribute("data-id")); if (q) renderHero(q, true); } });
+  var hm = sim.length ? '<div class="xh">Similar items</div>' + chips(sim) : "";
+  xd.innerHTML = h; xm.innerHTML = hm + '<button type="button" id="reportBtn" class="btn btn--ghost">⚠️ Report wrong info</button>'; }
+var xclick = function(e){ if (e.target.id === "reportBtn" && CUR) { window.open("https://wa.me/?text=" + encodeURIComponent("⚠️ Wrong info reported\nItem: " + CUR.name + " (" + CUR.code + ")\nIssue: "), "_blank"); return; } var b = e.target.closest("[data-id]"); if (b) { var q = findProduct(b.getAttribute("data-id")); if (q) renderHero(q, true); } };
+xd.addEventListener("click", xclick); xm.addEventListener("click", xclick);
 var _rx = renderHero; renderHero = function(p, f){ _rx(p, f); renderX(p); };
 /* v2.26: stock badges, pick list, back-to-list, zoom, view modes */
 var _rh = renderHero; renderHero = function(p, f){ CUR = p; _rh(p, f); showStock(); };
@@ -867,6 +892,26 @@ lb.onclick = function(){ lb.classList.remove("open"); };
 ["listview", "godown"].forEach(function(k){ var el = document.getElementById(k + "Toggle"), key = "rfl-" + k; function ap(on){ document.body.classList.toggle(k, on); el.checked = on; } try { ap(localStorage.getItem(key) === "1"); } catch (e) {} el.addEventListener("change", function(){ ap(el.checked); try { localStorage.setItem(key, el.checked ? "1" : "0"); } catch (e) {} }); });
 document.getElementById("missBtn").onclick = function(){ if (!MISS.length) { toast("No missed searches yet"); return; } try { navigator.clipboard.writeText(MISS.join("\n")); } catch (e) {} toast(MISS.length + " missed searches copied"); };
 try { if (localStorage.getItem("rfl-halka") === null && ((navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4))) applyLite(true); } catch (e) {}
+/* v2.30: showroom turntable + tidy hero */
+var stage = document.getElementById("stage"), turn = document.getElementById("turn"), heroImgB = document.getElementById("heroImgB");
+heroImg.addEventListener("load", function(){ heroImgB.src = heroImg.currentSrc || heroImg.src; });
+var rot = -28, vel = 0, drag = false, lastX = 0, moved = 0, idle = 0, vis = true, calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function tick(){ if (vis && !document.hidden) { if (!drag) { if (Math.abs(vel) > 0.05) { rot += vel; vel *= 0.94; } else if (!calm && !document.body.classList.contains("lite") && Date.now() - idle > 2200) rot += 0.4; } turn.style.transform = "rotateX(-7deg) rotateY(" + rot + "deg)"; } requestAnimationFrame(tick); }
+tick();
+if (window.IntersectionObserver) new IntersectionObserver(function(en){ vis = en[0].isIntersecting; }).observe(stage);
+stage.addEventListener("pointerdown", function(e){ drag = true; lastX = e.clientX; moved = 0; vel = 0; try { stage.setPointerCapture(e.pointerId); } catch (x) {} });
+stage.addEventListener("pointermove", function(e){ if (!drag) return; var dx = e.clientX - lastX; lastX = e.clientX; moved += Math.abs(dx); rot += dx * 0.8; vel = dx * 0.8; });
+function stageUp(){ if (!drag) return; drag = false; idle = Date.now(); if (moved < 6) heroImg.click(); }
+stage.addEventListener("pointerup", stageUp); stage.addEventListener("pointercancel", function(){ drag = false; idle = Date.now(); });
+var more = document.createElement("div"); more.id = "morePanel"; more.hidden = true;
+var mb = document.createElement("button"); mb.id = "moreBtn"; mb.type = "button"; mb.className = "btn btn--ghost"; mb.textContent = "⋯ More options";
+document.querySelector(".mgr").insertAdjacentElement("afterend", mb); mb.insertAdjacentElement("afterend", more);
+var mg = document.createElement("div"); mg.className = "hero__btns";
+["saveBtn", "compareBtn", "cardBtn"].forEach(function(id){ mg.appendChild(document.getElementById(id)); });
+more.appendChild(mg); more.appendChild(sr); more.appendChild(xm); more.appendChild(document.getElementById("toolsBtn")); more.appendChild(document.getElementById("toolsPanel"));
+mb.onclick = function(){ more.hidden = !more.hidden; mb.textContent = more.hidden ? "⋯ More options" : "▲ Fewer options"; };
+var fs = document.createElement("button"); fs.type = "button"; fs.textContent = "⇅ Sort & A–Z"; vt.insertBefore(fs, vt.firstChild);
+fs.onclick = function(){ vt.classList.toggle("open"); };
 var inputTimer = null;
 qEl.addEventListener("input", function(){ if (inputTimer) clearTimeout(inputTimer); inputTimer = setTimeout(function(){ exitLive(); shown = PAGE; renderGrid(); saveRecent(qEl.value); if ((qEl.value || "").trim().length >= 2 && !favOnly) liveSearch(); }, 180); });
 moreBtn.addEventListener("click", function(){ shown += PAGE; renderGrid(); });
@@ -1252,7 +1297,7 @@ document.getElementById("sizeChips").addEventListener("click", function(e){
 (function(){
   var hero = document.getElementById("hero");
   var sx = null;
-  hero.addEventListener("pointerdown", function(e){ sx = e.target.closest("button,a,input,table,.mgr__out,.note") ? null : e.clientX; });
+  hero.addEventListener("pointerdown", function(e){ sx = e.target.closest("button,a,input,table,.mgr__out,.note,#stage") ? null : e.clientX; });
   hero.addEventListener("pointercancel", function(){ sx = null; });
   hero.addEventListener("pointerup", function(e){
     if (sx == null) return;
