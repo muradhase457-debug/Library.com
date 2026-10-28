@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="RFL-er sokol product ek jaygay — nam ba code likhe khujun, chobi-soho details dekhun. Personal reference, bikri noy.">
-<title>RFL — Sob Product</title>
-<!-- RFL Catalog v2.20.0 — Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ece9f8">
+<meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
+<title>RFL — All Products</title>
+<!-- RFL Catalog v2.26.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style>
-/* =============================================================
-   RFL Catalog — Claymorphism (screenshot-er moto norom clay look)
-   Screenshot-er style: halka lavender background, norom gol card,
-   puffy clay shadow, purple accent, sob control alada alada.
-   HTML/JS ager v2.5 SPORTECH structure-i (topbar/hero/categories/
-   chips/grid/tabbar) — sudhu style bodleche.
-   ============================================================= */
+/* RFL Catalog v2.25 — premium clay UI (day + night) */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -150,13 +146,13 @@ button{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:poin
 .settings-panel .btn{display:flex;width:100%;justify-content:center;margin-bottom:8px}
 .switch-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 4px 2px;font-size:14px;font-weight:600}
 .switch-row input{width:22px;height:22px;accent-color:var(--brand)}
-.settings-ver{margin-top:10px;text-align:center;font-size:12px;color:var(--muted)}
+.settings-ver{margin-top:10px;text-align:center;font-size:12px;opacity:.9}
 #settingsBtn{font-size:20px}
-body.halka .hero,body.halka .hero__img,body.halka .hero__sheen{animation:none!important}
-body.halka .hero__glare{display:none}
-body.halka .hero__img{transform:rotate(-6deg)}
-body.halka .hero{box-shadow:0 6px 16px rgba(124,108,240,.15)}
-body.halka .product-card{box-shadow:0 3px 8px rgba(124,108,240,.10)}
+body.lite .hero,body.lite .hero__img,body.lite .hero__sheen{animation:none!important}
+body.lite .hero__glare{display:none}
+body.lite .hero__img{transform:rotate(-6deg)}
+body.lite .hero{box-shadow:0 6px 16px rgba(124,108,240,.15)}
+body.lite .product-card{box-shadow:0 3px 8px rgba(124,108,240,.10)}
 
 /* ---------- Small phones + reduced motion ---------- */
 @media (max-width:360px){
@@ -191,7 +187,7 @@ body.halka .product-card{box-shadow:0 3px 8px rgba(124,108,240,.10)}
 .mgr__out th{background:#efeefb;text-align:left;padding:6px}
 .mgr__out td{padding:6px;border-bottom:1px solid #eee}
 
-/* ---------- Catalog-er jonno jog kora ---------- */
+/* ---------- Catalog additions ---------- */
 .searchbar{padding:2px var(--gutter) 12px}
 .searchbar input{width:100%;padding:13px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.9);background:var(--surface);font:inherit;font-size:15px;outline:none;color:var(--ink);box-shadow:inset 4px 4px 10px rgba(124,108,240,.10),inset -4px -4px 10px #fff,6px 6px 14px rgba(124,108,240,.10)}
 .searchbar input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-50)}
@@ -228,6 +224,199 @@ body.dark .searchbar input,body.dark .note input,body.dark .mgr input{background
 
 @keyframes loaderHide{to{opacity:0;visibility:hidden}}
 </style>
+<style id="clay-v222">
+/* ---------- v2.22 Deep 3D clay (puffy, glossy) ---------- */
+:root{--bg:#e6e3f2;--surface:#f4f2fc;--ink:#1f1c38;--muted:#857fa3;--brand:#8c7af2;--brand-50:#e4defd;--brand-700:#6652e0;--r-sm:22px;--r-lg:32px;--r-xl:40px}
+body{--hi:#fff;--lo:rgba(120,104,214,.22);--drop:rgba(96,80,196,.30);--glow:rgba(255,255,255,.95);--gloss:rgba(255,255,255,.7);
+  --clay:16px 20px 36px var(--drop),-10px -10px 24px var(--glow),inset 7px 7px 14px var(--hi),inset -9px -11px 20px var(--lo);
+  --clay-sm:8px 10px 20px var(--drop),-6px -6px 14px var(--glow),inset 4px 4px 9px var(--hi),inset -5px -6px 11px var(--lo);
+  --clay-in:inset 7px 7px 15px rgba(96,80,196,.22),inset -7px -7px 15px rgba(255,255,255,.95);
+  --clay-brand:0 12px 22px rgba(102,82,224,.42),inset 5px 5px 10px rgba(255,255,255,.55),inset -6px -8px 14px rgba(60,40,180,.42);
+  --pop:linear-gradient(160deg,var(--gloss),transparent 46%),var(--surface);
+  --grad:radial-gradient(circle at 28% 20%,rgba(255,255,255,.6),transparent 48%),linear-gradient(145deg,#b3a6ff,#7561ec);
+  --shadow-card:var(--clay);--shadow-float:var(--clay)}
+body.dark{--hi:rgba(255,255,255,.1);--lo:rgba(0,0,0,.42);--drop:rgba(0,0,0,.6);--glow:rgba(255,255,255,.05);--gloss:rgba(255,255,255,.07);--clay-in:inset 7px 7px 15px rgba(0,0,0,.5),inset -6px -6px 14px rgba(255,255,255,.05)}
+.app{background:radial-gradient(70% 26% at 50% -2%,#fff,transparent 72%),radial-gradient(55% 22% at 94% 9%,#ffe3d8,transparent 70%),radial-gradient(50% 26% at 2% 58%,#d6e4ff,transparent 70%),var(--bg)}
+.logo{font-size:27px;text-shadow:0 2px 0 var(--glow),0 8px 12px var(--drop)}
+.icon-btn{width:46px;height:46px}
+.icon-btn,.mini-btn,.chip,.btn--ghost,.liveoff{background:var(--pop);box-shadow:var(--clay-sm)}
+.icon-btn:hover{background:var(--pop)}
+.icon-btn:active,.mini-btn:active,.chip:active,.btn--ghost:active{box-shadow:var(--clay-in);transform:scale(.94)}
+.hero{border:0;border-radius:var(--r-xl);color:#fff;background:radial-gradient(75% 60% at 16% 6%,rgba(255,255,255,.6),transparent 62%),radial-gradient(70% 80% at 104% 110%,rgba(52,32,176,.45) 0 42%,transparent 43%),linear-gradient(150deg,#c2b7ff,#8f7cf4 52%,#6c57e6);box-shadow:0 24px 40px rgba(102,82,224,.45),inset 9px 9px 18px rgba(255,255,255,.6),inset -11px -15px 26px rgba(52,32,176,.4)}
+.hero__title,.hero__text{color:#fff;text-shadow:0 2px 8px rgba(52,32,176,.4)}
+.hero__text{color:rgba(255,255,255,.93)}
+.hero__title .is-accent{color:#fff3bf}
+.hero__tag{color:var(--brand-700);background:rgba(255,255,255,.92)}
+.hero__img{border-radius:34px;box-shadow:var(--clay)}
+.dots__dot{background:#cfc8f3;box-shadow:inset 1px 1px 2px rgba(0,0,0,.12),1px 1px 2px #fff}
+.dots__dot.is-active{background:var(--grad);box-shadow:0 4px 8px rgba(102,82,224,.5)}
+.category{font-weight:600}
+.category__icon{width:68px;height:68px;box-shadow:var(--clay-sm)}
+.category:nth-child(n) .category__icon{background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.95),rgba(255,255,255,0) 48%)}
+.category.is-active .category__icon{background:var(--grad);color:#fff;border-radius:26px;box-shadow:var(--clay-brand)}
+.chip{padding:11px 20px;font-weight:600}
+.chip.is-active,.more-wrap .chip,.btn--primary,.livebtn,.cart-add{background:var(--grad);color:#fff;box-shadow:var(--clay-brand)}
+.cart-add{width:44px;height:44px;border-radius:17px}
+.cart-add:hover{background:var(--grad)}
+.btn--primary:active,.livebtn:active,.cart-add:active,.chip.is-active:active,.more-wrap .chip:active{box-shadow:inset 5px 5px 12px rgba(52,32,176,.5),inset -4px -4px 10px rgba(255,255,255,.3);transform:scale(.95)}
+.tag{border-radius:13px;box-shadow:0 5px 10px rgba(96,80,196,.25),inset 2px 2px 4px rgba(255,255,255,.7)}
+.tag--sale,.tag--live{background:var(--grad);box-shadow:0 5px 10px rgba(102,82,224,.4),inset 2px 2px 4px rgba(255,255,255,.5)}
+.tag--new{background:linear-gradient(145deg,#4b4670,#25223d)}
+.badge{background:var(--grad);box-shadow:0 0 0 2px var(--bg),0 4px 8px rgba(102,82,224,.45)}
+.searchbar input,.note input,.mgr input{border:0;border-radius:26px;background:var(--surface);box-shadow:var(--clay-in)}
+.searchbar input{padding:15px 22px}
+.note input,.mgr input{padding:12px 18px}
+.searchbar input:focus,.note input:focus,.mgr input:focus{box-shadow:var(--clay-in),0 0 0 3px var(--brand-50)}
+.products{gap:22px 16px;padding-bottom:30px}
+.product-card{padding:14px;border:0;border-radius:var(--r-lg);background:var(--pop);box-shadow:var(--clay)}
+.product-card:active{transform:scale(.97);box-shadow:var(--clay-in)}
+.product-card__media{margin:22px 0 8px;border-radius:26px;box-shadow:var(--clay-in)}
+.product-card__media img{filter:drop-shadow(5px 9px 8px rgba(96,80,196,.3))}
+body.lite .product-card__media img{filter:none}
+.product-card__title{font-weight:800}
+.media-letter{border-radius:26px;box-shadow:var(--clay-in)}
+.settings-panel{border:0;background:var(--pop);box-shadow:var(--clay)}
+</style>
+<style id="clay-v223">
+/* ---------- v2.23 Animated 3D clay: bouncy, floating, tilting ---------- */
+body{--spec:rgba(255,255,255,.6);--spring:cubic-bezier(.34,1.56,.64,1)}
+body.dark{--spec:rgba(255,255,255,.12)}
+.app{position:relative;isolation:isolate;padding-bottom:104px}
+@keyframes floaty{0%,100%{transform:perspective(700px) rotate(-6deg) rotateY(-12deg) translateY(0)}50%{transform:perspective(700px) rotate(-3deg) rotateY(12deg) translateY(-13px)}}
+.category__icon{animation:bob 4.6s ease-in-out infinite;transition:transform .35s var(--spring),box-shadow .25s}
+.category:nth-child(2n) .category__icon{animation-delay:-1.5s}
+.category:nth-child(3n) .category__icon{animation-delay:-3s}
+@keyframes bob{50%{translate:0 -5px}}
+.icon-btn,.mini-btn,.chip,.btn,.cart-add{transition:transform .35s var(--spring),box-shadow .25s,background .2s}
+@media(hover:hover){.icon-btn:hover,.chip:hover,.btn:hover,.category:hover .category__icon{transform:translateY(-3px)}}
+.btn--primary,.livebtn{position:relative;overflow:hidden}
+.btn--primary::after,.livebtn::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-120%);animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,62%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.product-card{position:relative;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .45s var(--spring),box-shadow .3s;animation:clayIn .55s var(--spring) backwards}
+.product-card:nth-child(2){animation-delay:.06s}.product-card:nth-child(3){animation-delay:.12s}.product-card:nth-child(4){animation-delay:.18s}.product-card:nth-child(n+5){animation-delay:.22s}
+@keyframes clayIn{from{opacity:0;translate:0 24px;scale:.9}}
+.product-card.is-tilt{will-change:transform}
+.product-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(170px circle at var(--mx,30%) var(--my,10%),var(--spec),transparent 65%)}
+.product-card.is-tilt::after{opacity:1}
+.product-card:active{transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(.96)}
+body.lite .product-card{animation:none}
+.loader:not(.hide)~.app :is(.hero__tilt,.categories,.product-card),.loader:not(.hide)~.cnav{animation-play-state:paused}
+.cnav{position:fixed;left:50%;bottom:14px;z-index:40;display:flex;gap:6px;width:min(380px,calc(100% - 28px));padding:8px;border-radius:34px;background:var(--pop);box-shadow:var(--clay);transform:translateX(-50%);animation:navUp .7s .4s var(--spring) backwards}
+@keyframes navUp{from{opacity:0;translate:0 60px}}
+body.lite .cnav{animation:none}
+.cnav button{flex:1;display:grid;justify-items:center;gap:3px;padding:9px 0 7px;border:0;border-radius:26px;background:none;color:var(--muted);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .35s var(--spring),box-shadow .25s}
+.cnav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cnav button.on{color:#fff;background:var(--grad);box-shadow:var(--clay-brand)}
+.cnav button:active{transform:scale(.92)}
+</style>
+<style id="clay-v224">
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap");
+/* ---------- v2.24 Creative clay: rounded type, colour tiles, staggered showcase ---------- */
+body{--display:'Fredoka','Inter',system-ui,sans-serif}
+.logo,.hero__title,.hero__tag,.category,.chip,.btn,.tag,.price,.product-card__title,.cnav button{font-family:var(--display)}
+.logo,.hero__title{font-weight:700;letter-spacing:0}
+.hero{background:radial-gradient(rgba(255,255,255,.24) 1.4px,transparent 1.7px) 0 0/16px 16px,radial-gradient(75% 60% at 16% 6%,rgba(255,255,255,.6),transparent 62%),radial-gradient(70% 80% at 104% 110%,rgba(52,32,176,.45) 0 42%,transparent 43%),linear-gradient(150deg,#c2b7ff,#8f7cf4 52%,#6c57e6)}
+.category{--c1:#d9d0ff;--c2:#a798f7;--sh:rgba(124,108,240,.45)}
+.category:nth-child(2){--c1:#cfe3ff;--c2:#8db6f2;--sh:rgba(80,130,220,.42)}
+.category:nth-child(3){--c1:#ffd9c9;--c2:#f4a58e;--sh:rgba(230,120,90,.4)}
+.category:nth-child(4){--c1:#c9f2de;--c2:#7fd3ad;--sh:rgba(60,170,120,.4)}
+.category:nth-child(5){--c1:#ffd2e2;--c2:#f08fb4;--sh:rgba(220,90,140,.4)}
+.category:nth-child(6){--c1:#fff0b3;--c2:#f5c85a;--sh:rgba(220,170,40,.42)}
+.category:nth-child(7){--c1:#cdeeff;--c2:#7cc6ea;--sh:rgba(60,150,200,.4)}
+.category:nth-child(8){--c1:#ead9ff;--c2:#b78cf2;--sh:rgba(150,100,230,.42)}
+.category:nth-child(n) .category__icon{width:64px;height:64px;border-radius:24px;background:radial-gradient(circle at 30% 18%,rgba(255,255,255,.9),rgba(255,255,255,0) 46%),linear-gradient(145deg,var(--c1),var(--c2));box-shadow:0 12px 20px var(--sh),inset 4px 4px 8px rgba(255,255,255,.7),inset -5px -7px 12px rgba(0,0,0,.1)}
+.category.is-active .category__icon{background:var(--grad);color:#fff;border-radius:24px;box-shadow:var(--clay-brand)}
+.category{font-weight:600;font-size:12.5px}
+.products{padding-bottom:56px}
+.product-card:nth-child(even){top:26px}
+.product-card:nth-child(n) .product-card__media{background-image:radial-gradient(circle at 50% 36%,rgba(255,255,255,.95),rgba(255,255,255,0) 64%)}
+body.dark .product-card:nth-child(n) .product-card__media{background-image:radial-gradient(circle at 50% 36%,rgba(255,255,255,.14),transparent 64%)}
+.product-card__title{font-weight:600;font-size:15px}
+.price{display:inline-block;padding:5px 12px;border-radius:14px;font-size:17px;font-weight:700;letter-spacing:0;box-shadow:var(--clay-in)}
+.tag{transform:rotate(-5deg);transform-origin:left top;padding:6px 11px}
+.wish-btn{width:34px;height:34px;border-radius:13px;background:var(--pop);box-shadow:var(--clay-sm)}
+.wish-btn.is-active{color:#ef5b8b}
+</style>
+<style id="premium-v225">
+/* ---------- v2.25 Premium 3D clay: clear day + night ---------- */
+body{--bg:#e8e4f7;--surface:#f7f5ff;--ink:#17142e;--muted:#58527d;--chip-ink:#3b3563;--brand:#7a66f0;--brand-700:#5a45d8;--brand-50:#e3ddff;--hi:#fff;--lo:rgba(110,92,205,.26);--drop:rgba(80,62,180,.34);--glow:rgba(255,255,255,.95);--gloss:rgba(255,255,255,.8);--spec:rgba(255,255,255,.7);
+--clay:18px 24px 44px var(--drop),-12px -12px 28px var(--glow),inset 8px 8px 16px var(--hi),inset -10px -12px 22px var(--lo);
+--clay-sm:9px 12px 22px var(--drop),-7px -7px 16px var(--glow),inset 4px 4px 9px var(--hi),inset -5px -6px 12px var(--lo);
+--clay-in:inset 8px 8px 16px rgba(80,62,180,.26),inset -8px -8px 16px rgba(255,255,255,.95);
+--grad:radial-gradient(circle at 26% 18%,rgba(255,255,255,.7),transparent 46%),linear-gradient(145deg,#b9acff,#7a66f0 55%,#5a45d8);
+--page:radial-gradient(60% 34% at 12% 0,#fff,transparent 70%),radial-gradient(50% 30% at 100% 8%,#ffd9cc,transparent 70%),radial-gradient(60% 34% at 0 62%,#cfe0ff,transparent 70%),linear-gradient(#e8e4f7,#e2def3)}
+body.dark{color-scheme:dark;--bg:#0f0d22;--surface:#201c40;--ink:#fff;--muted:#d3cef5;--chip-ink:#ece9ff;--brand:#9a8aff;--brand-700:#c9c0ff;--brand-50:#2c2760;--hi:rgba(255,255,255,.14);--lo:rgba(0,0,0,.5);--drop:rgba(0,0,0,.65);--glow:rgba(255,255,255,.05);--gloss:rgba(255,255,255,.09);--spec:rgba(255,255,255,.2);
+--clay-in:inset 8px 8px 16px rgba(0,0,0,.55),inset -6px -6px 14px rgba(255,255,255,.06);
+--grad:radial-gradient(circle at 26% 18%,rgba(255,255,255,.45),transparent 46%),linear-gradient(145deg,#a99bff,#6e58ee 55%,#4a35c4);
+--page:radial-gradient(60% 34% at 12% 0,#2f2770,transparent 70%),radial-gradient(50% 30% at 100% 8%,#4a2a55,transparent 70%),radial-gradient(60% 34% at 0 62%,#173a66,transparent 70%),linear-gradient(#120f2b,#0c0a1d)}
+html{background:var(--bg)}
+body{background:var(--page) fixed no-repeat;color:var(--ink)}
+.app,body.dark .app{background:none}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+#themeBtn .i-sun,body.dark #themeBtn .i-moon{display:none}
+body.dark #themeBtn .i-sun{display:block}
+#themeBtn{color:var(--brand-700)}
+.hero{animation:none;touch-action:pan-y;box-shadow:0 30px 50px rgba(70,50,190,.45),inset 10px 10px 20px rgba(255,255,255,.55),inset -12px -16px 28px rgba(40,24,150,.45)}
+body.dark .hero{background:radial-gradient(rgba(255,255,255,.1) 1.4px,transparent 1.7px) 0 0/16px 16px,radial-gradient(70% 55% at 14% 4%,rgba(168,148,255,.38),transparent 62%),radial-gradient(70% 80% at 104% 110%,rgba(20,10,90,.7) 0 42%,transparent 43%),linear-gradient(150deg,#3a2f8a,#2a2262 55%,#1a1540);box-shadow:0 30px 56px rgba(0,0,0,.65),inset 8px 8px 18px rgba(255,255,255,.12),inset -10px -14px 26px rgba(0,0,0,.5)}
+.hero__title,.hero__text,.hero .mgr__out,.hero .mgr__out *{color:#fff}
+.hero .note__saved{color:rgba(255,255,255,.92)}
+.hero__img{box-shadow:var(--clay),0 40px 40px -22px rgba(30,15,120,.6)}
+.hero__btns .btn--ghost,.hero .btn--ghost{color:var(--ink)}
+.mgr__out th{background:rgba(255,255,255,.2);color:#fff}
+.mgr__out td{border-bottom:1px solid rgba(255,255,255,.28)}
+.mgr__out hr{border:0;border-top:1px solid rgba(255,255,255,.3)}
+input::placeholder{color:var(--muted);opacity:.9}
+.searchbar input,.note input,.mgr input{color:var(--ink)}
+.chip{color:var(--chip-ink)}
+.chip.is-active,.more-wrap .chip{color:#fff;text-shadow:0 1px 2px rgba(40,24,150,.5)}
+.statusline,.livenote,.rating,.product-card__sub,.settings-ver,.hero__tag{color:var(--muted)}
+.hero__tag{color:#5a45d8}
+.category{color:var(--ink)}
+.category__icon{color:#2a2358}
+.category.is-active .category__icon{color:#fff}
+.price{color:var(--ink)}
+.settings-panel,.liveoff{color:var(--ink)}
+.dots__dot{background:#c3bbee}
+body.dark .dots__dot{background:#4a4380}
+body.dark .tag--new{background:linear-gradient(145deg,#7a6cff,#4a35c4)}
+.product-card{content-visibility:visible;transform-style:preserve-3d;box-shadow:var(--clay)}
+.product-card__media{position:relative;transform:translateZ(26px);box-shadow:var(--clay-in)}
+.product-card__media::before{content:"";position:absolute;left:20%;right:20%;bottom:8%;height:12px;border-radius:50%;background:radial-gradient(rgba(40,24,150,.4),transparent 70%);filter:blur(3px)}
+.product-card__media img,.product-card__media .media-letter{position:relative;z-index:1}
+.product-card__title,.product-card__row{transform:translateZ(16px)}
+.cnav{bottom:calc(14px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5)}
+.cnav button{color:var(--muted)}.cnav button.on{color:#fff}
+.scan-modal{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.cmp-card{width:min(92vw,430px);padding:18px;border-radius:28px;text-align:left;color:var(--ink);background:var(--pop);box-shadow:var(--clay)}
+.cmp-card th{color:var(--muted);text-align:left;padding:6px}
+.cmp-card td{padding:7px 6px;border-bottom:1px solid var(--lo)}
+body.lite .product-card{transform-style:flat}
+body.lite :is(.product-card__media,.product-card__title,.product-card__row){transform:none}
+body.lite :is(.hero__img,.category__icon){animation:none}
+</style>
+<style id="v226">
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:80;box-shadow:var(--clay-sm)}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.vchips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 2px;transform:translateZ(16px)}
+.vchip{border:0;border-radius:999px;padding:5px 10px;font-weight:700;font-size:12px;color:var(--chip-ink);background:var(--surface);box-shadow:var(--clay-sm);cursor:pointer}
+.stockrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;color:#fff;font-weight:700;font-size:13px}
+.stockrow #stockTxt{flex:1 1 100%}
+.stockrow button,.pkrow button{border:0;border-radius:12px;min-width:38px;height:34px;padding:0 10px;background:var(--surface);color:var(--ink);box-shadow:var(--clay-sm);font-weight:800}
+#pickFab,#backFab{position:fixed;z-index:60;display:none;align-items:center;gap:6px;border:0;border-radius:999px;padding:12px 16px;font-weight:800;color:#fff;background:var(--grad);box-shadow:var(--clay-sm);bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+#pickFab{right:14px}#backFab{left:14px}
+.pkrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--lo)}
+.pkrow small{color:var(--muted)}.pkrow b{margin:0 8px}
+#lightbox{position:fixed;inset:0;z-index:90;display:none;background:rgba(8,6,24,.92);overflow:auto;touch-action:pinch-zoom pan-x pan-y;place-items:center}
+#lightbox.open{display:grid}#lightbox img{max-width:100%;max-height:100%;border-radius:18px}
+.hero__img{cursor:zoom-in}
+body.listview :is(div,section):has(>.product-card){grid-template-columns:1fr!important}
+body.listview .product-card{display:grid;grid-template-columns:84px 1fr;gap:4px 12px;top:0!important;padding:10px;text-align:left}
+body.listview .product-card__media{grid-row:1/5;height:84px;transform:none}
+body.godown{--muted:var(--ink)}
+body.godown .btn,body.godown .cmp-card button{min-height:54px;font-size:16px}
+body.godown .product-card__title{font-size:17px}
+body.godown input{font-size:18px}
+</style>
 </head>
 <body>
 <div class="loader" id="loader">
@@ -238,29 +427,33 @@ body.dark .searchbar input,body.dark .note input,body.dark .mgr input{background
   var done = false;
   function hide(){ if (done) return; done = true; l.classList.add("hide"); setTimeout(function(){ if (l.parentNode) l.parentNode.removeChild(l); }, 700); }
   var v = document.getElementById("loaderVideo");
-  if (v){ v.addEventListener("ended", hide); v.addEventListener("error", hide); }
+  if (v){ v.addEventListener("ended", hide); v.addEventListener("error", hide); var pp = v.play && v.play(); if (pp && pp.catch) pp.catch(hide); }
   setTimeout(hide, 12000);
   l.addEventListener("click", hide);
 })();
 </script>
 <div class="app">
   <header class="topbar">
-    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Sob product dekhun"><span></span><span></span><span></span></button>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Show all products"><span></span><span></span><span></span></button>
     <div class="logo">RF<span>L</span></div>
     <div class="topbar__actions">
-      <button class="icon-btn" id="searchBtn" type="button" aria-label="Khujun"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <button class="icon-btn" id="searchBtn" type="button" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch to night mode" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24"><path d="M21 13.5A8.5 8.5 0 1110.5 3a7 7 0 0010.5 10.5z"/></svg><svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
       <button class="icon-btn" id="settingsBtn" type="button" aria-label="Settings">⚙️</button>
     </div>
   </header>
 
   <div class="settings-panel" id="settingsPanel" hidden>
-    <button class="btn btn--ghost" id="tabHome" type="button">🏠 Home (upore jan)</button>
-    <button class="btn btn--ghost" id="tabSearch" type="button">🔍 Khujun</button>
-    <button class="btn btn--ghost" id="tabAll" type="button">▦ Sob product</button>
+    <button class="btn btn--ghost" id="tabHome" type="button">🏠 Home (scroll to top)</button>
+    <button class="btn btn--ghost" id="tabSearch" type="button">🔍 Search</button>
+    <button class="btn btn--ghost" id="tabAll" type="button">▦ All products</button>
     <a class="btn btn--ghost" href="https://rflhouseware.com/" target="_blank" rel="noopener">🔗 RFL Site</a>
-    <label class="switch-row"><span>Halka mode (animation kom)</span><input type="checkbox" id="halkaToggle"></label>
-    <label class="switch-row"><span>🌙 Dark mode</span><input type="checkbox" id="darkToggle"></label>
-    <div class="settings-ver">Version 2.20.0</div>
+    <label class="switch-row"><span>Lite mode (fewer animations)</span><input type="checkbox" id="liteToggle"></label>
+    <label class="switch-row"><span>🌙 Night mode</span><input type="checkbox" id="darkToggle"></label>
+    <label class="switch-row"><span>Compact list view</span><input type="checkbox" id="listviewToggle"></label>
+    <label class="switch-row"><span>Godown mode (big buttons)</span><input type="checkbox" id="godownToggle"></label>
+    <button class="btn btn--ghost" id="missBtn" type="button">🔎 Copy missed searches</button>
+    <div class="settings-ver">Version 2.26.0</div>
   </div>
 
   <section class="hero" id="hero">
@@ -271,11 +464,11 @@ body.dark .searchbar input,body.dark .note input,body.dark .mgr input{background
       <p class="hero__text" id="heroText"></p>
       <div class="hero__tag" id="heroTag"></div>
       <div class="hero__btns">
-        <button class="btn btn--ghost" id="copyBtn" type="button">CODE COPY</button><button class="btn btn--ghost" id="favBtn" type="button">🤍 Priyo</button><button class="btn btn--ghost" id="shareBtn" type="button">WhatsApp</button><button class="btn btn--ghost" id="saveBtn" type="button">💾 Save korun</button><button class="btn btn--ghost" id="compareBtn" type="button">⚖️ Tulona korun</button><button class="btn btn--ghost" id="cardBtn" type="button">🖼️ Share card</button>
+        <button class="btn btn--ghost" id="copyBtn" type="button">CODE COPY</button><button class="btn btn--ghost" id="favBtn" type="button">🤍 Favorite</button><button class="btn btn--ghost" id="shareBtn" type="button">WhatsApp</button><button class="btn btn--ghost" id="saveBtn" type="button">💾 Save</button><button class="btn btn--ghost" id="compareBtn" type="button">⚖️ Compare</button><button class="btn btn--ghost" id="cardBtn" type="button">🖼️ Share card</button>
       </div>
-      <div class="mgr"><button class="btn btn--ghost" id="mgrBtn" type="button">Tap to Details</button><div id="mgrPinWrap" hidden><input id="mgrPin" type="password" inputmode="numeric" placeholder="Manager code din"><button class="btn btn--primary" id="mgrPinBtn" type="button">Dekhun</button></div><div class="mgr__out" id="mgrOut"></div></div>
-      <button class="btn btn--ghost" id="toolsBtn" type="button" style="width:100%;justify-content:center;margin-top:10px">🧰 Note o carton tools</button>
-      <div class="note" id="toolsPanel" hidden><input id="noteInput" type="text" placeholder="Ei product-er note (rack/shelf) likhun" autocomplete="off"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="noteSaveBtn" type="button">Note save korun</button></div><div class="note__saved" id="noteSaved"></div><input id="cartonCodeInput" type="text" inputmode="numeric" placeholder="Carton code likhun" autocomplete="off" style="margin-top:10px"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="byCartonBtn" type="button">Carton code diye khujun</button></div><div class="note__saved" id="byCartonOut"></div></div>
+      <div class="mgr"><button class="btn btn--ghost" id="mgrBtn" type="button">Tap to Details</button><div id="mgrPinWrap" hidden><input id="mgrPin" type="password" inputmode="numeric" placeholder="Enter manager code"><button class="btn btn--primary" id="mgrPinBtn" type="button">View</button></div><div class="mgr__out" id="mgrOut"></div></div>
+      <button class="btn btn--ghost" id="toolsBtn" type="button" style="width:100%;justify-content:center;margin-top:10px">🧰 Notes and carton tools</button>
+      <div class="note" id="toolsPanel" hidden><input id="noteInput" type="text" placeholder="Note for this product (rack / shelf)" autocomplete="off"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="noteSaveBtn" type="button">Save note</button></div><div class="note__saved" id="noteSaved"></div><input id="cartonCodeInput" type="text" inputmode="numeric" placeholder="Enter carton code" autocomplete="off" style="margin-top:10px"><div style="display:flex;gap:10px;margin-top:8px"><button class="btn btn--ghost" id="byCartonBtn" type="button">Search by carton code</button></div><div class="note__saved" id="byCartonOut"></div></div>
     </div>
     <div class="hero__glare" id="heroGlare"></div>
     <div class="hero__sheen"></div>
@@ -284,10 +477,10 @@ body.dark .searchbar input,body.dark .note input,body.dark .mgr input{background
 
   <div class="dots" id="dots"></div>
 
-  <div class="searchbar"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Nam ba code likhun…" aria-label="Product nam ba code diye khujun"><button class="mini-btn" id="micBtn" type="button" aria-label="Voice search">🎤</button><button class="mini-btn" id="scanBtn" type="button" aria-label="Barcode scan">📷</button></div>
+  <div class="searchbar"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Type a name or code…" aria-label="Search products by name or code"><button class="mini-btn" id="micBtn" type="button" aria-label="Voice search">🎤</button><button class="mini-btn" id="scanBtn" type="button" aria-label="Barcode scan">📷</button></div>
   <div class="chips" id="recentChips"></div>
   <div class="statusline" id="status"></div>
-  <div class="livebar"><button class="liveoff" id="liveOffBtn" type="button" hidden>Live bondho korun</button><button class="liveoff" id="favFilterBtn" type="button">❤️ Priyo dekhun</button><button class="liveoff" id="savedFilterBtn" type="button">💾 Saved dekhun</button><button class="liveoff" id="histFilterBtn" type="button">🕘 History</button><span class="livenote" id="liveNote"></span></div>
+  <div class="livebar"><button class="liveoff" id="liveOffBtn" type="button" hidden>Stop live search</button><button class="liveoff" id="favFilterBtn" type="button">❤️ Favorites</button><button class="liveoff" id="savedFilterBtn" type="button">💾 Saved</button><button class="liveoff" id="histFilterBtn" type="button">🕘 History</button><span class="livenote" id="liveNote"></span></div>
 
   <div class="categories" id="cats"></div>
   <div class="chips" id="chips"></div>
@@ -295,34 +488,34 @@ body.dark .searchbar input,body.dark .note input,body.dark .mgr input{background
   <div class="statusline" id="count"></div>
 
   <div class="products" id="res"></div>
-  <div class="more-wrap"><button class="chip" id="moreBtn" type="button" hidden>Aro Product Dekhun</button></div>
+  <div class="more-wrap"><button class="chip" id="moreBtn" type="button" hidden>Show more products</button></div>
 
 </div>
 
 <div class="scan-modal" id="scanModal">
   <video id="scanVideo" playsinline muted autoplay></video>
-  <div>Barcode camera-r samne dhorun</div>
+  <div>Point the camera at a barcode</div>
   <div id="scanOut"></div>
-  <button class="btn btn--primary" id="scanCloseBtn" type="button">Bondho korun</button>
+  <button class="btn btn--primary" id="scanCloseBtn" type="button">Close</button>
 </div>
 <div class="scan-modal" id="cmpModal">
-  <div style="width:min(92vw,430px);background:#fff;color:#26233d;border-radius:20px;padding:16px;text-align:left">
-    <div style="font-weight:800;margin-bottom:10px">⚖️ Tulona</div>
+  <div class="cmp-card">
+    <div style="font-weight:800;margin-bottom:10px">⚖️ Compare</div>
     <div id="cmpBody" style="font-size:13.5px;line-height:1.7;overflow-x:auto"></div>
-    <button class="btn btn--primary" id="cmpCloseBtn" type="button" style="width:100%;justify-content:center;margin-top:12px">Bondho korun</button>
+    <button class="btn btn--primary" id="cmpCloseBtn" type="button" style="width:100%;justify-content:center;margin-top:12px">Close</button>
   </div>
 </div>
 <script>
 "use strict";
-var VERSION = "2.20.0";
-// LIVE SEARCH: Worker URL ekhanei bosano ache — ar bodlate hobe na.
+var VERSION = "2.26.0";
+// LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
 var liveCtrl = null;
 var liveProducts = [];
-/* Offline fallback: products.json na pele ei list dekhano hobe.
-   GitHub-e products.json thakle setai notun data hisebe load hobe. */
-var FALLBACK_PRODUCTS = [{"id":2235,"name":"Cherry Jug 3.5L","code":"2235","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1703333260.jpg","remote_image":"https://rflhouseware.com/uploads/1703333260.jpg","url":"https://rflhouseware.com/product_details/cherry-jug-3-5l_2235","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1703333260.jpg"],"remote_images":["https://rflhouseware.com/uploads/1703333260.jpg"],"size":"","price":""},{"id":2217,"name":"Glasco Jug 2.3L","code":"2217","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1699975000.jpg","remote_image":"https://rflhouseware.com/uploads/1699975000.jpg","url":"https://rflhouseware.com/product_details/glasco-jug-2-3l_2217","capacity":"2.3 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1699975000.jpg"],"remote_images":["https://rflhouseware.com/uploads/1699975000.jpg"],"size":"","price":""},{"id":2361,"name":"Heater Jug 1.8L","code":"2361","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059233.png","remote_image":"https://rflhouseware.com/uploads/1729059233.png","url":"https://rflhouseware.com/product_details/heater-jug-1-8l_2361","capacity":"1.8 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729059233.png"],"remote_images":["https://rflhouseware.com/uploads/1729059233.png"],"size":"","price":""},{"id":2360,"name":"Heater Jug 1L","code":"2360","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059557.png","remote_image":"https://rflhouseware.com/uploads/1729059557.png","url":"https://rflhouseware.com/product_details/heater-jug-1l_2360","capacity":"1 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729059557.png"],"remote_images":["https://rflhouseware.com/uploads/1729059557.png"],"size":"","price":""},{"id":2188,"name":"Lily Jug 1.9L - Trans Rose","code":"2188","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692009188.png","remote_image":"https://rflhouseware.com/uploads/1692009188.png","url":"https://rflhouseware.com/product_details/lily-jug-1-9l-trans-rose_2188","capacity":"1.9 L","variant":"Trans Rose","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1692009188.png"],"remote_images":["https://rflhouseware.com/uploads/1692009188.png"],"size":"","price":""},{"id":2239,"name":"Lotus Jug 2.5L","code":"2239","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729052485.jpeg","remote_image":"https://rflhouseware.com/uploads/1729052485.jpeg","url":"https://rflhouseware.com/product_details/lotus-jug-2-5l_2239","capacity":"2.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729052485.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729052485.jpeg"],"size":"","price":""},{"id":2442,"name":"Princes Jug 1.6L","code":"2442","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1773554120.jpg","remote_image":"https://rflhouseware.com/uploads/1773554120.jpg","url":"https://rflhouseware.com/product_details/princes-jug-1-6l_2442","capacity":"1.6 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1773554120.jpg"],"remote_images":["https://rflhouseware.com/uploads/1773554120.jpg"],"size":"","price":""},{"id":2454,"name":"Spring Jug 2.2L","code":"2454","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1782888171.jpg","remote_image":"https://rflhouseware.com/uploads/1782888171.jpg","url":"https://rflhouseware.com/product_details/spring-jug-2-2l_2454","capacity":"2.2 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1782888171.jpg"],"remote_images":["https://rflhouseware.com/uploads/1782888171.jpg"],"size":"","price":""},{"id":2189,"name":"Star Jug 2L - Trans","code":"2189","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692421218.jpg","remote_image":"https://rflhouseware.com/uploads/1692421218.jpg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans_2189","capacity":"2 L","variant":"Trans","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1692421218.jpg"],"remote_images":["https://rflhouseware.com/uploads/1692421218.jpg"],"size":"","price":""},{"id":2362,"name":"Star Jug 2L - Trans Blue","code":"2362","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729145136.jpeg","remote_image":"https://rflhouseware.com/uploads/1729145136.jpeg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans-blue_2362","capacity":"2 L","variant":"Trans Blue","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1729145136.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729145136.jpeg"],"size":"","price":""},{"id":2202,"name":"Unique Jug 1.85L","code":"2202","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1698556494.jpg","remote_image":"https://rflhouseware.com/uploads/1698556494.jpg","url":"https://rflhouseware.com/product_details/unique-jug-1-85l_2202","capacity":"1.85 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1698556494.jpg"],"remote_images":["https://rflhouseware.com/uploads/1698556494.jpg"],"size":"","price":""},{"id":2455,"name":"Zui Jug 3.5L","code":"2455","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1783221329.png","remote_image":"https://rflhouseware.com/uploads/1783221329.png","url":"https://rflhouseware.com/product_details/zui-jug-3-5l_2455","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Size 1 L theke 3.5 L porjonto.","images":["images/1783221329.png","images/additional_image_1783221329.png"],"remote_images":["https://rflhouseware.com/uploads/1783221329.png","https://rflhouseware.com/uploads/additional_image_1783221329.png"],"size":"L-22 X W-16 X H-25 cm","price":""},{"id":2367,"name":"Caino Multipurpose Holder - Assorted","code":"2367","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329203.jpg","remote_image":"https://rflhouseware.com/uploads/1729329203.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-holder-assorted_2367","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329203.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329203.jpg"],"size":"","price":""},{"id":2366,"name":"Caino Multipurpose Round Holder -Assorted","code":"2366","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329281.png","remote_image":"https://rflhouseware.com/uploads/1729329281.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-round-holder-assorted_2366","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329281.png"],"remote_images":["https://rflhouseware.com/uploads/1729329281.png"],"size":"","price":""},{"id":2364,"name":"Caino Multipurpose Sq Holder (W/O Cover) - Assorted","code":"2364","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329321.jpg","remote_image":"https://rflhouseware.com/uploads/1729329321.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-w-o-cover-assorted_2364","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329321.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329321.jpg"],"size":"","price":""},{"id":2363,"name":"Caino Multipurpose Sq Holder (With Cover) - Assorted","code":"2363","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329463.png","remote_image":"https://rflhouseware.com/uploads/1729329463.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-with-cover-assorted_2363","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329463.png"],"remote_images":["https://rflhouseware.com/uploads/1729329463.png"],"size":"","price":""},{"id":2365,"name":"Fortune Pencil Box - Assorted","code":"2365","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329591.jpg","remote_image":"https://rflhouseware.com/uploads/1729329591.jpg","url":"https://rflhouseware.com/product_details/fortune-pencil-box-assorted_2365","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1729329591.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329591.jpg"],"size":"","price":""},{"id":2457,"name":"Kiddos Potty","code":"2457","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1789038066.jpg","remote_image":"https://rflhouseware.com/uploads/1789038066.jpg","url":"https://rflhouseware.com/product_details/kiddos-potty_2457","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1789038066.jpg"],"remote_images":["https://rflhouseware.com/uploads/1789038066.jpg"],"size":"","price":""},{"id":2456,"name":"RFL Boithak Sofa 5 Pcs Set W/O Foam - Grey","code":"2456","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1783226808.jpeg","remote_image":"https://rflhouseware.com/uploads/1783226808.jpeg","url":"https://rflhouseware.com/product_details/rfl-boithak-sofa-5-pcs-set-w-o-foam-grey_2456","capacity":"","variant":"Grey","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1783226808.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1783226808.jpeg"],"size":"","price":""},{"id":2451,"name":"Stylee Champion Armless Chair - Lime Green","code":"2451","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331093.png","remote_image":"https://rflhouseware.com/uploads/1781331093.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-lime-green_2451","capacity":"","variant":"Lime Green","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331093.png"],"remote_images":["https://rflhouseware.com/uploads/1781331093.png"],"size":"","price":""},{"id":2452,"name":"Stylee Champion Armless Chair - Orange","code":"2452","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331256.png","remote_image":"https://rflhouseware.com/uploads/1781331256.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-orange_2452","capacity":"","variant":"Orange","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331256.png"],"remote_images":["https://rflhouseware.com/uploads/1781331256.png"],"size":"","price":""},{"id":2453,"name":"Stylee Champion Easy Chair - Black","code":"2453","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331862.png","remote_image":"https://rflhouseware.com/uploads/1781331862.png","url":"https://rflhouseware.com/product_details/stylee-champion-easy-chair-black_2453","capacity":"","variant":"Black","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1781331862.png"],"remote_images":["https://rflhouseware.com/uploads/1781331862.png"],"size":"","price":""},{"id":2458,"name":"Ultra Kids Table","code":"2458","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1791189764.jpg","remote_image":"https://rflhouseware.com/uploads/1791189764.jpg","url":"https://rflhouseware.com/product_details/ultra-kids-table_2458","capacity":"","variant":"","rack":"","stock_note":"","description":"RFL-er notun jog howa product. Purno chobi o details RFL site-e dekhun.","images":["images/1791189764.jpg"],"remote_images":["https://rflhouseware.com/uploads/1791189764.jpg"],"size":"","price":""}];
+/* Offline fallback: shown when products.json can’t be loaded.
+   When products.json is available on GitHub, it is loaded as the new data. */
+var FALLBACK_PRODUCTS = [{"id":2235,"name":"Cherry Jug 3.5L","code":"2235","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1703333260.jpg","remote_image":"https://rflhouseware.com/uploads/1703333260.jpg","url":"https://rflhouseware.com/product_details/cherry-jug-3-5l_2235","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1703333260.jpg"],"remote_images":["https://rflhouseware.com/uploads/1703333260.jpg"],"size":"","price":""},{"id":2217,"name":"Glasco Jug 2.3L","code":"2217","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1699975000.jpg","remote_image":"https://rflhouseware.com/uploads/1699975000.jpg","url":"https://rflhouseware.com/product_details/glasco-jug-2-3l_2217","capacity":"2.3 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1699975000.jpg"],"remote_images":["https://rflhouseware.com/uploads/1699975000.jpg"],"size":"","price":""},{"id":2361,"name":"Heater Jug 1.8L","code":"2361","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059233.png","remote_image":"https://rflhouseware.com/uploads/1729059233.png","url":"https://rflhouseware.com/product_details/heater-jug-1-8l_2361","capacity":"1.8 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1729059233.png"],"remote_images":["https://rflhouseware.com/uploads/1729059233.png"],"size":"","price":""},{"id":2360,"name":"Heater Jug 1L","code":"2360","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729059557.png","remote_image":"https://rflhouseware.com/uploads/1729059557.png","url":"https://rflhouseware.com/product_details/heater-jug-1l_2360","capacity":"1 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1729059557.png"],"remote_images":["https://rflhouseware.com/uploads/1729059557.png"],"size":"","price":""},{"id":2188,"name":"Lily Jug 1.9L - Trans Rose","code":"2188","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692009188.png","remote_image":"https://rflhouseware.com/uploads/1692009188.png","url":"https://rflhouseware.com/product_details/lily-jug-1-9l-trans-rose_2188","capacity":"1.9 L","variant":"Trans Rose","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1692009188.png"],"remote_images":["https://rflhouseware.com/uploads/1692009188.png"],"size":"","price":""},{"id":2239,"name":"Lotus Jug 2.5L","code":"2239","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729052485.jpeg","remote_image":"https://rflhouseware.com/uploads/1729052485.jpeg","url":"https://rflhouseware.com/product_details/lotus-jug-2-5l_2239","capacity":"2.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1729052485.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729052485.jpeg"],"size":"","price":""},{"id":2442,"name":"Princes Jug 1.6L","code":"2442","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1773554120.jpg","remote_image":"https://rflhouseware.com/uploads/1773554120.jpg","url":"https://rflhouseware.com/product_details/princes-jug-1-6l_2442","capacity":"1.6 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1773554120.jpg"],"remote_images":["https://rflhouseware.com/uploads/1773554120.jpg"],"size":"","price":""},{"id":2454,"name":"Spring Jug 2.2L","code":"2454","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1782888171.jpg","remote_image":"https://rflhouseware.com/uploads/1782888171.jpg","url":"https://rflhouseware.com/product_details/spring-jug-2-2l_2454","capacity":"2.2 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1782888171.jpg"],"remote_images":["https://rflhouseware.com/uploads/1782888171.jpg"],"size":"","price":""},{"id":2189,"name":"Star Jug 2L - Trans","code":"2189","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1692421218.jpg","remote_image":"https://rflhouseware.com/uploads/1692421218.jpg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans_2189","capacity":"2 L","variant":"Trans","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1692421218.jpg"],"remote_images":["https://rflhouseware.com/uploads/1692421218.jpg"],"size":"","price":""},{"id":2362,"name":"Star Jug 2L - Trans Blue","code":"2362","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1729145136.jpeg","remote_image":"https://rflhouseware.com/uploads/1729145136.jpeg","url":"https://rflhouseware.com/product_details/star-jug-2l-trans-blue_2362","capacity":"2 L","variant":"Trans Blue","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1729145136.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1729145136.jpeg"],"size":"","price":""},{"id":2202,"name":"Unique Jug 1.85L","code":"2202","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1698556494.jpg","remote_image":"https://rflhouseware.com/uploads/1698556494.jpg","url":"https://rflhouseware.com/product_details/unique-jug-1-85l_2202","capacity":"1.85 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1698556494.jpg"],"remote_images":["https://rflhouseware.com/uploads/1698556494.jpg"],"size":"","price":""},{"id":2455,"name":"Zui Jug 3.5L","code":"2455","category":"Household","group":"TABLEWARE","leaf":"Jug","image":"images/1783221329.png","remote_image":"https://rflhouseware.com/uploads/1783221329.png","url":"https://rflhouseware.com/product_details/zui-jug-3-5l_2455","capacity":"3.5 L","variant":"","rack":"","stock_note":"","description":"Food-grade, BPA-free virgin plastic, leak-proof design. Available in sizes from 1 L to 3.5 L.","images":["images/1783221329.png","images/additional_image_1783221329.png"],"remote_images":["https://rflhouseware.com/uploads/1783221329.png","https://rflhouseware.com/uploads/additional_image_1783221329.png"],"size":"L-22 X W-16 X H-25 cm","price":""},{"id":2367,"name":"Caino Multipurpose Holder - Assorted","code":"2367","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329203.jpg","remote_image":"https://rflhouseware.com/uploads/1729329203.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-holder-assorted_2367","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1729329203.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329203.jpg"],"size":"","price":""},{"id":2366,"name":"Caino Multipurpose Round Holder -Assorted","code":"2366","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329281.png","remote_image":"https://rflhouseware.com/uploads/1729329281.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-round-holder-assorted_2366","capacity":"","variant":"","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1729329281.png"],"remote_images":["https://rflhouseware.com/uploads/1729329281.png"],"size":"","price":""},{"id":2364,"name":"Caino Multipurpose Sq Holder (W/O Cover) - Assorted","code":"2364","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329321.jpg","remote_image":"https://rflhouseware.com/uploads/1729329321.jpg","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-w-o-cover-assorted_2364","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1729329321.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329321.jpg"],"size":"","price":""},{"id":2363,"name":"Caino Multipurpose Sq Holder (With Cover) - Assorted","code":"2363","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329463.png","remote_image":"https://rflhouseware.com/uploads/1729329463.png","url":"https://rflhouseware.com/product_details/caino-multipurpose-sq-holder-with-cover-assorted_2363","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1729329463.png"],"remote_images":["https://rflhouseware.com/uploads/1729329463.png"],"size":"","price":""},{"id":2365,"name":"Fortune Pencil Box - Assorted","code":"2365","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1729329591.jpg","remote_image":"https://rflhouseware.com/uploads/1729329591.jpg","url":"https://rflhouseware.com/product_details/fortune-pencil-box-assorted_2365","capacity":"","variant":"Assorted","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1729329591.jpg"],"remote_images":["https://rflhouseware.com/uploads/1729329591.jpg"],"size":"","price":""},{"id":2457,"name":"Kiddos Potty","code":"2457","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1789038066.jpg","remote_image":"https://rflhouseware.com/uploads/1789038066.jpg","url":"https://rflhouseware.com/product_details/kiddos-potty_2457","capacity":"","variant":"","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1789038066.jpg"],"remote_images":["https://rflhouseware.com/uploads/1789038066.jpg"],"size":"","price":""},{"id":2456,"name":"RFL Boithak Sofa 5 Pcs Set W/O Foam - Grey","code":"2456","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1783226808.jpeg","remote_image":"https://rflhouseware.com/uploads/1783226808.jpeg","url":"https://rflhouseware.com/product_details/rfl-boithak-sofa-5-pcs-set-w-o-foam-grey_2456","capacity":"","variant":"Grey","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1783226808.jpeg"],"remote_images":["https://rflhouseware.com/uploads/1783226808.jpeg"],"size":"","price":""},{"id":2451,"name":"Stylee Champion Armless Chair - Lime Green","code":"2451","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331093.png","remote_image":"https://rflhouseware.com/uploads/1781331093.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-lime-green_2451","capacity":"","variant":"Lime Green","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1781331093.png"],"remote_images":["https://rflhouseware.com/uploads/1781331093.png"],"size":"","price":""},{"id":2452,"name":"Stylee Champion Armless Chair - Orange","code":"2452","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331256.png","remote_image":"https://rflhouseware.com/uploads/1781331256.png","url":"https://rflhouseware.com/product_details/stylee-champion-armless-chair-orange_2452","capacity":"","variant":"Orange","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1781331256.png"],"remote_images":["https://rflhouseware.com/uploads/1781331256.png"],"size":"","price":""},{"id":2453,"name":"Stylee Champion Easy Chair - Black","code":"2453","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1781331862.png","remote_image":"https://rflhouseware.com/uploads/1781331862.png","url":"https://rflhouseware.com/product_details/stylee-champion-easy-chair-black_2453","capacity":"","variant":"Black","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1781331862.png"],"remote_images":["https://rflhouseware.com/uploads/1781331862.png"],"size":"","price":""},{"id":2458,"name":"Ultra Kids Table","code":"2458","category":"New arrivals","group":"Latest additions","leaf":"New arrivals","image":"images/1791189764.jpg","remote_image":"https://rflhouseware.com/uploads/1791189764.jpg","url":"https://rflhouseware.com/product_details/ultra-kids-table_2458","capacity":"","variant":"","rack":"","stock_note":"","description":"New RFL product. See full images and details on the RFL site.","images":["images/1791189764.jpg"],"remote_images":["https://rflhouseware.com/uploads/1791189764.jpg"],"size":"","price":""}];
 
 var CATCOLORS = {"Household": "#e63946", "Furniture": "#f4a300", "Industrial": "#1d9bf0", "Toys": "#7cc576", "Pet Items": "#b86cf0", "Cookware": "#2ec4b6", "New arrivals": "#e63946"};
 
@@ -364,7 +557,16 @@ function sizeTokensOf(p){
 function isFav(p){ return !!FAVS[String(p.id)]; }
 function saveStore(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
-function esc(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+var CUR = null, STOCK = {}, PICK = [], MISS = [], lastY = 0;
+try { STOCK = JSON.parse(localStorage.getItem("rfl-stock") || "{}"); PICK = JSON.parse(localStorage.getItem("rfl-pick") || "[]"); MISS = JSON.parse(localStorage.getItem("rfl-miss") || "[]"); } catch (e) {}
+var SL = { ok: ["🟢", "In stock"], low: ["🟡", "Low"], out: ["🔴", "Out"] };
+var SZ = /\s*[-–(]?\s*\d+(?:\.\d+)?\s*(?:ml|ltr|lt|l|liter|litre|pcs|pc|gm|g|kg|cm|mm|inch|in|oz)\b\.?\)?\s*$/i;
+function baseName(p){ return String(p.name || "").replace(SZ, "").trim().toLowerCase() + "|" + (p.category || ""); }
+function vLabel(v){ var m = String(v.name || "").match(SZ); return m ? m[0].replace(/[-–()]/g, "").trim() : (v.size || v.code); }
+function stockDot(p){ var s = STOCK[String(p.id)]; return s && SL[s.s] ? " " + SL[s.s][0] : ""; }
+function logMiss(){ var q = (qEl.value || "").trim().toLowerCase(); if (q.length < 3 || liveMode || MISS.indexOf(q) > -1) return; MISS.unshift(q); MISS = MISS.slice(0, 50); saveStore("rfl-miss", MISS); }
+function toast(m){ var t = document.getElementById("toast"); if (!t){ t = document.createElement("div"); t.id = "toast"; document.body.appendChild(t); } t.textContent = m; t.className = "show"; clearTimeout(t._t); t._t = setTimeout(function(){ t.className = ""; }, 2200); }
+function esc(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
 function colorOf(p){ return CATCOLORS[p.category] || "#ef3f15"; }
 function imgsOf(p){
   var a = (p.images && p.images.length) ? p.images.slice() : (p.image ? [p.image] : []);
@@ -403,10 +605,10 @@ var moreBtn = document.getElementById("moreBtn");
 var liveOffBtn = document.getElementById("liveOffBtn");
 var liveNote = document.getElementById("liveNote");
 
-function renderHero(p){
+function renderHero(p, fromUser){
   if (!p) return;
   selected = p;
-  pushHistory(p);
+  if (fromUser) pushHistory(p);
   if (typeof mgrClear === "function") mgrClear();
   heroImgIdx = 0;
   heroTitle.innerHTML = nameSpans(p.name);
@@ -418,7 +620,7 @@ function renderHero(p){
   heroTag.textContent = "CODE " + p.code;
   copyBtn.textContent = "CODE COPY";
   var src = heroImgSrc(p, 0);
-  heroImg.style.display = src ? "block" : "none";
+  heroImg.style.display = src ? "block" : "none"; heroImg.style.visibility = "visible";
   heroImg.src = src;
   heroImg.onerror = function(){
     var im = imgsOf(p);
@@ -436,14 +638,14 @@ function mgrClear(){ var o = document.getElementById("mgrOut"); if (o) o.innerHT
 async function mgrFetch(){
   var p = selected; if (!p) return;
   var out = document.getElementById("mgrOut");
-  out.textContent = "Anchi...";
+  out.textContent = "Loading…";
   try {
     var res = await fetch(WORKER_BASE + "/carton?name=" + encodeURIComponent(p.name) + "&pin=" + encodeURIComponent(mgrPin));
     var d = await res.json();
-    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; document.getElementById("mgrPinWrap").hidden = false; return; }
-    if (!d.found) { out.textContent = "Ei product-er manager info (carton) pawa jay ni."; return; }
-    out.innerHTML = (d.partial ? "<div style=\"font-size:12px;color:var(--muted)\">Puro nam na mille kachakachi match — code miliye nin.</div>" : "") + d.matches.map(function(m){
-      var c = m.ccode ? ("<b>Carton code:</b> " + esc(m.ccode) + "<br><b>Carton:</b> " + esc(m.cname)) : "<b>Carton deya nei</b>";
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Incorrect code. Please enter it again."; document.getElementById("mgrPinWrap").hidden = false; return; }
+    if (!d.found) { out.textContent = "No manager info (carton) found for this product."; return; }
+    out.innerHTML = (d.partial ? "<div style=\"font-size:12px;opacity:.9\">Closest match only — please verify the code.</div>" : "") + d.matches.map(function(m){
+      var c = m.ccode ? ("<b>Carton code:</b> " + esc(m.ccode) + "<br><b>Carton:</b> " + esc(m.cname)) : "<b>No carton assigned</b>";
       var fg = "";
       if (m.fg && m.fg.length) {
         var rows = m.fg.map(function(l){ return "<tr><td>" + esc(l[0]) + "</td><td>" + esc(l[1]) + "</td><td>" + esc(l[2]) + "</td><td>" + esc(l[3]) + "</td><td><b>" + esc(l[4]) + "</b></td></tr>"; }).join("");
@@ -451,7 +653,7 @@ async function mgrFetch(){
       }
       return "<div><b>Item:</b> " + esc(m.name) + " (Code " + esc(m.code) + ")<br>" + c + fg + "</div>";
     }).join("<hr>");
-  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+  } catch (e) { out.textContent = "Couldn’t load. Check your connection and try again."; }
 }
 document.getElementById("mgrBtn").onclick = function(){
   if (mgrPin) { mgrFetch(); return; }
@@ -469,7 +671,7 @@ function renderDots(){
   var n = Math.max(im.local.length, im.remote.length, 1);
   if (n <= 1) { dotsEl.innerHTML = ""; return; }
   var h = "";
-  for (var i = 0; i < n; i++) h += '<button type="button" class="dots__dot' + (i === heroImgIdx ? " is-active" : "") + '" data-idx="' + i + '" aria-label="Chobi ' + (i + 1) + '"></button>';
+  for (var i = 0; i < n; i++) h += '<button type="button" class="dots__dot' + (i === heroImgIdx ? " is-active" : "") + '" data-idx="' + i + '" aria-label="Image ' + (i + 1) + '"></button>';
   dotsEl.innerHTML = h;
 }
 function setHeroImg(idx){
@@ -507,7 +709,7 @@ function renderCats(){
   var present = order.filter(function(c){ return allProducts.some(function(p){ return p.category === c; }); });
   var cats = ["All"].concat(present);
   catsEl.innerHTML = cats.map(function(c){
-    var label = c === "All" ? "Sob" : c;
+    var label = c === "All" ? "All" : c;
     var letter = c === "All" ? "A" : c.charAt(0);
     return '<button type="button" class="category' + (c === activeCat ? " is-active" : "") + '" data-cat="' + esc(c) + '"><span class="category__icon">' + esc(letter) + '</span><span class="category__label">' + esc(label) + '</span></button>';
   }).join("");
@@ -517,7 +719,7 @@ function renderChips(){
   var leaves = [];
   allProducts.forEach(function(p){ if (p.category === activeCat && leaves.indexOf(p.leaf) < 0) leaves.push(p.leaf); });
   leaves.sort();
-  var h = '<button type="button" class="chip' + (activeLeaf === "All" ? " is-active" : "") + '" data-leaf="All">Sob</button>';
+  var h = '<button type="button" class="chip' + (activeLeaf === "All" ? " is-active" : "") + '" data-leaf="All">All</button>';
   leaves.forEach(function(l){
     h += '<button type="button" class="chip' + (l === activeLeaf ? " is-active" : "") + '" data-leaf="' + esc(l) + '">' + esc(l) + '</button>';
   });
@@ -525,10 +727,12 @@ function renderChips(){
 }
 function renderGrid(){
   var list = filtered();
-  countEl.textContent = liveMode ? (list.length + " ta LIVE product pawa geche (RFL site theke, GitHub-e save hoy ni)") : (list.length + " ta product pawa geche (sob mot " + allProducts.length + " ta)");
+  countEl.textContent = liveMode ? (list.length + " live products found (from the RFL site, not saved to GitHub)") : (list.length + " products found (" + allProducts.length + " total)");
+  var VAR = {};
+  if (!liveMode) { var gm = {}, reps = []; list.forEach(function(p){ var k = baseName(p); if (gm[k]) gm[k].push(p); else { gm[k] = [p]; reps.push(p); } }); reps.forEach(function(p){ var g = gm[baseName(p)]; if (g.length > 1) VAR[p.id] = g; }); list = reps; }
   var page = list.slice(0, shown);
-  if (!page.length) {
-    resEl.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:14px;padding:10px 0">Kichu paoa jayni. Nam ba code arekbar miliye likhun.</p>';
+  if (!page.length) { logMiss();
+    resEl.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:14px;padding:10px 0">No products found. Check the name or code and try again.</p>';
   } else {
     resEl.innerHTML = page.map(function(p){
       var im = imgsOf(p);
@@ -539,11 +743,12 @@ function renderGrid(){
       return '<article class="product-card" data-id="' + esc(p.id) + '">'
         + (p.live ? '<span class="tag tag--live">LIVE</span>' : "") + (p.category === "New arrivals" ? '<span class="tag tag--new">NEW</span>' : "")
         + '<div class="product-card__media">' + media + "</div>"
-        + '<div class="product-card__title">' + esc(p.name) + (isFav(p) ? " ❤️" : "") + (NOTES[String(p.id)] ? " 📝" : "") + (isSaved(p) ? " 💾" : "") + "</div>"
+        + '<div class="product-card__title">' + esc(p.name) + (isFav(p) ? " ❤️" : "") + (NOTES[String(p.id)] ? " 📝" : "") + (isSaved(p) ? " 💾" : "") + stockDot(p) + "</div>"
         + '<div class="product-card__sub">' + esc(p.category) + " • " + esc(p.leaf) + "</div>"
+        + (VAR[p.id] ? '<div class="vchips">' + VAR[p.id].map(function(v){ return '<button type="button" class="vchip" data-id="' + esc(v.id) + '">' + esc(vLabel(v)) + "</button>"; }).join("") + "</div>" : "")
         + '<div class="product-card__row"><div><span class="price">Code ' + esc(p.code) + "</span>"
         + (extra ? '<span class="rating">' + esc(extra) + "</span>" : "")
-        + '</div><button class="cart-add" type="button" aria-label="Ei product dekhun"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>'
+        + '</div><button class="cart-add" type="button" aria-label="View this product"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>'
         + "</article>";
     }).join("");
   }
@@ -577,8 +782,36 @@ resEl.addEventListener("click", function(e){
   var card = e.target.closest("[data-id]");
   if (!card) return;
   var p = findProduct(card.getAttribute("data-id"));
-  if (p) { renderHero(p); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  if (p) { renderHero(p, true); window.scrollTo({ top: 0, behavior: "smooth" }); }
 });
+/* v2.26: stock badges, pick list, back-to-list, zoom, view modes */
+var _rh = renderHero; renderHero = function(p, f){ CUR = p; _rh(p, f); showStock(); };
+var sr = document.createElement("div"); sr.className = "stockrow";
+sr.innerHTML = '<span id="stockTxt"></span><button type="button" data-s="ok">🟢</button><button type="button" data-s="low">🟡</button><button type="button" data-s="out">🔴</button><button type="button" data-s="">✕</button><button type="button" id="pickAdd">📋 Pick list</button>';
+document.getElementById("favBtn").parentNode.insertAdjacentElement("afterend", sr);
+function showStock(){ var s = CUR && STOCK[String(CUR.id)]; document.getElementById("stockTxt").textContent = s && SL[s.s] ? "Stock: " + SL[s.s][0] + " " + SL[s.s][1] + " · " + new Date(s.t).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "Stock: not set"; }
+sr.addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b || !CUR) return; if (b.id === "pickAdd") { addPick(CUR); return; } var k = String(CUR.id); if (b.dataset.s) STOCK[k] = { s: b.dataset.s, t: Date.now() }; else delete STOCK[k]; saveStore("rfl-stock", STOCK); showStock(); renderGrid(); toast("Stock updated"); });
+function savePick(){ saveStore("rfl-pick", PICK); pkCount(); }
+function addPick(p){ var i = PICK.findIndex(function(x){ return x.id === String(p.id); }); if (i < 0) PICK.push({ id: String(p.id), n: p.name, c: p.code, q: 1 }); else PICK[i].q++; savePick(); toast("Added to pick list"); }
+var pb = document.createElement("button"); pb.id = "pickFab"; pb.type = "button"; document.body.appendChild(pb);
+var pm = document.createElement("div"); pm.className = "scan-modal"; pm.id = "pickModal";
+pm.innerHTML = '<div class="cmp-card"><div style="font-weight:800;margin-bottom:10px">📋 Pick list</div><div id="pickBody"></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn btn--primary" id="pickSend" type="button">WhatsApp</button><button class="btn btn--ghost" id="pickClear" type="button">Clear</button><button class="btn btn--ghost" id="pickClose" type="button">Close</button></div></div>';
+document.body.appendChild(pm);
+function pkCount(){ pb.textContent = "📋 " + PICK.length; pb.style.display = PICK.length ? "flex" : "none"; }
+function pkRender(){ document.getElementById("pickBody").innerHTML = PICK.map(function(x, i){ return '<div class="pkrow"><span>' + esc(x.n) + " <small>" + esc(x.c) + '</small></span><span><button data-i="' + i + '" data-d="-1">−</button><b>' + x.q + '</b><button data-i="' + i + '" data-d="1">+</button></span></div>'; }).join("") || "Empty"; }
+pb.onclick = function(){ pkRender(); pm.classList.add("open"); };
+pm.addEventListener("click", function(e){ var b = e.target.closest("button"); if (e.target === pm || (b && b.id === "pickClose")) { pm.classList.remove("open"); return; } if (!b) return; if (b.id === "pickClear") { PICK = []; savePick(); pm.classList.remove("open"); } else if (b.id === "pickSend") { window.open("https://wa.me/?text=" + encodeURIComponent("Pick list\n" + PICK.map(function(x){ return "• " + x.n + " (" + x.c + ") × " + x.q; }).join("\n")), "_blank"); } else if (b.dataset.i) { var x = PICK[+b.dataset.i]; x.q += +b.dataset.d; if (x.q < 1) PICK.splice(+b.dataset.i, 1); savePick(); pkRender(); } });
+pkCount();
+var bk = document.createElement("button"); bk.id = "backFab"; bk.type = "button"; bk.textContent = "↩ Back to list"; document.body.appendChild(bk);
+resEl.addEventListener("click", function(){ lastY = window.scrollY; bk._a = 0; bk.style.display = "flex"; }, true);
+bk.onclick = function(){ window.scrollTo({ top: lastY, behavior: "smooth" }); bk.style.display = "none"; };
+window.addEventListener("scroll", function(){ if (bk.style.display !== "flex") return; if (window.scrollY < lastY - 200) bk._a = 1; else if (bk._a && window.scrollY >= lastY - 60) { bk.style.display = "none"; bk._a = 0; } }, { passive: true });
+var lb = document.createElement("div"); lb.id = "lightbox"; lb.innerHTML = '<img alt="">'; document.body.appendChild(lb);
+document.getElementById("heroImg").addEventListener("click", function(){ if (!this.src) return; lb.firstChild.src = this.src; lb.classList.add("open"); });
+lb.onclick = function(){ lb.classList.remove("open"); };
+["listview", "godown"].forEach(function(k){ var el = document.getElementById(k + "Toggle"), key = "rfl-" + k; function ap(on){ document.body.classList.toggle(k, on); el.checked = on; } try { ap(localStorage.getItem(key) === "1"); } catch (e) {} el.addEventListener("change", function(){ ap(el.checked); try { localStorage.setItem(key, el.checked ? "1" : "0"); } catch (e) {} }); });
+document.getElementById("missBtn").onclick = function(){ if (!MISS.length) { toast("No missed searches yet"); return; } try { navigator.clipboard.writeText(MISS.join("\n")); } catch (e) {} toast(MISS.length + " missed searches copied"); };
+try { if (localStorage.getItem("rfl-halka") === null && ((navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4))) applyLite(true); } catch (e) {}
 var inputTimer = null;
 qEl.addEventListener("input", function(){ if (inputTimer) clearTimeout(inputTimer); inputTimer = setTimeout(function(){ exitLive(); shown = PAGE; renderGrid(); saveRecent(qEl.value); if ((qEl.value || "").trim().length >= 2 && !favOnly) liveSearch(); }, 180); });
 moreBtn.addEventListener("click", function(){ shown += PAGE; renderGrid(); });
@@ -594,9 +827,9 @@ async function liveSearch(){
   if (q.length < 2) return;
   if (liveCtrl) liveCtrl.abort();
   liveCtrl = new AbortController();
-  liveNote.textContent = "RFL site theke live khujchi, ektu somoy din…";
+  liveNote.textContent = "Searching the RFL site live, please wait…";
   try {
-    var timer = setTimeout(function(){ liveCtrl.abort(); }, 25000);
+    var timedOut = false; var timer = setTimeout(function(){ timedOut = true; liveCtrl.abort(); }, 25000);
     var res = await fetch(LIVE_URL + "?q=" + encodeURIComponent(q), { signal: liveCtrl.signal });
     clearTimeout(timer);
     if (!res.ok) throw new Error("HTTP " + res.status);
@@ -610,11 +843,11 @@ async function liveSearch(){
     liveMode = true;
     shown = PAGE;
     liveOffBtn.hidden = false;
-    liveNote.textContent = liveProducts.length ? ("Live: " + liveProducts.length + " ta pelam — egulo GitHub-e save hoy ni.") : "Live-e kichu pelam na — banan miliye abar chesta korun.";
+    liveNote.textContent = liveProducts.length ? ("Live: " + liveProducts.length + " found — these aren’t saved to GitHub.") : "Nothing found live — check the spelling and try again.";
     renderGrid();
   } catch (e) {
-    if (e && e.name === "AbortError") return;
-    liveNote.textContent = "Live khujte parlam na — net ba Worker check kore abar chesta korun.";
+    if (e && e.name === "AbortError" && !timedOut) return;
+    liveNote.textContent = "Live search failed — check your connection or the Worker and try again.";
   }
 }
 liveOffBtn.addEventListener("click", function(){ exitLive(); shown = PAGE; renderGrid(); });
@@ -622,9 +855,9 @@ function showAll(){
   exitLive();
   favOnly = false; savedOnly = false; historyOnly = false; sizeFilter = "";
   var ffb = document.getElementById("favFilterBtn");
-  if (ffb) ffb.textContent = "❤️ Priyo dekhun";
+  if (ffb) ffb.textContent = "❤️ Favorites";
   var sfb = document.getElementById("savedFilterBtn");
-  if (sfb) sfb.textContent = "💾 Saved dekhun";
+  if (sfb) sfb.textContent = "💾 Saved";
   var hfb = document.getElementById("histFilterBtn");
   if (hfb) hfb.textContent = "🕘 History";
   activeCat = "All";
@@ -653,16 +886,17 @@ document.getElementById("tabSearch").addEventListener("click", function(){
 });
 document.getElementById("tabAll").addEventListener("click", function(){ setTab("tabAll"); showAll(); });
 
+function legacyCopy(t){ try { var ta = document.createElement("textarea"); ta.value = t; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); } catch (e) {} }
 copyBtn.addEventListener("click", function(){
   if (!selected) return;
   var code = String(selected.code);
-  function done(){ copyBtn.textContent = "COPY HOYECHE"; setTimeout(function(){ copyBtn.textContent = "CODE COPY"; }, 1500); }
+  function done(){ copyBtn.textContent = "COPIED ✓"; setTimeout(function(){ copyBtn.textContent = "CODE COPY"; }, 1500); }
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(code).then(done).catch(function(){ done(); });
-  } else { done(); }
+    navigator.clipboard.writeText(code).then(done).catch(function(){ legacyCopy(code); done(); });
+  } else { legacyCopy(code); done(); }
 });
 
-/* Settings panel (oporer ⚙️) + Halka mode + hero 3D tilt (mouse) */
+/* Settings panel (top ⚙️) + Lite mode + hero 3D tilt (mouse) */
 document.getElementById("settingsBtn").addEventListener("click", function(){
   var p = document.getElementById("settingsPanel");
   p.hidden = !p.hidden;
@@ -670,14 +904,14 @@ document.getElementById("settingsBtn").addEventListener("click", function(){
 document.getElementById("settingsPanel").addEventListener("click", function(e){
   if (e.target.closest("button,a") && !e.target.closest(".switch-row")) document.getElementById("settingsPanel").hidden = true;
 });
-var halkaToggle = document.getElementById("halkaToggle");
-function applyHalka(on){ document.body.classList.toggle("halka", on); if (halkaToggle) halkaToggle.checked = on; try { localStorage.setItem("rfl-halka", on ? "1" : "0"); } catch (e) {} }
-halkaToggle.addEventListener("change", function(){ applyHalka(halkaToggle.checked); });
+var liteToggle = document.getElementById("liteToggle");
+function applyLite(on){ document.body.classList.toggle("lite", on); if (liteToggle) liteToggle.checked = on; try { localStorage.setItem("rfl-halka", on ? "1" : "0"); } catch (e) {} }
+liteToggle.addEventListener("change", function(){ applyLite(liteToggle.checked); });
 var darkToggle = document.getElementById("darkToggle");
-function applyDark(on){ document.body.classList.toggle("dark", on); if (darkToggle) darkToggle.checked = on; try { localStorage.setItem("rfl-dark", on ? "1" : "0"); } catch (e) {} }
+function applyDark(on, nosave){ document.body.classList.toggle("dark", on); document.documentElement.style.colorScheme = on ? "dark" : "light"; if (darkToggle) darkToggle.checked = on; var tb = document.getElementById("themeBtn"); if (tb){ tb.setAttribute("aria-pressed", on ? "true" : "false"); tb.setAttribute("aria-label", on ? "Switch to day mode" : "Switch to night mode"); } var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute("content", on ? "#12102a" : "#ece9f8"); if (!nosave) { try { localStorage.setItem("rfl-dark", on ? "1" : "0"); } catch (e) {} } }
 if (darkToggle) darkToggle.addEventListener("change", function(){ applyDark(darkToggle.checked); });
-try { if (localStorage.getItem("rfl-dark") === "1") applyDark(true); } catch (e) {}
-try { if (localStorage.getItem("rfl-halka") === "1") applyHalka(true); } catch (e) {}
+(function(){ var st = null; try { st = localStorage.getItem("rfl-dark"); } catch (e) {} var sys = !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches); applyDark(st === "1" || (st === null && sys), true); var tb = document.getElementById("themeBtn"); if (tb) tb.addEventListener("click", function(){ applyDark(!document.body.classList.contains("dark")); }); })();
+try { if (localStorage.getItem("rfl-halka") === "1") applyLite(true); } catch (e) {}
 (function(){
   var tilt = document.getElementById("heroTilt");
   var hero = document.getElementById("hero");
@@ -706,18 +940,18 @@ try { if (localStorage.getItem("rfl-halka") === "1") applyHalka(true); } catch (
   });
 })();
 
-/* Priyo / Note / Recent / Share / Carton-ulto / Voice / Scan (v2.11) */
+/* Favorites / Notes / Recent / Share / Reverse carton lookup / Voice / Scan (v2.11) */
 function refreshHeroTools(){
   var fb = document.getElementById("favBtn");
-  if (fb) fb.textContent = (selected && isFav(selected)) ? "❤️ Priyo" : "🤍 Priyo";
+  if (fb) fb.textContent = (selected && isFav(selected)) ? "❤️ Favorite" : "🤍 Favorite";
   var ni = document.getElementById("noteInput");
   var ns = document.getElementById("noteSaved");
   if (ni) ni.value = (selected && NOTES[String(selected.id)]) || "";
   if (ns) ns.textContent = (selected && NOTES[String(selected.id)]) ? "Saved note: " + NOTES[String(selected.id)] : "";
   var sb = document.getElementById("saveBtn");
-  if (sb) sb.textContent = (selected && isSaved(selected)) ? "✓ Saved" : "💾 Save korun";
+  if (sb) sb.textContent = (selected && isSaved(selected)) ? "✓ Saved" : "💾 Save";
   var cb = document.getElementById("compareBtn");
-  if (cb) cb.textContent = !compareA ? "⚖️ Tulona korun" : (selected && String(compareA.id) === String(selected.id) ? "✓ 1st select hoyeche" : "⚖️ Tulona dekhun");
+  if (cb) cb.textContent = !compareA ? "⚖️ Compare" : (selected && String(compareA.id) === String(selected.id) ? "✓ Selected as first" : "⚖️ Compare now");
 }
 document.getElementById("favBtn").addEventListener("click", function(){
   if (!selected) return;
@@ -742,9 +976,9 @@ function setListMode(mode){
   savedOnly = (mode === "saved") ? !savedOnly : false;
   historyOnly = (mode === "hist") ? !historyOnly : false;
   shown = PAGE;
-  document.getElementById("favFilterBtn").textContent = favOnly ? "❌ Priyo bondho korun" : "❤️ Priyo dekhun";
-  document.getElementById("savedFilterBtn").textContent = savedOnly ? "❌ Saved bondho korun" : "💾 Saved dekhun";
-  document.getElementById("histFilterBtn").textContent = historyOnly ? "❌ History bondho korun" : "🕘 History";
+  document.getElementById("favFilterBtn").textContent = favOnly ? "❌ Hide favorites" : "❤️ Favorites";
+  document.getElementById("savedFilterBtn").textContent = savedOnly ? "❌ Hide saved" : "💾 Saved";
+  document.getElementById("histFilterBtn").textContent = historyOnly ? "❌ Hide history" : "🕘 History";
   renderGrid();
 }
 document.getElementById("favFilterBtn").addEventListener("click", function(){ setListMode("fav"); });
@@ -768,16 +1002,16 @@ renderRecent();
 document.getElementById("byCartonBtn").addEventListener("click", async function(){
   var out = document.getElementById("byCartonOut");
   var code = document.getElementById("cartonCodeInput").value.trim();
-  if (!code) { out.textContent = "Carton code likhun."; return; }
-  if (!mgrPin) { out.textContent = "Age Tap to Details-e manager code din, tarpor abar chapin."; document.getElementById("mgrPinWrap").hidden = false; return; }
-  out.textContent = "Anchi...";
+  if (!code) { out.textContent = "Enter a carton code."; return; }
+  if (!mgrPin) { out.textContent = "Enter the manager code under Tap to Details first, then try again."; document.getElementById("mgrPinWrap").hidden = false; return; }
+  out.textContent = "Loading…";
   try {
     var res = await fetch(WORKER_BASE + "/bycarton?code=" + encodeURIComponent(code) + "&pin=" + encodeURIComponent(mgrPin));
     var d = await res.json();
-    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; return; }
-    if (!d.found) { out.textContent = "Ei carton code-e kono item pawa jay ni."; return; }
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Incorrect code. Please enter it again."; return; }
+    if (!d.found) { out.textContent = "No items found for this carton code."; return; }
     out.innerHTML = "<b>Carton:</b> " + esc(d.carton ? d.carton.cname : "") + " (" + esc(d.carton ? d.carton.ccode : "") + ")<br>" + d.items.map(function(m){ return "• " + esc(m.name) + " (Code " + esc(m.code) + ")"; }).join("<br>");
-  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+  } catch (e) { out.textContent = "Couldn’t load. Check your connection and try again."; }
 });
 (function(){
   var mic = document.getElementById("micBtn");
@@ -811,22 +1045,22 @@ document.getElementById("scanModal").addEventListener("click", function(e){
 });
 async function barcodeLookup(code){
   var out = document.getElementById("mgrOut");
-  if (!mgrPin) { pendingBarcode = code; out.textContent = "Barcode pawa geche (" + code + "). Age Tap to Details-e manager code din, tarpor Dekhun chaple info asbe."; document.getElementById("mgrPinWrap").hidden = false; document.getElementById("hero").scrollIntoView(); return; }
-  out.textContent = "Barcode milacchi...";
+  if (!mgrPin) { pendingBarcode = code; out.textContent = "Barcode found (" + code + "). Enter the manager code under Tap to Details, then press View to see the info."; document.getElementById("mgrPinWrap").hidden = false; document.getElementById("hero").scrollIntoView(); return; }
+  out.textContent = "Matching barcode…";
   document.getElementById("hero").scrollIntoView();
   try {
     var res = await fetch(WORKER_BASE + "/barcode?code=" + encodeURIComponent(code) + "&pin=" + encodeURIComponent(mgrPin));
     var d = await res.json();
-    if (res.status === 403) { mgrPin = ""; out.textContent = "Code thik noy. Abar code din."; return; }
-    if (!d.found) { out.textContent = "Ei barcode-er item ekhono map-e nei. ASCP export asle sob barcode jog hobe."; return; }
-    var c = d.ccode ? ("<b>Carton code:</b> " + esc(d.ccode) + "<br><b>Carton:</b> " + esc(d.cname)) : "<b>Carton deya nei</b>";
+    if (res.status === 403) { mgrPin = ""; out.textContent = "Incorrect code. Please enter it again."; return; }
+    if (!d.found) { out.textContent = "This barcode isn’t mapped yet. All barcodes will be added once the ASCP export is imported."; return; }
+    var c = d.ccode ? ("<b>Carton code:</b> " + esc(d.ccode) + "<br><b>Carton:</b> " + esc(d.cname)) : "<b>No carton assigned</b>";
     var fg = "";
     if (d.fg && d.fg.length) {
       var rows = d.fg.map(function(l){ return "<tr><td>" + esc(l[0]) + "</td><td>" + esc(l[1]) + "</td><td>" + esc(l[2]) + "</td><td>" + esc(l[3]) + "</td><td><b>" + esc(l[4]) + "</b></td></tr>"; }).join("");
       fg = "<div style=\"margin-top:8px\"><b>FG Mapping (ASCP)</b><table><tr><th>Type</th><th>Code</th><th>Name</th><th>Unit</th><th>Qty</th></tr>" + rows + "</table></div>";
     }
     out.innerHTML = "<div><b>Item:</b> " + esc(d.name) + " (Code " + esc(d.code) + ")<br>" + c + fg + "</div>";
-  } catch (e) { out.textContent = "Aana jay ni, net check kore abar chesta korun."; }
+  } catch (e) { out.textContent = "Couldn’t load. Check your connection and try again."; }
 }
 document.getElementById("scanBtn").addEventListener("click", async function(){
   var modal = document.getElementById("scanModal");
@@ -834,15 +1068,15 @@ document.getElementById("scanBtn").addEventListener("click", async function(){
   var sout = document.getElementById("scanOut");
   scanActive = true;
   modal.classList.add("open");
-  if (!("BarcodeDetector" in window)) { sout.textContent = "Ei browser-e scan cholbe na — Chrome-e khulun."; return; }
+  if (!("BarcodeDetector" in window)) { sout.textContent = "Scanning isn’t supported in this browser — open it in Chrome."; return; }
   try {
     scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-  } catch (e) { sout.textContent = "Camera onumoti din, tarpor abar chesta korun."; return; }
+  } catch (e) { sout.textContent = "Allow camera access, then try again."; return; }
   video.srcObject = scanStream; video.muted = true; video.play().catch(function(){});
   var detector = null;
   try { detector = new BarcodeDetector({ formats: ["ean_13", "ean_8", "code_128", "upc_a", "upc_e"] }); }
-  catch (e) { sout.textContent = "Ei browser-e scan cholbe na — Chrome-e khulun."; stopScan(); return; }
-  sout.textContent = "Barcode camera-r samne dhorun…";
+  catch (e) { sout.textContent = "Scanning isn’t supported in this browser — open it in Chrome."; stopScan(); return; }
+  sout.textContent = "Point the camera at a barcode…";
   scanStopTimer = setTimeout(function(){ stopScan(); }, 60000);
   (async function loop(){
     if (!scanActive || !scanStream) return;
@@ -858,7 +1092,7 @@ document.getElementById("toolsBtn").addEventListener("click", function(){
   var tp = document.getElementById("toolsPanel");
   var open = tp.hidden;
   tp.hidden = !open;
-  this.textContent = open ? "❌ Tools bondho korun" : "🧰 Note o carton tools";
+  this.textContent = open ? "❌ Close tools" : "🧰 Notes and carton tools";
 });
 
 /* v2.16: enrich / save / compare / share-card / size chips */
@@ -882,15 +1116,15 @@ document.getElementById("saveBtn").addEventListener("click", function(){
   else SAVED[id] = { id: selected.id, name: selected.name, code: selected.code, category: selected.category, leaf: selected.leaf, size: selected.size || "", capacity: selected.capacity || "", variant: selected.variant || "", image: selected.image || "", remote_image: selected.remote_image || "", images: selected.images || [], remote_images: selected.remote_images || [], url: selected.url || "", live: !!selected.live };
   saveStore("rfl-saved", SAVED); refreshHeroTools(); renderGrid();
 });
-function cmpField(label, a, b){ return "<tr><td style=\"color:#7a7694\">" + esc(label) + "</td><td><b>" + esc(a) + "</b></td><td><b>" + esc(b) + "</b></td></tr>"; }
+function cmpField(label, a, b){ return "<tr><td style=\"color:var(--muted)\">" + esc(label) + "</td><td><b>" + esc(a) + "</b></td><td><b>" + esc(b) + "</b></td></tr>"; }
 function showCompare(b){
   var a = compareA;
   var rows = "<table style=\"width:100%;border-collapse:collapse\"><tr><th></th><th>A</th><th>B</th></tr>"
-    + cmpField("Nam", a.name, b.name) + cmpField("Code", a.code, b.code)
+    + cmpField("Name", a.name, b.name) + cmpField("Code", a.code, b.code)
     + cmpField("Category", a.category, b.category) + cmpField("Leaf", a.leaf, b.leaf)
     + cmpField("Size", a.size || a.capacity || "—", b.size || b.capacity || "—")
     + cmpField("Variant", a.variant || "—", b.variant || "—") + "</table>"
-    + "<div style=\"font-size:12px;color:#7a7694;margin-top:8px\">Carton/FG dekhte prottek product-e Tap to Details chapin.</div>";
+    + "<div style=\"font-size:12px;color:var(--muted);margin-top:8px\">To see carton / FG info, press Tap to Details on each product.</div>";
   document.getElementById("cmpBody").innerHTML = rows;
   document.getElementById("cmpModal").classList.add("open");
 }
@@ -936,7 +1170,7 @@ document.getElementById("cardBtn").addEventListener("click", async function(){
   var sz = p.size || p.capacity || "";
   if (sz) { x.fillStyle = "#26233d"; x.font = "700 36px Inter, sans-serif"; x.fillText(sz, 450, y); y += 60; }
   x.fillStyle = "#b9b3dd"; x.font = "500 26px Inter, sans-serif";
-  x.fillText("Personal reference — bikri noy", 450, 950);
+  x.fillText("Personal reference — not for sale", 450, 950);
   c.toBlob(async function(blob){
     if (!blob) return;
     var f = new File([blob], "rfl-" + p.code + ".png", { type: "image/png" });
@@ -959,11 +1193,12 @@ document.getElementById("sizeChips").addEventListener("click", function(e){
   renderSizeChips(); shown = PAGE; renderGrid();
 });
 
-/* Hero-te swipe: dan/bam swipe-e ager/porer product */
+/* Hero swipe: swipe left/right for the next/previous product */
 (function(){
   var hero = document.getElementById("hero");
   var sx = null;
-  hero.addEventListener("pointerdown", function(e){ sx = e.clientX; });
+  hero.addEventListener("pointerdown", function(e){ sx = e.target.closest("button,a,input,table,.mgr__out,.note") ? null : e.clientX; });
+  hero.addEventListener("pointercancel", function(){ sx = null; });
   hero.addEventListener("pointerup", function(e){
     if (sx == null) return;
     var dx = e.clientX - sx;
@@ -974,16 +1209,16 @@ document.getElementById("sizeChips").addEventListener("click", function(e){
     list.forEach(function(p, i){ if (String(p.id) === String(selected.id)) idx = i; });
     if (idx < 0 || !list.length) return;
     var next = list[(idx + (dx < 0 ? 1 : -1) + list.length) % list.length];
-    renderHero(next);
+    renderHero(next, true);
   });
 })();
 
-/* products.json load: 60 second timeout, na pele offline fallback cholbe. */
+/* products.json load: 60 second timeout, falls back to the offline copy. */
 async function load(){
   allProducts = FALLBACK_PRODUCTS.slice();
   renderHero(allProducts[0] || null);
   renderAll();
-  statusEl.textContent = "Notun list load hocche, ektu somoy din…";
+  statusEl.textContent = "Loading the latest list, please wait…";
   try {
     var ctrl = new AbortController();
     var timer = setTimeout(function(){ ctrl.abort(); }, 60000);
@@ -998,12 +1233,12 @@ async function load(){
       allProducts.forEach(function(p){ if (String(p.id) === String(keepId)) keep = p; });
       renderHero(keep || allProducts[0] || null);
       renderAll();
-      statusEl.textContent = "Mot " + allProducts.length + " ta product load hoyeche.";
+      statusEl.textContent = "Loaded " + allProducts.length + " products.";
     } else {
-      statusEl.textContent = "Offline copy dekhano hocche — notun product dekhte net thakle page-ti reload korun.";
+      statusEl.textContent = "Showing the offline copy — reload the page when online to see new products.";
     }
   } catch (e) {
-    statusEl.textContent = "Offline copy dekhano hocche — notun product dekhte net thakle page-ti reload korun.";
+    statusEl.textContent = "Showing the offline copy — reload the page when online to see new products.";
   }
 }
 load();
@@ -1013,6 +1248,44 @@ if ("serviceWorker" in navigator && (location.protocol === "http:" || location.p
     navigator.serviceWorker.register("sw.js").catch(function(){});
   });
 }
+</script>
+<nav class="cnav" id="cnav" aria-label="Menu">
+<button type="button" data-t="tabHome" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg><span>Home</span></button>
+<button type="button" data-t="tabSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span></button>
+<button type="button" data-t="tabAll"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>All</span></button>
+</nav>
+<script id="clay-tilt">
+(function(){
+  var cur=null,raf=0;
+  function off(c){if(!c)return;c.classList.remove('is-tilt');c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}
+  function on(e){
+    var t=e.target,c=t&&t.closest?t.closest('.product-card'):null;
+    if(cur&&cur!==c)off(cur);
+    cur=c;
+    if(!c||document.body.classList.contains('lite'))return;
+    var k=e.pointerType==='touch'?10:18,r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(function(){
+      c.classList.add('is-tilt');
+      c.style.setProperty('--ry',((px-.5)*k).toFixed(1)+'deg');
+      c.style.setProperty('--rx',((.5-py)*k).toFixed(1)+'deg');
+      c.style.setProperty('--mx',(px*100).toFixed(0)+'%');
+      c.style.setProperty('--my',(py*100).toFixed(0)+'%');
+    });
+  }
+  function end(){cancelAnimationFrame(raf);off(cur);cur=null}
+  document.addEventListener('pointermove',on,{passive:true});
+  document.addEventListener('pointerdown',on,{passive:true});
+  document.addEventListener('pointerup',end,{passive:true});
+  document.addEventListener('pointercancel',end,{passive:true});
+  document.documentElement.addEventListener('mouseleave',end);
+  var nav=document.getElementById('cnav');
+  nav.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-t]');if(!b)return;
+    var t=document.getElementById(b.getAttribute('data-t'));if(t)t.click();
+    [].forEach.call(nav.children,function(x){x.classList.toggle('on',x===b)});
+  });
+})();
 </script>
 </body>
 </html>
