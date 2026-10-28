@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.26.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.29.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style>
 /* RFL Catalog v2.25 — premium clay UI (day + night) */
 
@@ -417,6 +417,24 @@ body.godown .btn,body.godown .cmp-card button{min-height:54px;font-size:16px}
 body.godown .product-card__title{font-size:17px}
 body.godown input{font-size:18px}
 </style>
+<style id="v227">
+#vtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 10px}
+#vtools select,#vtools>button{border:0;border-radius:14px;padding:9px 12px;font-weight:700;color:var(--ink);background:var(--surface);box-shadow:var(--clay-sm)}
+.az{display:flex;gap:6px;overflow-x:auto;flex:1 1 100%;padding:4px 2px 8px;scrollbar-width:none}
+.az button{border:0;border-radius:10px;min-width:32px;height:32px;font-weight:800;color:var(--chip-ink);background:var(--surface);box-shadow:var(--clay-sm);flex:none}
+.az button.on{color:#fff;background:var(--grad)}
+.tblwrap{grid-column:1/-1;overflow:auto;border-radius:20px;box-shadow:var(--clay)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);color:var(--ink)}
+.tbl th{position:sticky;top:0;background:var(--brand-50);color:var(--brand-700);text-align:left;padding:10px;cursor:pointer;white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--lo)}
+.tbl tr[data-id]{cursor:pointer}
+#xdet{margin-top:12px;color:#fff;font-size:13px}
+#xdet small{opacity:.85}
+.xh{font-weight:800;margin:12px 0 6px}
+.xr{display:flex;flex-wrap:wrap;gap:4px 8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.25)}
+.xr span{margin-left:auto;font-weight:800}
+#reportBtn{margin-top:12px}
+</style>
 </head>
 <body>
 <div class="loader" id="loader">
@@ -452,8 +470,9 @@ body.godown input{font-size:18px}
     <label class="switch-row"><span>🌙 Night mode</span><input type="checkbox" id="darkToggle"></label>
     <label class="switch-row"><span>Compact list view</span><input type="checkbox" id="listviewToggle"></label>
     <label class="switch-row"><span>Godown mode (big buttons)</span><input type="checkbox" id="godownToggle"></label>
+    <button class="btn btn--ghost" id="incBtn" type="button">🧩 Missing local image</button>
     <button class="btn btn--ghost" id="missBtn" type="button">🔎 Copy missed searches</button>
-    <div class="settings-ver">Version 2.26.0</div>
+    <div class="settings-ver">Version 2.29.0</div>
   </div>
 
   <section class="hero" id="hero">
@@ -507,7 +526,7 @@ body.godown input{font-size:18px}
 </div>
 <script>
 "use strict";
-var VERSION = "2.26.0";
+var VERSION = "2.29.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -557,6 +576,14 @@ function sizeTokensOf(p){
 function isFav(p){ return !!FAVS[String(p.id)]; }
 function saveStore(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
+var TBL = false, SORT = "", LET = "", INC = false;
+function nrm(t){ return String(t || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+function hasImg(p){ var im = imgsOf(p); return !!(im.local[0] || im.remote[0]); }
+function sizeNum(p){ var m = String((p.size || "") + " " + (p.capacity || "") + " " + p.name).match(/(\d+(?:\.\d+)?)/); return m ? parseFloat(m[1]) : 0; }
+function famKey(p){ return String(p.name || "").replace(/\s*[-–]\s*[A-Za-z][A-Za-z ]*$/, "").replace(SZ, "").trim().toLowerCase(); }
+function famLabel(v){ var m = String(v.name || "").match(/[-–]\s*([A-Za-z][A-Za-z ]*)$/); return m ? m[1].trim() : vLabel(v); }
+function tableHTML(page){ function th(k, t){ return '<th data-k="' + k + '">' + t + (SORT === k ? " ▲" : "") + "</th>"; }
+  return '<div class="tblwrap"><table class="tbl"><thead><tr>' + th("code", "Code") + th("name", "Name") + th("size", "Size") + "<th>Carton</th></tr></thead><tbody>" + page.map(function(p){ return '<tr data-id="' + esc(p.id) + '"><td>' + esc(p.code) + "</td><td>" + esc(p.name) + "</td><td>" + esc(p.size || p.capacity || "") + "</td><td>" + esc(p.category || "") + "</td></tr>"; }).join("") + "</tbody></table></div>"; }
 var CUR = null, STOCK = {}, PICK = [], MISS = [], lastY = 0;
 try { STOCK = JSON.parse(localStorage.getItem("rfl-stock") || "{}"); PICK = JSON.parse(localStorage.getItem("rfl-pick") || "[]"); MISS = JSON.parse(localStorage.getItem("rfl-miss") || "[]"); } catch (e) {}
 var SL = { ok: ["🟢", "In stock"], low: ["🟡", "Low"], out: ["🔴", "Out"] };
@@ -729,12 +756,12 @@ function renderGrid(){
   var list = filtered();
   countEl.textContent = liveMode ? (list.length + " live products found (from the RFL site, not saved to GitHub)") : (list.length + " products found (" + allProducts.length + " total)");
   var VAR = {};
-  if (!liveMode) { var gm = {}, reps = []; list.forEach(function(p){ var k = baseName(p); if (gm[k]) gm[k].push(p); else { gm[k] = [p]; reps.push(p); } }); reps.forEach(function(p){ var g = gm[baseName(p)]; if (g.length > 1) VAR[p.id] = g; }); list = reps; }
+  if (!liveMode && !TBL) { var gm = {}, reps = []; list.forEach(function(p){ var k = baseName(p); if (gm[k]) gm[k].push(p); else { gm[k] = [p]; reps.push(p); } }); reps.forEach(function(p){ var g = gm[baseName(p)]; if (g.length > 1) VAR[p.id] = g; }); list = reps; }
   var page = list.slice(0, shown);
   if (!page.length) { logMiss();
     resEl.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:14px;padding:10px 0">No products found. Check the name or code and try again.</p>';
   } else {
-    resEl.innerHTML = page.map(function(p){
+    resEl.innerHTML = TBL ? tableHTML(page) : page.map(function(p){
       var im = imgsOf(p);
       var src = im.local[0] || im.remote[0] || "";
       var onerr = im.remote[0] && im.remote[0] !== src ? ' onerror="this.onerror=null;this.src=\'' + esc(im.remote[0]) + '\'"' : "";
@@ -784,6 +811,34 @@ resEl.addEventListener("click", function(e){
   var p = findProduct(card.getAttribute("data-id"));
   if (p) { renderHero(p, true); window.scrollTo({ top: 0, behavior: "smooth" }); }
 });
+/* v2.27: packing details, families, similar items, sort, table, A-Z, incomplete list */
+var _f = filtered; filtered = function(){ var l = _f().slice();
+  if (LET) l = l.filter(function(p){ return String(p.name).charAt(0).toUpperCase() === LET; });
+  if (INC) l = l.filter(function(p){ return !imgsOf(p).local[0]; });
+  if (SORT === "name") l.sort(function(a, b){ return String(a.name).localeCompare(String(b.name)); });
+  else if (SORT === "code") l.sort(function(a, b){ return (parseFloat(a.code) || 0) - (parseFloat(b.code) || 0); });
+  else if (SORT === "size") l.sort(function(a, b){ return sizeNum(a) - sizeNum(b); });
+  else if (SORT === "new") l.sort(function(a, b){ return (b.category === "New arrivals") - (a.category === "New arrivals"); });
+  return l; };
+var vt = document.createElement("div"); vt.id = "vtools";
+vt.innerHTML = '<select id="sortSel" aria-label="Sort"><option value="">Sort: default</option><option value="name">Name A–Z</option><option value="code">Code</option><option value="new">Newest first</option><option value="size">Size</option></select><button type="button" id="tblBtn">☰ Table</button><div class="az" id="az"><button type="button" data-l="" class="on">All</button>' + "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(function(c){ return '<button type="button" data-l="' + c + '">' + c + "</button>"; }).join("") + "</div>";
+resEl.parentNode.insertBefore(vt, resEl);
+document.getElementById("sortSel").onchange = function(){ SORT = this.value; shown = PAGE; renderGrid(); };
+document.getElementById("tblBtn").onclick = function(){ TBL = !TBL; document.body.classList.toggle("tableview", TBL); this.textContent = TBL ? "▦ Cards" : "☰ Table"; shown = PAGE; renderGrid(); };
+document.getElementById("az").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; LET = b.dataset.l; [].forEach.call(this.children, function(x){ x.classList.toggle("on", x === b); }); shown = PAGE; renderGrid(); });
+resEl.addEventListener("click", function(e){ var h = e.target.closest("th[data-k]"); if (h) { SORT = h.dataset.k; document.getElementById("sortSel").value = SORT; renderGrid(); } });
+document.getElementById("incBtn").onclick = function(){ INC = !INC; this.textContent = INC ? "❌ Show all items" : "🧩 Missing local image"; shown = PAGE; renderGrid(); toast(INC ? "Showing items without a local image" : "Showing all items"); };
+var xd = document.createElement("div"); xd.id = "xdet";
+document.getElementById("favBtn").parentNode.insertAdjacentElement("afterend", xd);
+function chips(a){ return '<div class="vchips">' + a.map(function(v){ return '<button type="button" class="vchip" data-id="' + esc(v.id) + '">' + esc(famLabel(v)) + "</button>"; }).join("") + "</div>"; }
+function renderX(p){ var h = "";
+  var fk = famKey(p), sib = allProducts.filter(function(q){ return q.id !== p.id && q.category === p.category && famKey(q) === fk; }).slice(0, 12);
+  if (sib.length) h += '<div class="xh">Other sizes / colors</div>' + chips(sib);
+  var sim = allProducts.filter(function(q){ return q.id !== p.id && q.category === p.category && q.leaf === p.leaf && famKey(q) !== fk; }).sort(function(a, b){ return Math.abs(sizeNum(a) - sizeNum(p)) - Math.abs(sizeNum(b) - sizeNum(p)); }).slice(0, 6);
+  if (sim.length) h += '<div class="xh">Similar items</div>' + chips(sim);
+  xd.innerHTML = h + '<button type="button" id="reportBtn" class="btn btn--ghost">⚠️ Report wrong info</button>'; }
+xd.addEventListener("click", function(e){ if (e.target.id === "reportBtn" && CUR) { window.open("https://wa.me/?text=" + encodeURIComponent("⚠️ Wrong info reported\nItem: " + CUR.name + " (" + CUR.code + ")\nIssue: "), "_blank"); return; } var b = e.target.closest("[data-id]"); if (b) { var q = findProduct(b.getAttribute("data-id")); if (q) renderHero(q, true); } });
+var _rx = renderHero; renderHero = function(p, f){ _rx(p, f); renderX(p); };
 /* v2.26: stock badges, pick list, back-to-list, zoom, view modes */
 var _rh = renderHero; renderHero = function(p, f){ CUR = p; _rh(p, f); showStock(); };
 var sr = document.createElement("div"); sr.className = "stockrow";
