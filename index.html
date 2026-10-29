@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.32.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.33.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style>
 /* RFL Catalog v2.25 — premium clay UI (day + night) */
 
@@ -489,6 +489,19 @@ html,body{max-width:100%;overflow-x:hidden}
 #lightbox .cl.eb{filter:none}
 .lbx-turn{transition:opacity .25s}
 </style>
+<style id="v233">
+.stage{--s:176px}
+.stage.cut{--s:214px}
+.turn{width:var(--s);height:var(--s);margin-left:calc(var(--s) / -2);transition:opacity .25s}
+.stage.busy .turn{opacity:0}
+.stage.cut :is(.hero__img,.face,.edge){display:none}
+.stage .cl,#lightbox .cl{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:contain;background:transparent;border-radius:0;box-shadow:none;animation:none;backface-visibility:visible;-webkit-backface-visibility:visible;filter:brightness(.42);pointer-events:none;-webkit-touch-callout:none}
+.stage .cl.eb,#lightbox .cl.eb{filter:none}
+#lightbox.cut{--s:min(96vw,62vh,560px)}
+.lbx-wrap{perspective:1400px}
+.lbx-load{display:none;position:absolute;left:0;right:0;top:50%;text-align:center;color:#fff;font-weight:700;opacity:.85}
+#lightbox.wait .lbx-load{display:block}
+</style>
 </head>
 <body>
 <div class="loader" id="loader">
@@ -526,7 +539,7 @@ html,body{max-width:100%;overflow-x:hidden}
     <label class="switch-row"><span>Godown mode (big buttons)</span><input type="checkbox" id="godownToggle"></label>
     <button class="btn btn--ghost" id="incBtn" type="button">🧩 Missing local image</button>
     <button class="btn btn--ghost" id="missBtn" type="button">🔎 Copy missed searches</button>
-    <div class="settings-ver">Version 2.32.0</div>
+    <div class="settings-ver">Version 2.33.0</div>
   </div>
 
   <section class="hero" id="hero">
@@ -580,7 +593,7 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 <script>
 "use strict";
-var VERSION = "2.32.0";
+var VERSION = "2.33.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -918,43 +931,55 @@ bk.onclick = function(){ window.scrollTo({ top: lastY, behavior: "smooth" }); bk
 window.addEventListener("scroll", function(){ if (bk.style.display !== "flex") return; if (window.scrollY < lastY - 200) bk._a = 1; else if (bk._a && window.scrollY >= lastY - 60) { bk.style.display = "none"; bk._a = 0; } }, { passive: true });
 /* v2.31: full-screen 3D viewer (opens on click, never self-closes) */
 var lb = document.createElement("div"); lb.id = "lightbox";
-lb.innerHTML = '<button type="button" class="lbx-x" aria-label="Close">✕</button><div class="lbx-stage"><div class="lbx-spot"></div><div class="lbx-wrap"><div class="lbx-turn" id="lbxTurn"><img class="lf" id="lfA" alt="" draggable="false"><img class="lf lfb" id="lfB" alt="" draggable="false"><i class="edge l"></i><i class="edge r"></i></div><div class="lbx-floor"></div></div></div><div class="lbx-hint">Drag to rotate · pinch or double-tap to zoom · tap outside to close</div>';
+lb.innerHTML = '<button type="button" class="lbx-x" aria-label="Close">✕</button><div class="lbx-stage"><div class="lbx-spot"></div><div class="lbx-wrap"><div class="lbx-turn" id="lbxTurn"><img class="lf" id="lfA" alt="" draggable="false"><img class="lf lfb" id="lfB" alt="" draggable="false"><i class="edge l"></i><i class="edge r"></i></div><div class="lbx-floor"></div></div></div><div class="lbx-load">Preparing 3D view…</div><div class="lbx-hint">Drag to rotate · pinch or double-tap to zoom · tap outside to close</div>';
 document.body.appendChild(lb);
 var lr = -20, lv = 0, lz = 1, lOpen = 0, lAt = 0, lPtr = {}, lDist = 0, lMoved = 0, lTap = 0, lDown = null, lTok = 0, CUT = {}, lT = document.getElementById("lbxTurn");
-function openViewer(){ var src = heroImg.currentSrc || heroImg.src; if (!src) return; lT.style.opacity = 0; var tok = ++lTok; var fin = function(r){ if (tok !== lTok || !lOpen) return; var ok = !!(r && r.cut && r.url); buildLayers(ok ? r.url : src, ok); lb.classList.toggle("cut", ok); lT.style.opacity = 1; }; cutout(src).then(fin); setTimeout(function(){ if (tok === lTok && lT.style.opacity === "0") fin(null); }, 1500); lr = -20; lv = 0; lz = 1; lPtr = {}; lAt = Date.now(); lb.classList.add("open"); document.body.style.overflow = "hidden"; if (!lOpen) { lOpen = 1; lLoop(); } }
+function openViewer(){ var src = heroImg.currentSrc || heroImg.src; if (!src) return; lT.style.opacity = 0; var tok = ++lTok; var fin = function(r){ if (tok !== lTok || !lOpen) return; var ok = !!(r && r.cut && r.url); buildLayers(ok ? r.url : src, ok); lb.classList.toggle("cut", ok); lb.classList.remove("wait"); lT.style.opacity = 1; }; cutout(src).then(fin); setTimeout(function(){ if (tok === lTok && lT.style.opacity === "0") fin(null); }, 6000); lr = -12; lv = 0; lz = 1; lPtr = {}; lb.classList.add("wait"); lAt = Date.now(); lb.classList.add("open"); document.body.style.overflow = "hidden"; if (!lOpen) { lOpen = 1; lLoop(); } }
 function closeViewer(){ if (!lOpen || Date.now() - lAt < 450) return; lOpen = 0; lb.classList.remove("open"); document.body.style.overflow = ""; }
 function lLoop(){ if (!lOpen) return; var idle = !Object.keys(lPtr).length; if (idle) { if (Math.abs(lv) > 0.05) { lr += lv; lv *= 0.95; } else if (!calm && !document.body.classList.contains("lite")) lr += 0.25; } lT.style.transform = "scale(" + lz + ") rotateX(-6deg) rotateY(" + lr + "deg)"; requestAnimationFrame(lLoop); }
-function buildLayers(url, cut){ var h = "", i; if (cut) { for (i = 0; i < 9; i++) h += '<img class="lf cl' + (i % 8 === 0 ? " eb" : "") + '" src="' + url + '" alt="" draggable="false" style="transform:translateZ(calc(var(--s) * ' + ((i - 4) / 4 * 0.06).toFixed(4) + '))">'; } else h = '<img class="lf" src="' + url + '" alt="" draggable="false"><img class="lf lfb" src="' + url + '" alt="" draggable="false"><i class="edge l"></i><i class="edge r"></i>'; lT.innerHTML = h; }
-function cutout(src){ if (CUT[src]) return CUT[src]; return CUT[src] = new Promise(function(res){ var im = new Image(); im.onerror = function(){ res(null); };
-  im.onload = function(){ try {
-    var sc = Math.min(1, 900 / Math.max(im.naturalWidth, im.naturalHeight)), W = Math.round(im.naturalWidth * sc), H = Math.round(im.naturalHeight * sc);
-    var c = document.createElement("canvas"); c.width = W; c.height = H; var x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(im, 0, 0, W, H);
-    var d = x.getImageData(0, 0, W, H), a = d.data, N = W * H, m = new Uint8Array(N), i, tr = 0;
-    for (i = 0; i < N; i += 53) if (a[i * 4 + 3] < 250) tr++;
-    if (tr > N / 53 * 0.04) { for (i = 0; i < N; i++) m[i] = a[i * 4 + 3] > 16 ? 1 : 0; }
-    else {
-      var wh = function(p){ var r = a[p * 4], g = a[p * 4 + 1], b = a[p * 4 + 2]; return r > 228 && g > 228 && b > 228 && Math.max(r, g, b) - Math.min(r, g, b) < 24; };
-      if (!(wh(0) && wh(W - 1) && wh(N - W) && wh(N - 1))) { res({ cut: false }); return; }
-      var bg = new Uint8Array(N), st = new Int32Array(N), sp = 0;
-      var push = function(p){ if (!bg[p] && wh(p)) { bg[p] = 1; st[sp++] = p; } };
-      for (i = 0; i < W; i++) { push(i); push(N - W + i); } for (i = 0; i < H; i++) { push(i * W); push(i * W + W - 1); }
-      while (sp) { var p = st[--sp], px = p % W; if (px > 0) push(p - 1); if (px < W - 1) push(p + 1); if (p >= W) push(p - W); if (p < N - W) push(p + W); }
-      var ws = function(p){ return a[p * 4] > 243 && a[p * 4 + 1] > 243 && a[p * 4 + 2] > 243; }, cl = new Int32Array(N), seen = new Uint8Array(N);
-      for (var s0 = 0; s0 < N; s0++) { if (bg[s0] || seen[s0] || !ws(s0)) continue; var cn = 0; sp = 0; st[sp++] = s0; seen[s0] = 1;
-        while (sp) { var p2 = st[--sp], qx = p2 % W; cl[cn++] = p2; var nb = [qx > 0 ? p2 - 1 : -1, qx < W - 1 ? p2 + 1 : -1, p2 >= W ? p2 - W : -1, p2 < N - W ? p2 + W : -1]; for (var t = 0; t < 4; t++) { var n2 = nb[t]; if (n2 >= 0 && !bg[n2] && !seen[n2] && ws(n2)) { seen[n2] = 1; st[sp++] = n2; } } }
-        if (cn > N * 0.003) for (var u = 0; u < cn; u++) bg[cl[u]] = 1; }
-      for (i = 0; i < N; i++) m[i] = bg[i] ? 0 : 1;
-      for (i = 0; i < N; i++) if (m[i]) { var q = i % W; if ((q > 0 && bg[i - 1]) || (q < W - 1 && bg[i + 1]) || (i >= W && bg[i - W]) || (i < N - W && bg[i + W])) a[i * 4 + 3] = 140; }
-      for (i = 0; i < N; i++) if (bg[i]) a[i * 4 + 3] = 0;
-    }
-    var x0 = W, y0 = H, x1 = -1, y1 = -1; for (i = 0; i < N; i++) if (m[i]) { var cx = i % W, cy = (i / W) | 0; if (cx < x0) x0 = cx; if (cx > x1) x1 = cx; if (cy < y0) y0 = cy; if (cy > y1) y1 = cy; }
-    if (x1 < 0 || (x1 - x0) * (y1 - y0) < N * 0.02) { res({ cut: false }); return; }
-    x.putImageData(d, 0, 0);
-    var side = Math.round(Math.max(x1 - x0, y1 - y0) * 1.08), o = document.createElement("canvas"); o.width = o.height = side;
-    o.getContext("2d").drawImage(c, x0 + (x1 - x0) / 2 - side / 2, y0 + (y1 - y0) / 2 - side / 2, side, side, 0, 0, side, side);
-    o.toBlob(function(b){ res(b ? { cut: true, url: URL.createObjectURL(b) } : { cut: false }); }, "image/png");
-  } catch (e) { res(null); } };
-  im.src = src; }); }
+function layersHTML(url){ var h = "", n = 12, i; for (i = 0; i < n; i++) h += '<img class="cl' + (i === 0 || i === n - 1 ? " eb" : "") + '" src="' + url + '" alt="" draggable="false" style="transform:translateZ(calc(var(--s) * ' + ((i - (n - 1) / 2) / (n - 1) * 0.05).toFixed(4) + '))">'; return h; }
+function buildLayers(url, cut){ lT.innerHTML = cut ? layersHTML(url) : '<img class="lf" src="' + url + '" alt="" draggable="false"><img class="lf lfb" src="' + url + '" alt="" draggable="false"><i class="edge l"></i><i class="edge r"></i>'; }
+var CUTQ = [];
+function cutout(src){ if (CUT[src]) return CUT[src];
+  var pr = CUT[src] = new Promise(function(res){ var im = new Image(); im.onerror = function(){ res(null); };
+    im.onload = function(){ try { runCut(im, res); } catch (e) { res(null); } }; im.src = src; });
+  CUTQ.push(src); if (CUTQ.length > 14) { var old = CUTQ.shift(), op = CUT[old]; delete CUT[old]; if (op) op.then(function(r){ if (r && r.url) URL.revokeObjectURL(r.url); }); }
+  return pr; }
+function runCut(im, res){
+  var W0 = im.naturalWidth, H0 = im.naturalHeight, sw = Math.min(1, 560 / Math.max(W0, H0)), w = Math.max(1, Math.round(W0 * sw)), h = Math.max(1, Math.round(H0 * sw));
+  var c = document.createElement("canvas"); c.width = w; c.height = h; var x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(im, 0, 0, w, h);
+  var a = x.getImageData(0, 0, w, h).data, N = w * h, m = new Uint8Array(N), i, tr = 0;
+  for (i = 0; i < N; i += 7) if (a[i * 4 + 3] < 250) tr++;
+  if (tr > N / 7 * 0.03) { for (i = 0; i < N; i++) m[i] = a[i * 4 + 3] > 16 ? 255 : 0; }
+  else {
+    var br = 0, bg_ = 0, bb = 0, bn = 0, pts = [], k, p, q;
+    var bp = function(z){ pts.push(z); br += a[z * 4]; bg_ += a[z * 4 + 1]; bb += a[z * 4 + 2]; bn++; };
+    for (i = 0; i < w; i++) { bp(i); bp(N - w + i); } for (i = 1; i < h - 1; i++) { bp(i * w); bp(i * w + w - 1); }
+    br /= bn; bg_ /= bn; bb /= bn;
+    var dev = 0; for (k = 0; k < bn; k++) { p = pts[k]; dev += Math.abs(a[p * 4] - br) + Math.abs(a[p * 4 + 1] - bg_) + Math.abs(a[p * 4 + 2] - bb); } dev /= bn;
+    if (dev > 36) { res({ cut: false }); return; }
+    var dist = function(z){ return Math.abs(a[z * 4] - br) + Math.abs(a[z * 4 + 1] - bg_) + Math.abs(a[z * 4 + 2] - bb); };
+    var bg = new Uint8Array(N), st = new Int32Array(N), sp = 0;
+    var push = function(z){ if (!bg[z] && dist(z) < 40) { bg[z] = 1; st[sp++] = z; } };
+    for (i = 0; i < w; i++) { push(i); push(N - w + i); } for (i = 0; i < h; i++) { push(i * w); push(i * w + w - 1); }
+    while (sp) { p = st[--sp]; q = p % w; if (q > 0) push(p - 1); if (q < w - 1) push(p + 1); if (p >= w) push(p - w); if (p < N - w) push(p + w); }
+    var bgA = bg.slice(), seen = new Uint8Array(N), cl = new Int32Array(N), s0, cn, u, nz = function(z){ return !bg[z] && !seen[z] && dist(z) < 14; };
+    for (s0 = 0; s0 < N; s0++) { if (!nz(s0)) continue; cn = 0; sp = 0; st[sp++] = s0; seen[s0] = 1;
+      while (sp) { p = st[--sp]; cl[cn++] = p; q = p % w; if (q > 0 && nz(p - 1)) { seen[p - 1] = 1; st[sp++] = p - 1; } if (q < w - 1 && nz(p + 1)) { seen[p + 1] = 1; st[sp++] = p + 1; } if (p >= w && nz(p - w)) { seen[p - w] = 1; st[sp++] = p - w; } if (p < N - w && nz(p + w)) { seen[p + w] = 1; st[sp++] = p + w; } }
+      if (cn > N * 0.003) for (u = 0; u < cn; u++) bg[cl[u]] = 1; }
+    var left = 0; for (i = 0; i < N; i++) if (!bg[i]) left++; if (left < N * 0.04) bg.set(bgA);
+    for (i = 0; i < N; i++) { if (bg[i]) continue; q = i % w; m[i] = ((q > 0 && bg[i - 1]) || (q < w - 1 && bg[i + 1]) || (i >= w && bg[i - w]) || (i < N - w && bg[i + w])) ? 150 : 255; }
+  }
+  var x0 = w, y0 = h, x1 = -1, y1 = -1, area = 0, cx, cy; for (i = 0; i < N; i++) if (m[i]) { area++; cx = i % w; cy = (i / w) | 0; if (cx < x0) x0 = cx; if (cx > x1) x1 = cx; if (cy < y0) y0 = cy; if (cy > y1) y1 = cy; }
+  if (area < N * 0.02 || area > N * 0.97) { res({ cut: false }); return; }
+  var side = Math.round(Math.max(x1 - x0, y1 - y0) * 1.05) + 2, mx0 = (x0 + x1) / 2 - side / 2, my0 = (y0 + y1) / 2 - side / 2;
+  var mc = document.createElement("canvas"); mc.width = w; mc.height = h; var mxc = mc.getContext("2d"), md = mxc.createImageData(w, h); for (i = 0; i < N; i++) md.data[i * 4 + 3] = m[i]; mxc.putImageData(md, 0, 0);
+  var outS = Math.min(1600, Math.round(side / sw)), o = document.createElement("canvas"); o.width = o.height = outS; var ox = o.getContext("2d");
+  ox.drawImage(im, mx0 / sw, my0 / sw, side / sw, side / sw, 0, 0, outS, outS);
+  ox.globalCompositeOperation = "destination-in"; try { ox.filter = "blur(" + (outS / side * 0.7).toFixed(2) + "px)"; } catch (e) {}
+  ox.drawImage(mc, mx0, my0, side, side, 0, 0, outS, outS);
+  o.toBlob(function(b){ res(b ? { cut: true, url: URL.createObjectURL(b) } : { cut: false }); }, "image/webp", 0.93);
+}
 lb.addEventListener("pointerdown", function(e){ if (e.target.closest(".lbx-x")) return; lPtr[e.pointerId] = { x: e.clientX, y: e.clientY }; lMoved = 0; lv = 0; lDist = 0; lDown = e.target; try { lb.setPointerCapture(e.pointerId); } catch (x) {} });
 lb.addEventListener("pointermove", function(e){ var o = lPtr[e.pointerId]; if (!o) return; lPtr[e.pointerId] = { x: e.clientX, y: e.clientY }; var ks = Object.keys(lPtr);
   if (ks.length >= 2) { var a = lPtr[ks[0]], b = lPtr[ks[1]], d = Math.hypot(a.x - b.x, a.y - b.y); if (lDist) lz = Math.max(0.8, Math.min(3, lz * d / lDist)); lDist = d; lMoved = 99; }
@@ -990,6 +1015,10 @@ more.appendChild(mg); more.appendChild(sr); more.appendChild(xm); more.appendChi
 mb.onclick = function(){ more.hidden = !more.hidden; mb.textContent = more.hidden ? "⋯ More options" : "▲ Fewer options"; };
 var fs = document.createElement("button"); fs.type = "button"; fs.textContent = "⇅ Sort & A–Z"; vt.insertBefore(fs, vt.firstChild);
 fs.onclick = function(){ vt.classList.toggle("open"); };
+var sTok = 0;
+heroImg.addEventListener("load", function(){ var src = heroImg.currentSrc || heroImg.src, t = ++sTok; stage.classList.add("busy"); stage.classList.remove("cut"); turn.querySelectorAll(".cl").forEach(function(n){ n.remove(); });
+  var done = function(r){ if (t !== sTok) return; if (r && r.cut && r.url) { turn.querySelectorAll(".cl").forEach(function(n){ n.remove(); }); turn.insertAdjacentHTML("beforeend", layersHTML(r.url)); stage.classList.add("cut"); } stage.classList.remove("busy"); };
+  cutout(src).then(done); setTimeout(function(){ done(null); }, 5000); });
 var inputTimer = null;
 qEl.addEventListener("input", function(){ if (inputTimer) clearTimeout(inputTimer); inputTimer = setTimeout(function(){ exitLive(); shown = PAGE; renderGrid(); saveRecent(qEl.value); if ((qEl.value || "").trim().length >= 2 && !favOnly) liveSearch(); }, 180); });
 moreBtn.addEventListener("click", function(){ shown += PAGE; renderGrid(); });
