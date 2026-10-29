@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.34.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.35.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style id="rfl-all">
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap");
@@ -529,6 +529,31 @@ body.sheet-open #sheetBg{display:block}
 .category__icon{animation:none}
 body.pause *{animation-play-state:paused!important}
 
+
+/* ===== v2.35: tablet + desktop layout, sheet blur fix ===== */
+@media(min-width:640px){
+  .app{max-width:min(920px,100vw)}
+  .products{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+  .product-card:nth-child(even){top:0}
+}
+@media(min-width:1024px){
+  .app{max-width:min(1360px,100vw);padding-left:268px;padding-bottom:40px}
+  .cnav{display:none}
+  .categories{position:fixed;z-index:20;top:96px;left:calc((100vw - min(1360px,100vw))/2 + 16px);width:236px;max-height:calc(100dvh - 120px);overflow-y:auto;flex-direction:column;gap:10px;padding:14px;margin:0;border-radius:28px;background:var(--pop);box-shadow:var(--clay)}
+  .category{flex:none;display:flex;align-items:center;justify-items:unset;gap:12px;padding:6px 8px;border-radius:20px;font-size:14px;text-align:left;cursor:pointer}
+  .category:hover{background:var(--surface)}
+  .category__icon,.category:nth-child(n) .category__icon{width:44px;height:44px;border-radius:16px;flex:none;font-size:17px}
+  .products{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px 20px}
+  .searchbar input{font-size:16px}
+  .hero__title{font-size:30px}
+  body.sheet-open .hero{left:auto;right:0;top:0;bottom:0;width:min(500px,42vw);max-height:none;translate:0 0;border-radius:36px 0 0 36px;animation:drawerIn .3s cubic-bezier(.2,.9,.3,1)}
+  body.sheet-closing .hero{animation:drawerOut .2s ease-in forwards}
+  #sheetBar{cursor:default;touch-action:auto}
+  #sheetBg{background:rgba(10,8,30,.35)}
+  .product-card{cursor:pointer}
+}
+@keyframes drawerIn{from{translate:100% 0}}
+@keyframes drawerOut{to{translate:100% 0}}
 </style>
 </head>
 <body>
@@ -567,7 +592,7 @@ body.pause *{animation-play-state:paused!important}
     <label class="switch-row"><span>Godown mode (big buttons)</span><input type="checkbox" id="godownToggle"></label>
     <button class="btn btn--ghost" id="incBtn" type="button">🧩 Missing local image</button>
     <button class="btn btn--ghost" id="missBtn" type="button">🔎 Copy missed searches</button>
-    <div class="settings-ver">Version 2.34.0</div>
+    <div class="settings-ver">Version 2.35.0</div>
   </div>
 
   <section class="hero" id="hero">
@@ -621,7 +646,7 @@ body.pause *{animation-play-state:paused!important}
 </div>
 <script>
 "use strict";
-var VERSION = "2.34.0";
+var VERSION = "2.35.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -1539,6 +1564,7 @@ if ("serviceWorker" in navigator && (location.protocol === "http:" || location.p
 (function(){
   var body=document.body,hero=document.getElementById('hero'),dots=document.getElementById('dots'),tm=0;
   var hc=hero.querySelector('.hero__content'); if(dots&&hc) hc.parentNode.insertBefore(dots,hc);
+  document.body.appendChild(hero);
   var bg=document.createElement('div'); bg.id='sheetBg'; body.appendChild(bg);
   var bar=document.createElement('div'); bar.id='sheetBar'; bar.innerHTML='<button type="button" class="sx" aria-label="Close">\u2715</button>';
   hero.insertBefore(bar,hero.firstChild);
@@ -1565,12 +1591,13 @@ if ("serviceWorker" in navigator && (location.protocol === "http:" || location.p
     if(e.key==='Escape'&&body.classList.contains('sheet-open')&&!document.querySelector('#lightbox.open')) closeSheet();
   });
   var y0=null,dy=0;
-  bar.addEventListener('pointerdown',function(e){ if(e.target.closest('.sx')) return; y0=e.clientY; dy=0; try{bar.setPointerCapture(e.pointerId);}catch(x){} });
+  bar.addEventListener('pointerdown',function(e){ if(e.target.closest('.sx')||window.matchMedia('(min-width:1024px)').matches) return; y0=e.clientY; dy=0; try{bar.setPointerCapture(e.pointerId);}catch(x){} });
   bar.addEventListener('pointermove',function(e){ if(y0==null) return; dy=Math.max(0,e.clientY-y0); hero.style.translate='-50% '+dy+'px'; });
   function up(){ if(y0==null) return; var d=dy; y0=null; if(d>90){ hero.style.setProperty('--dy',d+'px'); closeSheet(); } else hero.style.translate=''; }
   bar.addEventListener('pointerup',up); bar.addEventListener('pointercancel',up);
   var prev=window.renderHero;
   window.renderHero=function(p,f){ prev(p,f); if(f&&p) openSheet(); };
+  document.addEventListener('keydown',function(e){ var t=e.target,tag=t&&t.tagName; if(e.key==='/'&&tag!=='INPUT'&&tag!=='TEXTAREA'&&tag!=='SELECT'&&!e.ctrlKey&&!e.metaKey){ e.preventDefault(); var q=document.getElementById('q'); if(q) q.focus(); } });
   document.addEventListener('visibilitychange',function(){ body.classList.toggle('pause',document.hidden); });
 })();
 
