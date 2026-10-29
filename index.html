@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.36.0 — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.37.0 (+Othoba live) — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style id="rfl-all">
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap");
@@ -651,7 +651,7 @@ body.sheet-open .hero{padding-top:0}
 </div>
 <script>
 "use strict";
-var VERSION = "2.36.0";
+var VERSION = "2.37.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -880,7 +880,7 @@ function renderChips(){
 function stkRow(p){ var k=String(p.id), st=STOCK[k], rk=(p.rack||NOTES[k]||"").toString().trim(); if(rk.length>14) rk=rk.slice(0,13)+"\u2026"; var h=""; if(st&&SL[st.s]) h+='<span class="stkb s-'+esc(st.s)+'">\u25CF '+esc(SL[st.s][1])+'</span>'; if(rk) h+='<span class="rackb">Rack '+esc(rk)+'</span>'; return h?'<div class="stkrow">'+h+'</div>':""; }
 function renderGrid(){
   var list = filtered();
-  countEl.textContent = liveMode ? (list.length + " live products found (from the RFL site, not saved to GitHub)") : (list.length + " products found (" + allProducts.length + " total)");
+  countEl.textContent = liveMode ? (list.length + " live products found (RFL + Othoba, not saved to GitHub)") : (list.length + " products found (" + allProducts.length + " total)");
   var VAR = {};
   if (!liveMode && !TBL) { var gm = {}, reps = []; list.forEach(function(p){ var k = baseName(p); if (gm[k]) gm[k].push(p); else { gm[k] = [p]; reps.push(p); } }); reps.forEach(function(p){ var g = gm[baseName(p)]; if (g.length > 1) VAR[p.id] = g; }); list = reps; }
   var page = list.slice(0, shown);
@@ -893,8 +893,9 @@ function renderGrid(){
       var onerr = im.remote[0] && im.remote[0] !== src ? ' onerror="this.onerror=null;this.src=\'' + esc(im.remote[0]) + '\'"' : "";
       var media = src ? '<img src="' + esc(src) + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async"' + onerr + ">" : '<div class="media-letter">' + esc(p.name.charAt(0)) + "</div>";
       var extra = (p.size || p.capacity || "");
+      if (p.source === "rfl" && p.othoba && p.othoba.price) extra = (extra ? extra + " • " : "") + "Othoba Tk " + p.othoba.price;
       return '<article class="product-card" data-id="' + esc(p.id) + '">'
-        + (p.live ? '<span class="tag tag--live">LIVE</span>' : "") + (p.category === "New arrivals" ? '<span class="tag tag--new">NEW</span>' : "")
+        + (p.live ? '<span class="tag tag--live">' + (p.source === "othoba" ? "OTHOBA" : "LIVE") + '</span>' : "") + (p.category === "New arrivals" ? '<span class="tag tag--new">NEW</span>' : "")
         + '<div class="product-card__media">' + media + "</div>"
         + '<div class="product-card__title">' + esc(p.name) + (isFav(p) ? " ❤️" : "") + (NOTES[String(p.id)] ? " 📝" : "") + (isSaved(p) ? " 💾" : "") + stockDot(p) + "</div>"
         + '<div class="product-card__sub">' + esc(p.category) + " • " + esc(p.leaf) + "</div>"
@@ -1103,7 +1104,7 @@ async function liveSearch(){
   if (q.length < 2) return;
   if (liveCtrl) liveCtrl.abort();
   liveCtrl = new AbortController();
-  liveNote.textContent = "Searching the RFL site live, please wait…";
+  liveNote.textContent = "Searching RFL + Othoba live, please wait…";
   try {
     var timedOut = false; var timer = setTimeout(function(){ timedOut = true; liveCtrl.abort(); }, 25000);
     var res = await fetch(LIVE_URL + "?q=" + encodeURIComponent(q), { signal: liveCtrl.signal });
@@ -1114,12 +1115,14 @@ async function liveSearch(){
     if ((qEl.value || "").trim() !== q) return;
     liveProducts = (data.products || []).map(function(r){
       var cap = (r.name.match(/(\d+(?:\.\d+)?)\s?L\b/) || [])[1];
-      return { id: r.id, name: r.name, code: String(r.id), category: "Live", group: "RFL live", leaf: "Live search", image: "", remote_image: r.image || "", images: [], remote_images: r.image ? [r.image] : [], url: r.url, capacity: cap ? cap + " L" : "", variant: "", size: "", price: "", rack: "", stock_note: "", description: "", live: true };
+      var oth = r.source === "othoba";
+      return { id: r.id, name: r.name, code: oth ? (r.code || "OTHOBA") : String(r.id), category: oth ? "Othoba" : "Live", group: oth ? "Othoba live" : "RFL live", leaf: oth ? (r.price ? "Tk " + r.price : "Othoba") : "Live search", image: "", remote_image: r.image || "", images: [], remote_images: r.image ? [r.image] : [], url: r.url, capacity: cap ? cap + " L" : "", variant: oth ? "Othoba.com" : (r.othoba && r.othoba.price ? "Othoba Tk " + r.othoba.price : ""), size: "", price: r.price || "", rack: "", stock_note: "", description: "", live: true, source: oth ? "othoba" : "rfl", othoba: r.othoba || null };
     });
+    var nRfl = data.rfl_count || 0, nOth = data.othoba_count || 0;
     liveMode = true;
     shown = PAGE;
     liveOffBtn.hidden = false;
-    liveNote.textContent = liveProducts.length ? ("Live: " + liveProducts.length + " found — these aren’t saved to GitHub.") : "Nothing found live — check the spelling and try again.";
+    liveNote.textContent = liveProducts.length ? ("Live: RFL " + nRfl + " + Othoba " + nOth + (data.othoba_ok === false ? " (Othoba didn’t respond)" : "") + " — these aren’t saved to GitHub.") : "Nothing found live (RFL + Othoba) — check the spelling and try again.";
     renderGrid();
   } catch (e) {
     if (e && e.name === "AbortError" && !timedOut) return;
