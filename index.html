@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ece9f8">
 <meta name="description" content="All RFL products in one place — search by name or code and view details with images. Personal reference, not for sale.">
 <title>RFL — All Products</title>
-<!-- RFL Catalog v2.37.0 (+Othoba live) — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
+<!-- RFL Catalog v2.38.0 (+Othoba live, cache, source filter) — Creative clay + Claymorphism 3D advanced + LIVE search + Tap to Details (Worker /carton v1.3, PIN) + Settings panel + phone smoothness; structure v2.5-i -->
 <style id="rfl-all">
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap");
@@ -179,6 +179,7 @@ body.lite .product-card{box-shadow:0 3px 8px rgba(124,108,240,.10)}
 .livebtn:disabled{opacity:.6}
 .liveoff{padding:10px 14px;border-radius:999px;background:var(--surface);font-size:12.5px;font-weight:600;box-shadow:var(--shadow-card)}
 .livenote{font-size:12.5px;color:var(--muted)}
+.liveoff.srcf.on{background:var(--brand);color:#fff}
 .tag--live{background:var(--brand);color:#fff}
 .media-letter{width:100%;padding:30px 0;font-size:42px;font-weight:800;color:var(--brand-700);background:var(--brand-50);border-radius:18px;text-align:center}
 .mgr{margin-top:12px}
@@ -651,7 +652,7 @@ body.sheet-open .hero{padding-top:0}
 </div>
 <script>
 "use strict";
-var VERSION = "2.37.0";
+var VERSION = "2.38.0";
 // LIVE SEARCH: the Worker URL is set here — no need to change it.
 var LIVE_URL = "https://sparkling-frog-771d.muradhase457.workers.dev/search";
 var liveMode = false;
@@ -756,6 +757,19 @@ var qEl = document.getElementById("q");
 var moreBtn = document.getElementById("moreBtn");
 var liveOffBtn = document.getElementById("liveOffBtn");
 var liveNote = document.getElementById("liveNote");
+var liveSrc = "all";
+var srcBtns = {};
+[["all", "All"], ["rfl", "RFL"], ["othoba", "Othoba"]].forEach(function(x){
+  var b = document.createElement("button"); b.type = "button"; b.className = "liveoff srcf"; b.hidden = true; b.textContent = x[1];
+  liveNote.parentNode.insertBefore(b, liveNote); srcBtns[x[0]] = b;
+  b.addEventListener("click", function(){ liveSrc = x[0]; updateSrcBtns(); shown = PAGE; renderGrid(); });
+});
+function updateSrcBtns(){
+  var n = { all: liveProducts.length, rfl: 0, othoba: 0 };
+  liveProducts.forEach(function(p){ n[p.source === "othoba" ? "othoba" : "rfl"]++; });
+  var names = { all: "All", rfl: "RFL", othoba: "Othoba" };
+  Object.keys(srcBtns).forEach(function(k){ var b = srcBtns[k]; b.classList.toggle("on", k === liveSrc); b.textContent = names[k] + " " + n[k]; b.hidden = !liveMode; });
+}
 
 function renderHero(p, fromUser){
   if (!p) return;
@@ -840,7 +854,7 @@ dotsEl.addEventListener("click", function(e){
 });
 
 function filtered(){
-  if (liveMode) return liveProducts.slice();
+  if (liveMode) return liveProducts.filter(function(p){ return liveSrc === "all" || (p.source === "othoba" ? "othoba" : "rfl") === liveSrc; });
   var q = (qEl.value || "").trim().toLowerCase();
   var words = q ? q.split(/\s+/) : [];
   var base = allProducts;
@@ -1098,11 +1112,30 @@ function exitLive(){
   liveMode = false;
   liveOffBtn.hidden = true;
   liveNote.textContent = "";
+  updateSrcBtns();
+}
+var LIVE_CACHE = {};
+function applyLive(data){
+    liveProducts = (data.products || []).map(function(r){
+      var cap = (r.name.match(/(\d+(?:\.\d+)?)\s?L\b/) || [])[1];
+      var oth = r.source === "othoba";
+      return { id: r.id, name: r.name, code: oth ? (r.code || "OTHOBA") : String(r.id), category: oth ? "Othoba" : "Live", group: oth ? "Othoba live" : "RFL live", leaf: oth ? (r.price ? "Tk " + r.price : "Othoba") : "Live search", image: "", remote_image: r.image || "", images: [], remote_images: r.image ? [r.image] : [], url: r.url, capacity: cap ? cap + " L" : "", variant: oth ? "Othoba.com" : (r.othoba && r.othoba.price ? "Othoba Tk " + r.othoba.price : ""), size: "", price: r.price || "", rack: "", stock_note: "", description: "", live: true, source: oth ? "othoba" : "rfl", othoba: r.othoba || null };
+    });
+    var nRfl = data.rfl_count || 0, nOth = data.othoba_count || 0;
+    liveMode = true;
+    shown = PAGE;
+    liveOffBtn.hidden = false;
+    liveNote.textContent = liveProducts.length ? ("Live: RFL " + nRfl + " + Othoba " + nOth + (data.othoba_ok === false ? " (Othoba didn’t respond)" : "") + (data.cached ? " • fast (saved copy)" : "") + " — these aren’t saved to GitHub.") : "Nothing found live (RFL + Othoba) — check the spelling and try again.";
+    updateSrcBtns();
+    renderGrid();
 }
 async function liveSearch(){
   var q = (qEl.value || "").trim();
   if (q.length < 2) return;
+  var ck = q.toLowerCase().replace(/\s+/g, " ");
   if (liveCtrl) liveCtrl.abort();
+  var c = LIVE_CACHE[ck];
+  if (c && Date.now() - c.t < 1800000) { applyLive(Object.assign({}, c.d, { cached: "browser" })); return; }
   liveCtrl = new AbortController();
   liveNote.textContent = "Searching RFL + Othoba live, please wait…";
   try {
@@ -1113,17 +1146,8 @@ async function liveSearch(){
     var data = await res.json();
     if (data.error) throw new Error(data.error);
     if ((qEl.value || "").trim() !== q) return;
-    liveProducts = (data.products || []).map(function(r){
-      var cap = (r.name.match(/(\d+(?:\.\d+)?)\s?L\b/) || [])[1];
-      var oth = r.source === "othoba";
-      return { id: r.id, name: r.name, code: oth ? (r.code || "OTHOBA") : String(r.id), category: oth ? "Othoba" : "Live", group: oth ? "Othoba live" : "RFL live", leaf: oth ? (r.price ? "Tk " + r.price : "Othoba") : "Live search", image: "", remote_image: r.image || "", images: [], remote_images: r.image ? [r.image] : [], url: r.url, capacity: cap ? cap + " L" : "", variant: oth ? "Othoba.com" : (r.othoba && r.othoba.price ? "Othoba Tk " + r.othoba.price : ""), size: "", price: r.price || "", rack: "", stock_note: "", description: "", live: true, source: oth ? "othoba" : "rfl", othoba: r.othoba || null };
-    });
-    var nRfl = data.rfl_count || 0, nOth = data.othoba_count || 0;
-    liveMode = true;
-    shown = PAGE;
-    liveOffBtn.hidden = false;
-    liveNote.textContent = liveProducts.length ? ("Live: RFL " + nRfl + " + Othoba " + nOth + (data.othoba_ok === false ? " (Othoba didn’t respond)" : "") + " — these aren’t saved to GitHub.") : "Nothing found live (RFL + Othoba) — check the spelling and try again.";
-    renderGrid();
+    if (data.rfl_ok !== false && data.othoba_ok !== false) LIVE_CACHE[ck] = { t: Date.now(), d: data };
+    applyLive(data);
   } catch (e) {
     if (e && e.name === "AbortError" && !timedOut) return;
     liveNote.textContent = "Live search failed — check your connection or the Worker and try again.";
